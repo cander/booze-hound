@@ -1,0 +1,2 @@
+class OlccBottle < ApplicationRecord
+end
