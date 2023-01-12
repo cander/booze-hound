@@ -10,13 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_10_212045) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_12_222838) do
   create_table "olcc_bottles", primary_key: "new_item_code", id: :string, force: :cascade do |t|
     t.string "old_item_code"
     t.string "name"
     t.string "size"
     t.decimal "proof"
     t.string "age"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "olcc_stores", primary_key: "store_num", id: :string, force: :cascade do |t|
+    t.string "name"
+    t.string "location"
+    t.string "address"
+    t.integer "zip"
+    t.string "telephone"
+    t.string "store_hours"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

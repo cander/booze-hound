@@ -1,0 +1,2 @@
+class OlccStore < ApplicationRecord
+end
