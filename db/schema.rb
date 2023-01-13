@@ -10,13 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_12_222838) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_13_222718) do
   create_table "olcc_bottles", primary_key: "new_item_code", id: :string, force: :cascade do |t|
     t.string "old_item_code"
     t.string "name"
     t.string "size"
     t.decimal "proof"
     t.string "age"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "olcc_inventories", force: :cascade do |t|
+    t.integer "quantity"
+    t.string "new_item_code"
+    t.string "store_num"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
