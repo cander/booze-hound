@@ -1,19 +1,22 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+# Unfortunately, we have to let Rails generate the primary key (store_num)
+# so that we can use labels (e.g., dallas)rather than magic numbers (1016) in
+# relations in other YAML files e.g., the olcc_inventory.
 
-one:
-  store_num: MyString
-  name: MyString
-  location: MyString
-  address: MyString
-  zip: 1
-  telephone: MyString
-  store_hours: MyString
+#  store_num: 1016
+dallas:
+  name: Dallas
+  location: Dallas
+  address: 170 W Ellendale Ste 105
+  zip: 97338
+  telephone: 503-623-9668
+  store_hours: whenever
 
-two:
-  store_num: MyString
-  name: MyString
-  location: MyString
-  address: MyString
-  zip: 1
-  telephone: MyString
-  store_hours: MyString
+#  store_num: 1054
+independence:
+  name: Independence
+  location: Independence
+  address: 1353 Monmouth St
+  zip: 97351
+  telephone: 503-838-1941
+  store_hours: whenever

@@ -1,7 +1,7 @@
 require "test_helper"
 
 class OlccBottleTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "bottle count" do
+    assert_equal 2, OlccBottle.count
+  end
 end

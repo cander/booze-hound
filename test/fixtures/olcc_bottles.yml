@@ -1,16 +1,19 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+# Unfortunately, we have to let Rails generate the primary key (new_item_code)
+# so that we can use labels (e.g., small_batch)rather than magic numbers (99900621975) in
+# relations in other YAML files e.g., the olcc_inventory.
 
-one:
+#  new_item_code: 99900621975
+small_batch:
   name: 1792 SMALL BATCH 8 YR
-  new_item_code: 99900621975
   old_item_code: 6219B
   size: 750 ML
   proof: 93.7
   age: 8 yrs
 
-two:
+#  new_item_code: 99900654675
+pipe_dream:
   name: REDWOOD EMPIRE PIPE DREAM
-  new_item_code: 99900654675
   old_item_code: 6546B
   size: 750 ML
   proof: 90.0
