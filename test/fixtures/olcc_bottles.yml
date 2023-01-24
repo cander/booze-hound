@@ -18,3 +18,19 @@ pipe_dream:
   size: 750 ML
   proof: 90.0
   age: ''
+
+#  new_item_code: 99900592775
+barcelo:
+  name: BARCELO IMPERIAL
+  old_item_code: 5927B
+  size: 750 ML
+  proof: 80.0
+  age: ''
+
+#  new_item_code: 99900924275
+black_tot:
+  name: BLACK TOT
+  old_item_code: 9242B
+  size: 750 ML
+  proof: 92.4
+  age: ''

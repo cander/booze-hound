@@ -20,3 +20,12 @@ independence:
   zip: 97351
   telephone: 503-838-1941
   store_hours: whenever
+
+#  store_num: 1273
+bend3:
+  name: Bend, 3rd St
+  location: Bend
+  address: 740 NE Third St Ste 5
+  zip: 97701
+  telephone: 541-797-0028
+  store_hours: Mon-Sat 10-8; Sun 11-7
