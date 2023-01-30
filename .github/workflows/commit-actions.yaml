@@ -1,0 +1,22 @@
+name: Ruby CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        #  ruby-version: '3.2' in .ruby_version
+      - name: Install dependencies
+        run: bundle install
+      - name: Run tests
+        run: bundle exec rake
