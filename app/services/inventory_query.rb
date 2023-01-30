@@ -1,6 +1,6 @@
 
 
-class BottleQuery < ApplicationService
+class InventoryQuery < ApplicationService
   def initialize(store_nums, bottles)
     @store_nums = store_nums
     @bottles = bottles
