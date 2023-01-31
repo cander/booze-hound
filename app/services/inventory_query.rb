@@ -1,17 +1,17 @@
-
-
+# As a User (with preferred stores and bottles), I want to know what bottles
+# are available in a store/stores
+# Returns a OlccInventory records for bottles that are in-stock
+# TODO: consider optional, named parameters - initialize(stores: [],  bottles: []),
+# or both parameters are always required
 class InventoryQuery < ApplicationService
-  # TODO: consider optional, named parameters
-  def initialize(store_nums, bottle_codes)
-    @store_nums = store_nums
-    @bottle_codes = bottle_codes
+  def initialize(stores, bottles)
+    @stores = stores
+    @bottles = bottles
   end
 
   def call
-    # query for the user's bottles in a store (or stores?)
-    # initially just query for all OLCC bottles in a store
-    result = OlccInventory.in_stock.where(store_num: @store_nums)
-    result = result.where(new_item_code: @bottle_codes) unless @bottle_codes.empty?
+    result = OlccInventory.in_stock.where(store_num: @stores)
+    result = result.where(new_item_code: @bottles) unless @bottles.empty?
 
     result
   end
