@@ -7,6 +7,6 @@ class OlccStoreTest < ActiveSupport::TestCase
 
   test "store attributes" do
     s = olcc_stores(:independence)
-    assert_equal s.name, 'Independence'
+    assert_equal s.name, "Independence"
   end
 end
