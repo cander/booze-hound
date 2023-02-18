@@ -72,3 +72,9 @@ group :test do
 end
 
 gem "nokogiri", "~> 1.13"
+gem "faraday", "~> 2.7"
+gem "faraday-cookie_jar", "~> 0.0.7"
+gem "faraday-follow_redirects", "~> 0.3.0"
+
+gem "standard", group: [:development, :test]
+
