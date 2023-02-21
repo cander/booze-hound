@@ -76,5 +76,7 @@ gem "faraday", "~> 2.7"
 gem "faraday-cookie_jar", "~> 0.0.7"
 gem "faraday-follow_redirects", "~> 0.3.0"
 
-gem "standard", group: [:development, :test]
-
+group :development, :test do
+  gem "standard"
+  gem "rspec-rails"
+end
