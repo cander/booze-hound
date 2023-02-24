@@ -11,3 +11,8 @@ class ActiveSupport::TestCase
 
   # Add more helper methods to be used by all tests here...
 end
+
+def open_html_fixture(file_name)
+  # File.open("#{ActiveSupport::TestCase.fixture_path}/html/#{file_name}").readlines
+  IO.read("#{ActiveSupport::TestCase.fixture_path}/html/#{file_name}")
+end
