@@ -16,29 +16,31 @@ module OlccWeb
       welcome
     end
 
-    def welcome
-      puts "connecting..."
-      resp = @conn.get("WelcomeController")
-      puts "success: #{resp.success?}"
-    end
-
     def select_category(cat)
       opts = {view: "browsecategoriesallsubcategories", action: "select", category: cat}
       do_get("FrontController", opts)
     end
 
-    def inventory(new_item_code, item_code)
+    def get_item_inventory(new_item_code, item_code)
       opts = {view: "browsesubcategories", action: "select", productRowNum: 79, columnParam: "Description"}
-      do_get("FrontController", opts.merge({newItemCode: new_item_code, itemCode: item_code}))
+      inv_html = do_get("FrontController", opts.merge({newItemCode: new_item_code, itemCode: item_code}))
+      HtmlParser.parseInventory(inv_html)
+    end
+
+    # pseudo private methods
+
+    def welcome
+      # Rails.logger.debug "connecting to OLCC..."
+      resp = @conn.get("WelcomeController")
+      raise "Failed to open WelcomeController - status: #{resp.status}" unless resp.success?
     end
 
     def do_get(servlet, opts)
       resp = @conn.get(servlet, opts)
       if resp.success?
-        # could search for errors in the HTML
         resp.body
       else
-        "ERROR"
+        raise "HTTP error accessing #{servlet} - status code: #{resp.status}"
       end
     end
   end
