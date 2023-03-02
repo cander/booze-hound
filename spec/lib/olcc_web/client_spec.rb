@@ -40,9 +40,9 @@ RSpec.describe OlccWeb::Client do
 
     inv = client.get_item_inventory("99900592775", "5927B")
     dallas_store_num = "1016"  # can't use store_num from fixture data - should defined this somewhere
-    dallas_inventory = inv.find { |i| i[:store_num] == dallas_store_num }
+    dallas_inventory = inv.find { |i| i.store_num == dallas_store_num }
     expect(dallas_inventory).to_not be_nil
-    expect(dallas_inventory[:qty]).to eq(6)
+    expect(dallas_inventory.quantity).to eq(6)
 
     stubs.verify_stubbed_calls
   end

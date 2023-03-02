@@ -18,8 +18,8 @@ module OlccWeb
 
     def self.parseInventoryRow(new_item_code, row)
       store_num = row.css("td.store-no").text.strip
-      qty = row.css("td.qty").text.strip.to_i
-      {new_item_code: new_item_code, store_num: store_num, qty: qty}
+      quantity = row.css("td.qty").text.strip.to_i
+      InventoryData.new(new_item_code, store_num, quantity)
     end
 
     def self.check_quiet_error(html)

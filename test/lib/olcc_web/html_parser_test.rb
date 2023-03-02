@@ -7,9 +7,9 @@ class OlccWeb::HtmlParserTest < ActiveSupport::TestCase
     assert_equal 9, inv.count
 
     dallas_store_num = "1016"  # can't use store_num from fixture data - should defined this somewhere
-    dallas_inventory = inv.find { |i| i[:store_num] == dallas_store_num }
+    dallas_inventory = inv.find { |i| i.store_num == dallas_store_num }
     assert_not_nil dallas_inventory
-    assert_equal 6, dallas_inventory[:qty]
+    assert_equal 6, dallas_inventory.quantity
   end
 
   test "quiet error in HTML" do
