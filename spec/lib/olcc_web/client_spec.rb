@@ -1,5 +1,4 @@
 require "rails_helper"
-# require "test_helper"
 
 RSpec.describe OlccWeb::Client do
   # Faraday test adapter
