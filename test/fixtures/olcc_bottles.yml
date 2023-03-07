@@ -7,6 +7,7 @@
 small_batch:
   name: 1792 SMALL BATCH 8 YR
   old_item_code: 6219B
+  category: DOMESTIC WHISKEY
   size: 750 ML
   proof: 93.7
   age: 8 yrs
@@ -15,6 +16,7 @@ small_batch:
 pipe_dream:
   name: REDWOOD EMPIRE PIPE DREAM
   old_item_code: 6546B
+  category: DOMESTIC WHISKEY
   size: 750 ML
   proof: 90.0
   age: ''
@@ -23,6 +25,7 @@ pipe_dream:
 barcelo:
   name: BARCELO IMPERIAL
   old_item_code: 5927B
+  category: RUM
   size: 750 ML
   proof: 80.0
   age: ''
@@ -31,6 +34,7 @@ barcelo:
 black_tot:
   name: BLACK TOT
   old_item_code: 9242B
+  category: RUM
   size: 750 ML
   proof: 92.4
   age: ''

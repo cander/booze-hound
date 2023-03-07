@@ -7,6 +7,7 @@ class CreateOlccBottles < ActiveRecord::Migration[7.0]
       t.string :size
       t.decimal :proof
       t.string :age
+      t.string :category
 
       t.timestamps
     end

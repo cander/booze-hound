@@ -17,6 +17,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_13_222718) do
     t.string "size"
     t.decimal "proof"
     t.string "age"
+    t.string "category"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

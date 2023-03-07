@@ -1,4 +1,4 @@
-class UpdateInventory < ApplicationService
+class UpdateBottleInventory < ApplicationService
   def initialize(client, bottle)
     @client = client
     @bottle = bottle
