@@ -11,7 +11,7 @@ class UpdateBottleInventory < ApplicationService
       inv_map[i.store_num] = i
     }
 
-    new_inv = @client.get_item_inventory(@bottle.new_item_code, @bottle.old_item_code)
+    new_inv = @client.get_item_inventory(@bottle.category, @bottle.new_item_code, @bottle.old_item_code)
 
     # code to update records that are in both
     new_inv.each do |id|

@@ -37,11 +37,22 @@ RSpec.describe OlccWeb::Client do
     inv_html = open_html_fixture("barcelo-detail.html")
     stubs.get("/FrontController") { [200, {}, inv_html] }
 
-    inv = client.get_item_inventory("99900592775", "5927B")
+    inv = client.get_item_inventory("RUM", "99900592775", "5927B")
     dallas_store_num = "1016"  # can't use store_num from fixture data - should defined this somewhere
     dallas_inventory = inv.find { |i| i.store_num == dallas_store_num }
     expect(dallas_inventory).to_not be_nil
     expect(dallas_inventory.quantity).to eq(6)
+
+    stubs.verify_stubbed_calls
+  end
+
+  it "selects the category before getting inventory" do
+    stubs.get("/WelcomeController") { [200, {}, "hello"] }
+    stubs.get("/FrontController?view=browsecategoriesallsubcategories&category=RUM") { [200, {}, "bottle of rum"] }
+    inv_html = open_html_fixture("barcelo-detail.html")
+    stubs.get("/FrontController") { [200, {}, inv_html] }
+
+    client.get_item_inventory("RUM", "99900592775", "5927B")
 
     stubs.verify_stubbed_calls
   end
@@ -51,7 +62,7 @@ RSpec.describe OlccWeb::Client do
     err_html = open_html_fixture("quiet-error.html")
     stubs.get("/FrontController") { [200, {}, err_html] }
 
-    expect { client.get_item_inventory("99900592775", "5927B") }
+    expect { client.get_item_inventory("RUM", "99900592775", "5927B") }
       .to raise_error("OLCC error page encountered")
   end
 end

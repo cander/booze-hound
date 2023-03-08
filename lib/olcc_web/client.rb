@@ -12,16 +12,21 @@ module OlccWeb
         builder.use :cookie_jar # important this is after follow_redirects
         builder.adapter Faraday.default_adapter
       end
+      @last_category = ""
 
       welcome
     end
 
     def select_category(cat)
       opts = {view: "browsecategoriesallsubcategories", action: "select", category: cat}
-      do_get("FrontController", opts)
+      result = do_get("FrontController", opts)
+      @last_category = cat
+      result
     end
 
-    def get_item_inventory(new_item_code, item_code)
+    def get_item_inventory(cat, new_item_code, item_code)
+      select_category(cat) if cat != @last_category
+      # todo - set large window size on first query
       opts = {view: "browsesubcategories", action: "select", productRowNum: 79, columnParam: "Description"}
       inv_html = do_get("FrontController", opts.merge({newItemCode: new_item_code, itemCode: item_code}))
       HtmlParser.parseInventory(inv_html)
