@@ -6,7 +6,7 @@ class UpdateAllInventory < ApplicationService
   def call
     bottles = OlccBottle.followed_bottles
     bottles.each do |b|
-      puts "updating: #{b.name}"
+      logger.info { "Updating bottle inventory for: #{b.new_item_code} - #{b.name}" }
       UpdateBottleInventory.call(@client, b)
     end
 
