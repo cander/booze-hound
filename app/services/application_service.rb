@@ -4,4 +4,9 @@ class ApplicationService
   def self.call(...)
     new(...).call
   end
+
+  @@logger = Rails.logger
+  def logger
+    @@logger
+  end
 end
