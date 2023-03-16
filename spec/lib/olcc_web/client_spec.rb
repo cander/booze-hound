@@ -4,7 +4,7 @@ RSpec.describe OlccWeb::Client do
   # Faraday test adapter
   let(:stubs) { Faraday::Adapter::Test::Stubs.new }
   let(:conn) { Faraday.new { |b| b.adapter(:test, stubs) } }
-  let(:client) { described_class.new(conn) }
+  let(:client) { described_class.new(Rails.logger, conn) }
 
   after do
     Faraday.default_connection = nil

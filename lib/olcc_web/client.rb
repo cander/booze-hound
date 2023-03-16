@@ -5,19 +5,22 @@ module OlccWeb
   OLCC_ROOT = "http://www.oregonliquorsearch.com"
 
   class OlccWeb::Client
-    attr_reader :conn  # for initial debug
-    def initialize(mock_conn = nil)
+    attr_reader :logger
+
+    def initialize(log, mock_conn = nil)
       @conn = mock_conn || Faraday.new("#{OLCC_ROOT}/servlet") do |builder|
         builder.response :follow_redirects
         builder.use :cookie_jar # important this is after follow_redirects
         builder.adapter Faraday.default_adapter
       end
       @last_category = ""
+      @logger = log
 
       welcome
     end
 
     def select_category(cat)
+      logger.info { "Selecting category: #{cat}" }
       opts = {view: "browsecategoriesallsubcategories", action: "select", category: cat}
       result = do_get("FrontController", opts)
       @last_category = cat
@@ -25,6 +28,7 @@ module OlccWeb
     end
 
     def get_item_inventory(cat, new_item_code, item_code)
+      logger.info { "get_item_inventory category: #{cat}, new_item_code: #{new_item_code}, item_code: #{item_code}" }
       select_category(cat) if cat != @last_category
       # todo - set large window size on first query
       opts = {view: "browsesubcategories", action: "select", productRowNum: 79, columnParam: "Description"}
@@ -35,9 +39,9 @@ module OlccWeb
     # pseudo private methods
 
     def welcome
-      # Rails.logger.debug "connecting to OLCC..."
+      logger.debug "connecting to OLCC..."
       resp = @conn.get("WelcomeController")
-      raise "Failed to open WelcomeController - status: #{resp.status}" unless resp.success?
+      error "Failed to open WelcomeController - status: #{resp.status}" unless resp.success?
     end
 
     def do_get(servlet, opts)
@@ -45,8 +49,13 @@ module OlccWeb
       if resp.success?
         resp.body
       else
-        raise "HTTP error accessing #{servlet} - status code: #{resp.status}"
+        error "HTTP error accessing #{servlet} - status code: #{resp.status}"
       end
+    end
+
+    def error(msg)
+      logger.error msg
+      raise msg
     end
   end
 end
