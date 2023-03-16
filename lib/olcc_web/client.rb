@@ -36,6 +36,14 @@ module OlccWeb
       HtmlParser.parse_inventory(inv_html)
     end
 
+    def get_city_stores(city)
+      city.upcase!
+      logger.info { "get_city_stores city: #{city}" }
+      opts = {view: "browselocations", action: "select", city: city}
+      store_html = do_get("FrontController", opts)
+      HtmlParser.parse_stores(store_html)
+    end
+
     # pseudo private methods
 
     def welcome

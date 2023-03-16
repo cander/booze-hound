@@ -16,7 +16,7 @@ class UpdateBottleInventoryTest < ActiveSupport::TestCase
   test "update inventory of an existing bottle in a store" do
     indy_id = store_num(:independence)
     client = double("olcc-client")
-    new_inv = [InventoryData.new(new_item_code: rum.new_item_code, store_num: indy_id, quantity: 5)]
+    new_inv = [Dto::InventoryData.new(new_item_code: rum.new_item_code, store_num: indy_id, quantity: 5)]
     expect(client).to receive(:get_item_inventory).and_return(new_inv)
 
     UpdateBottleInventory.call(client, rum)
@@ -28,7 +28,7 @@ class UpdateBottleInventoryTest < ActiveSupport::TestCase
   test "insert inventory of a new bottle in a store" do
     dallas_id = store_num(:dallas)
     client = double("olcc-client")
-    new_inv = [InventoryData.new(new_item_code: rum.new_item_code, store_num: dallas_id, quantity: 5)]
+    new_inv = [Dto::InventoryData.new(new_item_code: rum.new_item_code, store_num: dallas_id, quantity: 5)]
     expect(client).to receive(:get_item_inventory).and_return(new_inv)
 
     UpdateBottleInventory.call(client, rum)
@@ -46,4 +46,6 @@ class UpdateBottleInventoryTest < ActiveSupport::TestCase
     new_inv = OlccInventory.where(new_item_code: rum)
     new_inv.each { |inv| assert_equal 0, inv.quantity }
   end
+
+  # possibly test if the store is new. What should the result be?
 end
