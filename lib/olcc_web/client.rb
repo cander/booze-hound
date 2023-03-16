@@ -33,7 +33,7 @@ module OlccWeb
       # todo - set large window size on first query
       opts = {view: "browsesubcategories", action: "select", productRowNum: 79, columnParam: "Description"}
       inv_html = do_get("FrontController", opts.merge({newItemCode: new_item_code, itemCode: item_code}))
-      HtmlParser.parseInventory(inv_html)
+      HtmlParser.parse_inventory(inv_html)
     end
 
     # pseudo private methods

@@ -4,19 +4,19 @@ require "nokogiri"
 
 module OlccWeb
   class HtmlParser
-    def self.parseInventory(inventory_page_html)
+    def self.parse_inventory(inventory_page_html)
       check_quiet_error(inventory_page_html)
       doc = Nokogiri::HTML(inventory_page_html)
       result = []
       new_item_code = doc.css("td.search-box").first.child["value"] # could assert this value against a param
 
-      doc.css("tr.row").each { |row| result << parseInventoryRow(new_item_code, row) }
-      doc.css("tr.alt-row").each { |row| result << parseInventoryRow(new_item_code, row) }
+      doc.css("tr.row").each { |row| result << parse_inventory_row(new_item_code, row) }
+      doc.css("tr.alt-row").each { |row| result << parse_inventory_row(new_item_code, row) }
 
       result
     end
 
-    def self.parseInventoryRow(new_item_code, row)
+    def self.parse_inventory_row(new_item_code, row)
       store_num = row.css("td.store-no").text.strip
       quantity = row.css("td.qty").text.strip.to_i
       InventoryData.new(new_item_code, store_num, quantity)
