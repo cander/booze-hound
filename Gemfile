@@ -79,4 +79,5 @@ gem "faraday-follow_redirects", "~> 0.3.0"
 group :development, :test do
   gem "standard"
   gem "rspec-rails"
+  gem "factory_bot_rails", "~> 6.2"
 end

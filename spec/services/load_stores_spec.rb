@@ -9,23 +9,15 @@ RSpec.describe LoadStores do
     )]
     expect(client).to receive(:get_city_stores).and_return(new_store)
 
-    LoadStores.call(client, "bend")
+    expect { LoadStores.call(client, "bend") }.to change { OlccStore.count }.by 1
 
     bend = OlccStore.find("1273")
     expect(bend).to_not be_nil
   end
 
-  def load_store_fixtures
-    # NB: manually loading fixtures is probably asking for problems
-    require "active_record/fixtures"
-    fix_set = ActiveRecord::FixtureSet.create_fixtures(Rails.root.join("test", "fixtures"), "olcc_stores")
-    fix_set.first.fixtures # return the fixtures we just created
-  end
-
   it "should update an existing record" do
-    fixtures = load_store_fixtures
-    store_num = fixtures["dallas"]["store_num"]
-    puts "Before dallas hours: #{fixtures["dallas"]["store_hours"]}"
+    dallas = create(:olcc_store)
+    store_num = dallas.store_num
     store_hours = "Mon-Sat 10-8"
     client = double("olcc-client")
     new_store = [Dto::StoreData.new(
@@ -33,11 +25,9 @@ RSpec.describe LoadStores do
     )]
     expect(client).to receive(:get_city_stores).and_return(new_store)
 
-    LoadStores.call(client, "dallas")
+    expect { LoadStores.call(client, "dallas") }.to_not change { OlccStore.count }
 
-    dallas = OlccStore.find(store_num)
-    puts "updated dallas: #{dallas.inspect}"
-    expect(dallas).to_not be_nil
+    dallas.reload
     expect(dallas.store_hours).to eq(store_hours)
   end
 end
