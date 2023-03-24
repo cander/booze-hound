@@ -44,6 +44,16 @@ module OlccWeb
       HtmlParser.parse_stores(store_html)
     end
 
+    def get_bottle_details(cat, new_item_code, item_code)
+      logger.info { "get_bottle_details category: #{cat}, new_item_code: #{new_item_code}, item_code: #{item_code}" }
+      # the HTTP call is the same as getting inventory
+      select_category(cat) if cat != @last_category
+      opts = {view: "browsesubcategories", action: "select", productRowNum: 79, columnParam: "Description"}
+      inv_html = do_get("FrontController", opts.merge({newItemCode: new_item_code, itemCode: item_code}))
+      # we just parse the output differently, ignoring inventory
+      HtmlParser.parse_product_details(inv_html)
+    end
+
     # pseudo private methods
 
     def welcome

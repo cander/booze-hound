@@ -11,6 +11,7 @@ small_batch:
   size: 750 ML
   proof: 93.7
   age: 8 yrs
+  bottle_price: 1.23
 
 #  new_item_code: 99900654675
 pipe_dream:
@@ -20,6 +21,7 @@ pipe_dream:
   size: 750 ML
   proof: 90.0
   age: ''
+  bottle_price: 4.56
 
 #  new_item_code: 99900592775
 barcelo:
@@ -29,6 +31,7 @@ barcelo:
   size: 750 ML
   proof: 80.0
   age: ''
+  bottle_price: 7.89
 
 #  new_item_code: 99900924275
 black_tot:
@@ -38,3 +41,4 @@ black_tot:
   size: 750 ML
   proof: 92.4
   age: ''
+  bottle_price: 10.12

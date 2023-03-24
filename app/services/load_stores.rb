@@ -6,7 +6,7 @@ class LoadStores < ApplicationService
 
   def call
     stores = @client.get_city_stores(@city)
-    stores_as_hashes = stores.map { |s| s.deconstruct_keys(nil) }
+    stores_as_hashes = stores.map { |s| s.to_h }
     OlccStore.upsert_all(stores_as_hashes)
   end
 end
