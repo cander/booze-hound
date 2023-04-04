@@ -37,7 +37,7 @@ module OlccWeb
     end
 
     def get_city_stores(city)
-      city.upcase!
+      city = city.upcase
       logger.info { "get_city_stores city: #{city}" }
       opts = {view: "browselocations", action: "select", city: city}
       store_html = do_get("FrontController", opts)
