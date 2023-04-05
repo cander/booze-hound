@@ -11,9 +11,9 @@ end
 # Notes on command pattern: commands could have descriptions to be printed
 # by usage. The invocation of `call` could catch ArgumentError and print the
 # usage for that command. That catch could be in base class
+# Maybe client should be a member in the base class?
 class LoadStoresCmd
-  def call(*cities)
-    client = OlccWeb::Client.new(Rails.logger)
+  def call(client, *cities)
     for city in cities do
       puts "Loading stores in #{city}"
       LoadStores.call(client, city)
@@ -22,8 +22,9 @@ class LoadStoresCmd
 end
 
 class LoadBottleCmd
-  def call(category, new_code, old_code)
-    puts "TBD - LoadBottle: #{category} #{new_code} #{old_code}"
+  def call(client, category, new_code, old_code)
+    puts "Loading inventory for #{category} #{new_code} #{old_code}"
+    LoadBottle.call(client, category, new_code, old_code)
   end
 end
 
@@ -33,5 +34,6 @@ CMDS = { loadstores: LoadStoresCmd.new,
 cmd = ARGV.shift || usage
 
 c = CMDS[cmd.to_sym] || usage
-c.call(*ARGV)
+client = OlccWeb::Client.new(Rails.logger)
+c.call(client, *ARGV)
 

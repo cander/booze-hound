@@ -38,33 +38,43 @@ RSpec.describe OlccWeb::HtmlParser do
   end
 
   describe "parse_product_details" do
-    describe "unpack_description" do
-      it "parses a valid Barcelo description line" do
-        desc = "\r\n\t\t\t\tItem\r\n\t\t\t99900592775(5927B):\r\n\t\tBARCELO IMPERIAL\r\n\t"
-        details = OlccWeb::HtmlParser.unpack_description(desc)
+    describe "unpack_description " do
+      [
+        ["Barcelo", "99900592775", "5927B", "BARCELO IMPERIAL",
+          "\r\n\t\t\t\tItem\r\n\t\t\t99900592775(5927B):\r\n\t\tBARCELO IMPERIAL\r\n\t"],
+        ["1792", "99900388475", "3884B", "1792 SINGLE BARREL BOURBON",
+          "t\t\t\t\tItem\r\n\t\t\t\t\t\t\t\t99900388475(3884B):\r\n\t\t\t\t\t\t\t\t1792 SINGLE BARREL BOURBON\r\n\t\t"],
+        ["Woodford derby", "99900784610", "7846A", "WOODFORD RES. DERBY 10",
+          "t\t\t\t\tItem\r\n\t\t\t\t\t\t\t\t99900784610(7846A):\r\n\t\t\t\t\t\t\t\tWOODFORD RES. DERBY 10\r\n\t\t"],
+        ["Hayman's", "99900885175", "8851B", "HAYMAN'S OLD TOM GIN",
+          "t\t\t\t\tItem\r\n\t\t\t\t\t\t\t\t99900885175(8851B):\r\n\t\t\t\t\t\t\t\tHAYMAN'S OLD TOM GIN\r\n\t\t"],
+        ["Kentucky Owl", "99900531075", "5310B", "KENTUCKY OWL BATCH #11",
+          "\tItem\r\n\t\t\t\t\t\t\t\t99900531075(5310B):\r\n\t\t\t\t\t\t\t\tKENTUCKY OWL BATCH #11\r\n\t\t\t"],
+        ["Ancient Age", "99900197975", "1979B", "ANCIENT ANCIENT AGE 10 *",
+          "\t\t\t\tItem\r\n\t\t\t\t\t\t\t\t99900197975(1979B):\r\n\t\t\t\t\t\t\t\tANCIENT ANCIENT AGE 10 *\r\n\t\t"],
+        ["Balcones", "99900919875", "9198B", "BALCONES SINGLE BARREL S/M",
+          "\t\t\t\tItem\r\n\t\t\t\t\t\t\t\t99900919875(9198B):\r\n\t\t\t\t\t\t\t\tBALCONES SINGLE BARREL S/M\r\n\t\t"],
+        ["Irwin", "99900075305", "0753F", "C.W. IRWIN STRAIGHT BOURBO",
+          "\t\t\t\tItem\r\n\t\t\t\t\t\t\t\t99900075305(0753F):\r\n\t\t\t\t\t\t\t\tC.W. IRWIN STRAIGHT BOURBO\r\n\t\t"]
 
-        expect(details).to_not be_nil
-        expect(details[:new_item_code]).to eq("99900592775")
-        expect(details[:old_item_code]).to eq("5927B")
-        expect(details[:name]).to eq("BARCELO IMPERIAL")
+      ].each do |product, new_item_code, old_item_code, description, text|
+        describe "parses #{product} text from HTML" do
+          it {
+            details = OlccWeb::HtmlParser.unpack_description(text)
+
+            expect(details).to_not be_nil
+            expect(details[:new_item_code]).to eq(new_item_code)
+            expect(details[:old_item_code]).to eq(old_item_code)
+            expect(details[:name]).to eq(description)
+          }
+        end
       end
+    end
 
-      it "parses 1792 description line" do
-        # pending
-        desc = "t\t\t\t\tItem\r\n\t\t\t\t\t\t\t\t99900388475(3884B):\r\n\t\t\t\t\t\t\t\t1792 SINGLE BARREL BOURBON\r\n\t\t"
-        details = OlccWeb::HtmlParser.unpack_description(desc)
+    it "returns nil if it can't parse" do
+      details = OlccWeb::HtmlParser.unpack_description("spanish inquisition")
 
-        expect(details).to_not be_nil
-        expect(details[:new_item_code]).to eq("99900388475")
-        expect(details[:old_item_code]).to eq("3884B")
-        expect(details[:name]).to eq("1792 SINGLE BARREL BOURBON")
-      end
-
-      it "returns nil if it can't parse" do
-        details = OlccWeb::HtmlParser.unpack_description("spanish inquisition")
-
-        expect(details).to be_nil
-      end
+      expect(details).to be_nil
     end
 
     describe "unpack_category_age" do
@@ -106,6 +116,13 @@ RSpec.describe OlccWeb::HtmlParser do
 
         expect(size_hash).to_not be_nil
         expect(size_hash[:size]).to eq("1.75 L")
+      end
+      it "parses LITER w/o digits" do
+        text = "\t\tSize:\r\n\t\tLITER\r\n\t\t\tCase Price:\r\n\t\t$269.70\r\n\t\t"
+        size_hash = OlccWeb::HtmlParser.unpack_size(text)
+
+        expect(size_hash).to_not be_nil
+        expect(size_hash[:size]).to eq("LITER")
       end
     end
 

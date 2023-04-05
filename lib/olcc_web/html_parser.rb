@@ -32,6 +32,7 @@ module OlccWeb
       desc_table = doc.css("table")[2].css("table")  # 'product-details' doesn't work
 
       desc = unpack_description(desc_table.css("tr")[1].text)
+      # NB: can improve the parsing of cat_age, price, and proof by accessing td elements
       cat_age = unpack_category_age(desc_table.css("tr")[2].text)
       size = unpack_size(desc_table.css("tr")[3].text)
       proof_price = unpack_proof_price(desc_table.css("tr")[4].text)
@@ -39,6 +40,8 @@ module OlccWeb
       if desc && cat_age && size && proof_price
         opts = desc.merge(cat_age).merge(size).merge(proof_price)
         Dto::BottleData.new(**opts)
+      else
+        raise "Missing bottle data - desc: #{desc}, cat_age: #{cat_age}, size: #{size}, proof_price: #{proof_price}"
       end
     end
 
@@ -60,10 +63,10 @@ module OlccWeb
 
     def self.unpack_description(desc)
       # \r\n\t\t\t\tItem\r\n\t\t\t99900592775(5927B):\r\n\t\tBARCELO IMPERIAL\r\n\t
-      # NB: assuming the old item codes always end with "B"
-      if desc =~ /Item\s+(\d+)\((\d+B)\):\s+([\w ]+)\s+/
+      # NB: assuming the old item codes always end with a capital letter
+      if desc =~ /Item\s+(\d+)\((\d+[A-Z])\):\s+(\w.*\S)\s+$/
         data = Regexp.last_match
-        {new_item_code: data[1], old_item_code: data[2], name: data[3]}
+        {new_item_code: data[1], old_item_code: data[2], name: data[3].strip}
       end
       # else returning nil
     end
@@ -92,6 +95,8 @@ module OlccWeb
       # \t\tSize:\r\n\t\t750 ML\r\n\t\t\tCase Price:\r\n\t\t$269.70\r\n\t\t
       size = if text =~ /Size:\s+([\d.]+\s+[A-Z]+)+/
         Regexp.last_match[1]
+      elsif /Size:\s+LITER/.match?(text)
+        "LITER"
       else
         ""  # maybe this is an error?
       end

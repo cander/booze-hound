@@ -23,6 +23,7 @@ module OlccWeb
       logger.info { "Selecting category: #{cat}" }
       opts = {view: "browsecategoriesallsubcategories", action: "select", category: cat}
       result = do_get("FrontController", opts)
+      HtmlParser.check_quiet_error(result)
       @last_category = cat
       result
     end
