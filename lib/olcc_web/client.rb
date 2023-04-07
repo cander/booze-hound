@@ -7,6 +7,9 @@ module OlccWeb
   class OlccWeb::Client
     attr_reader :logger
 
+    SEARCH_LOCATION = "97361" # obviously, this works for me
+    SEARCH_RADIUS = "30"
+
     def initialize(log, mock_conn = nil)
       @conn = mock_conn || Faraday.new("#{OLCC_ROOT}/servlet") do |builder|
         builder.response :follow_redirects
@@ -30,10 +33,11 @@ module OlccWeb
 
     def get_item_inventory(cat, new_item_code, item_code)
       logger.info { "get_item_inventory category: #{cat}, new_item_code: #{new_item_code}, item_code: #{item_code}" }
-      select_category(cat) if cat != @last_category
+      # global search doesn't require selecting a category first
       # todo - set large window size on first query
-      opts = {view: "browsesubcategories", action: "select", productRowNum: 79, columnParam: "Description"}
-      inv_html = do_get("FrontController", opts.merge({newItemCode: new_item_code, itemCode: item_code}))
+      opts = {view: "global", action: "search", chkDefault: "on", btnSearch: "Search",
+              radiusSearchParam: SEARCH_RADIUS, locationSearchParam: SEARCH_LOCATION}
+      inv_html = do_get("FrontController", opts.merge({productSearchParam: new_item_code}))
       HtmlParser.parse_inventory(inv_html)
     end
 
@@ -47,7 +51,8 @@ module OlccWeb
 
     def get_bottle_details(cat, new_item_code, item_code)
       logger.info { "get_bottle_details category: #{cat}, new_item_code: #{new_item_code}, item_code: #{item_code}" }
-      # the HTTP call is the same as getting inventory
+      # the HTTP call can be the same as getting inventory, but this isn't
+      # restricted by radius, and it requires selecting the category.
       select_category(cat) if cat != @last_category
       opts = {view: "browsesubcategories", action: "select", productRowNum: 79, columnParam: "Description"}
       inv_html = do_get("FrontController", opts.merge({newItemCode: new_item_code, itemCode: item_code}))
