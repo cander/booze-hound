@@ -28,8 +28,18 @@ class LoadBottleCmd
   end
 end
 
+class UpdateInventoryCmd
+  def call(client)
+    puts "Updating inventory..."
+    puts "There are initially #{OlccInventory.count} inventory records"
+    UpdateAllInventory.call(client)
+    puts "There are now #{OlccInventory.count} records"
+  end
+end
+
 CMDS = { loadstores: LoadStoresCmd.new,
-         loadbottle: LoadBottleCmd.new }
+         loadbottle: LoadBottleCmd.new,
+         updateinventory: UpdateInventoryCmd.new }
 
 cmd = ARGV.shift || usage
 
