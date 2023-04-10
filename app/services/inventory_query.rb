@@ -10,7 +10,7 @@ class InventoryQuery < ApplicationService
   end
 
   def call
-    result = OlccInventory.in_stock.where(store_num: @stores)
+    result = OlccInventory.in_stock.includes(:olcc_bottle).where(store_num: @stores)
     result = result.where(new_item_code: @bottles) unless @bottles.empty?
 
     result
