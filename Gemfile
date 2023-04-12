@@ -71,7 +71,7 @@ group :test do
   # gem "webdrivers"
 end
 
-gem "nokogiri", "~> 1.13"
+gem "nokogiri", "~> 1.14"
 gem "faraday", "~> 2.7"
 gem "faraday-cookie_jar", "~> 0.0.7"
 gem "faraday-follow_redirects", "~> 0.3.0"
