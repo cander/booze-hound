@@ -25,10 +25,17 @@ module OlccWeb
     def select_category(cat)
       logger.info { "Selecting category: #{cat}" }
       opts = {view: "browsecategoriesallsubcategories", action: "select", category: cat}
-      result = do_get("FrontController", opts)
-      HtmlParser.check_quiet_error(result)
+      cat_html = do_get("FrontController", opts)
+      HtmlParser.check_quiet_error(cat_html)
       @last_category = cat
-      result
+
+      cat_html
+    end
+
+    def get_category_bottles(cat)
+      logger.info { "Getting bottles in category: #{cat}" }
+      cat_html = select_category(cat)
+      HtmlParser.parse_category_bottles(cat_html, cat)
     end
 
     def get_item_inventory(cat, new_item_code, item_code)

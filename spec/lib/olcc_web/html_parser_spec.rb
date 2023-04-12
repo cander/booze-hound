@@ -154,4 +154,22 @@ RSpec.describe OlccWeb::HtmlParser do
       expect { OlccWeb::HtmlParser.parse_product_details(quiet_error) }.to raise_error(RuntimeError)
     end
   end
+  describe "parse_category_bottles" do
+    it "parses the bottles in a category" do
+      bottles = OlccWeb::HtmlParser.parse_category_bottles(open_html_fixture("all-cachaca-bottles.html"), "CACHACA")
+
+      expect(bottles.count).to eq(18)
+      avua = bottles.first
+      expect(avua.new_item_code).to eq("99900279575")
+      expect(avua.old_item_code).to eq("2795B")
+      expect(avua.name).to eq("AVUA AMBURANA")
+      expect(avua.size).to eq("750 ML")
+      expect(avua.proof).to eq("80.0")
+      expect(avua.age).to eq("")
+      expect(avua.bottle_price).to eq("$49.35")
+      expect(avua.category).to eq("CACHACA")
+      puts "followed: #{avua.followed}"
+      expect(avua.followed).to be false
+    end
+  end
 end

@@ -24,11 +24,22 @@ RSpec.describe OlccWeb::Client do
     stubs.verify_stubbed_calls
   end
 
-  it "gets the rum category" do
+  it "selects the rum category" do
     stubs.get("/WelcomeController") { [200, {}, "hello"] }
     stubs.get("/FrontController") { [200, {}, "all the rums"] }
 
     client.select_category("RUM")
+    stubs.verify_stubbed_calls
+  end
+
+  it "gets the cachaca category" do
+    stubs.get("/WelcomeController") { [200, {}, "hello"] }
+    cat_html = open_html_fixture("all-cachaca-bottles.html")
+    stubs.get("/FrontController") { [200, {}, cat_html] }
+
+    bottles = client.get_category_bottles("CACHACA")
+    expect(bottles.size).to eq(18)
+
     stubs.verify_stubbed_calls
   end
 

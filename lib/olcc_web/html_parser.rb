@@ -1,5 +1,7 @@
 # Parse HTML from the OLCC's web site. In theory, this could be very
 # brittle. In reality, it doesn't look like it's changed in over 10 years.
+# TODO idea - change from static methods to member methods and have an
+# instance variable holding the Nokogiri doc?
 require "nokogiri"
 
 module OlccWeb
@@ -43,6 +45,17 @@ module OlccWeb
       else
         raise "Missing bottle data - desc: #{desc}, cat_age: #{cat_age}, size: #{size}, proof_price: #{proof_price}"
       end
+    end
+
+    def self.parse_category_bottles(cat_html, cat)
+      check_quiet_error(cat_html)
+      doc = Nokogiri::HTML(cat_html)
+
+      result = []
+      doc.css("tr.alt-row").each { |row| result << parse_bottle_row(row, cat) }
+      doc.css("tr.row").each { |row| result << parse_bottle_row(row, cat) }
+
+      result
     end
 
     # pseudo private methods
@@ -119,6 +132,23 @@ module OlccWeb
       end
 
       {proof: proof, bottle_price: price}
+    end
+
+    def self.parse_bottle_row(row, cat)
+      data = row.css("td")
+      attrs = {
+        new_item_code: data[0].text.strip,
+        old_item_code: data[1].text.strip,
+        name: data[2].text.strip,
+        size: data[3].text.strip,
+        proof: data[4].text.strip,
+        age: data[5].text.strip,
+        bottle_price: data[7].text.strip,
+        category: cat,
+        followed: false
+      }
+
+      Dto::BottleData.new(**attrs)
     end
 
     def self.check_quiet_error(html)
