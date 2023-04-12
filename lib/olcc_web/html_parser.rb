@@ -38,7 +38,7 @@ module OlccWeb
       proof_price = unpack_proof_price(desc_table.css("tr")[4].text)
 
       if desc && cat_age && size && proof_price
-        opts = desc.merge(cat_age).merge(size).merge(proof_price)
+        opts = desc.merge(cat_age).merge(size).merge(proof_price).merge(followed: false)
         Dto::BottleData.new(**opts)
       else
         raise "Missing bottle data - desc: #{desc}, cat_age: #{cat_age}, size: #{size}, proof_price: #{proof_price}"
