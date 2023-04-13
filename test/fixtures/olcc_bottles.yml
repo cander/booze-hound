@@ -12,6 +12,7 @@ small_batch:
   proof: 93.7
   age: 8 yrs
   bottle_price: 1.23
+  followed: true
 
 #  new_item_code: 99900654675
 pipe_dream:
@@ -22,6 +23,7 @@ pipe_dream:
   proof: 90.0
   age: ''
   bottle_price: 4.56
+  followed: true
 
 #  new_item_code: 99900592775
 barcelo:
@@ -32,6 +34,7 @@ barcelo:
   proof: 80.0
   age: ''
   bottle_price: 7.89
+  followed: true
 
 #  new_item_code: 99900924275
 black_tot:
@@ -42,3 +45,16 @@ black_tot:
   proof: 92.4
   age: ''
   bottle_price: 10.12
+  followed: true
+
+#  new_item_code: 99900688105
+jack_honey:
+  name: JACK DANIEL'S TN HONEY
+  old_item_code: 6881F
+  category: DOMESTIC WHISKEY
+  size: 50 ML
+  proof: 70.0
+  age: ''
+  bottle_price: 1.75
+  followed: false
+

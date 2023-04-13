@@ -3,14 +3,14 @@ class OlccBottle < ApplicationRecord
 
   CATEGORIES = [
     "DOMESTIC WHISKEY",
+    "GIN",
     "RUM",
     "TEQUILA"
   ].freeze
   enum category: CATEGORIES.index_by(&:to_s)
 
   def self.followed_bottles
-    # currently, assume all bottles are followed
-    # group by category so all the rums can be processed, etc.
-    OlccBottle.group("category")
+    # order by category so each category will show up as a block together
+    OlccBottle.where(followed: true).order(:category)
   end
 end
