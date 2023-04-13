@@ -143,7 +143,7 @@ module OlccWeb
         size: data[3].text.strip,
         proof: data[4].text.strip,
         age: data[5].text.strip,
-        bottle_price: data[7].text.strip,
+        bottle_price: data[7].text.strip.sub("$", ""),
         category: cat,
         followed: false
       }
