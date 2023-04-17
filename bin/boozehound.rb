@@ -2,6 +2,7 @@
 # Simple script/command to invoke some functions from the command line.
 # Should probably be moved to lib/Cli and expanded
 require_relative "../config/environment"
+require "csv"
 
 def usage
   puts "Use it right, dummy"
@@ -12,11 +13,15 @@ end
 # by usage. The invocation of `call` could catch ArgumentError and print the
 # usage for that command. That catch could be in base class
 # Maybe client should be a member in the base class?
-class LoadStoresCmd
-  def call(client, *cities)
-    for city in cities do
-      puts "Loading stores in #{city}"
-      LoadStores.call(client, city)
+
+class FetchBottlesCsvCmd
+  def call(client, category, file_name)
+    puts "Fetching all #{category} bottles as CSV"
+    bots = client.get_category_bottles(category)
+    puts "Found #{bots.size} bottles"
+    CSV.open(file_name, "w",
+      write_headers: true, headers: bots.first.members) do |csv|
+      bots.each { |b| csv << b.deconstruct }
     end
   end
 end
@@ -25,6 +30,25 @@ class LoadBottleCmd
   def call(client, category, new_code, old_code)
     puts "Loading inventory for #{category} #{new_code} #{old_code}"
     LoadBottle.call(client, category, new_code, old_code)
+  end
+end
+
+class LoadBottlesCsvCmd
+  def call(client, file_name)
+    puts "Loading bottles from #{file_name}"
+    rows = CSV.read(file_name, headers: true).map(&:to_h)
+    # TODO: be more selective, don't step of followed flag
+    OlccBottle.upsert_all(rows)
+    puts "Processed #{rows.size} bottles"
+  end
+end
+
+class LoadStoresCmd
+  def call(client, *cities)
+    cities.each do |city|
+      puts "Loading stores in #{city}"
+      LoadStores.call(client, city)
+    end
   end
 end
 
@@ -37,13 +61,14 @@ class UpdateInventoryCmd
   end
 end
 
-CMDS = { loadstores: LoadStoresCmd.new,
-         loadbottle: LoadBottleCmd.new,
-         updateinventory: UpdateInventoryCmd.new }
+CMDS = {fetchbottlescsv: FetchBottlesCsvCmd.new,
+        loadstores: LoadStoresCmd.new,
+        loadbottle: LoadBottleCmd.new,
+        loadbottlescsv: LoadBottlesCsvCmd.new,
+        updateinventory: UpdateInventoryCmd.new}
 
 cmd = ARGV.shift || usage
 
 c = CMDS[cmd.to_sym] || usage
 client = OlccWeb::Client.new(Rails.logger)
 c.call(client, *ARGV)
-

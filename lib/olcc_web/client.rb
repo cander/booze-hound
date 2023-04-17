@@ -23,6 +23,7 @@ module OlccWeb
     end
 
     def select_category(cat)
+      cat = cat.upcase
       logger.info { "Selecting category: #{cat}" }
       opts = {view: "browsecategoriesallsubcategories", action: "select", category: cat}
       cat_html = do_get("FrontController", opts)
