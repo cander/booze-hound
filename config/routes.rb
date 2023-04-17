@@ -3,5 +3,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "olcc_stores#index"
+
+  resources :olcc_bottles
   resources :olcc_stores
 end

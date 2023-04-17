@@ -1,0 +1,36 @@
+<%= stylesheet_link_tag "tables" %>
+
+
+<h2><%= @bottle.name %><br></h2>
+Price: $<%= @bottle.bottle_price %><br>
+Size: <%= @bottle.size %><br>
+Proof: <%= @bottle.proof %><br>
+
+<% if @inventory.size == 0 %>
+<h2>It is NOT available at any of your stores.</h2>
+<% else %>
+  <h2>
+  Available at the following <%= @inventory.size %> stores:
+  </h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Hours</th>
+        <th>Quantity</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @inventory.each_with_index do |inv, index| %>
+        <tr class="<%= index.even? ? 'even-row' : 'odd-row' %>">
+          <td><%= inv.olcc_store.name %></td>
+          <td><%= inv.olcc_store.address %></td>
+          <td><%= inv.olcc_store.store_hours %></td>
+          <td class="right"><%= inv.quantity %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
