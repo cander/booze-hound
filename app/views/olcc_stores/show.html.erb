@@ -12,17 +12,19 @@ Inventory
 <table>
   <thead>
     <tr>
-      <th>Name</th>
       <th>Item Code</th>
+      <th>Name</th>
+      <th>Price</th>
       <th>Quantity</th>
     </tr>
   </thead>
   <tbody>
   <% @inventory.each_with_index do |inv, index| %>
       <tr class="<%= index.even? ? 'even-row' : 'odd-row' %>">
-        <td><%= inv.olcc_bottle.name %></td>
         <td><%= inv.olcc_bottle.new_item_code %></td>
-        <td><%= inv.quantity %></td>
+        <td><%= inv.olcc_bottle.name %></td>
+        <td><%= inv.olcc_bottle.bottle_price %></td>
+        <td class="right"><%= inv.quantity %></td>
       </tr>
     <% end %>
   </tbody>

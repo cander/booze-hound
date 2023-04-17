@@ -1,8 +1,11 @@
-
 .even-row {
 	background: #fff;
 }
 
 .odd-row {
 	background: #efefef;
+}
+
+.right {
+	text-align: right;
 }

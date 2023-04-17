@@ -6,6 +6,7 @@
   <thead>
     <tr>
       <th>Name</th>
+      <th>Address</th>
       <th>Store Hours</th>
     </tr>
   </thead>
@@ -13,6 +14,7 @@
     <% @olcc_stores.each_with_index do |store, index| %>
       <tr class="<%= index.even? ? 'even-row' : 'odd-row' %>">
         <td><%= link_to store.name, store %></td>
+        <td><%= store.address %></td>
         <td><%= store.store_hours %></td>
       </tr>
     <% end %>
