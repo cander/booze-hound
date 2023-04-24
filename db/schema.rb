@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_12_195749) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_21_204704) do
+  create_table "bottle_events", force: :cascade do |t|
+    t.string "new_item_code"
+    t.string "event_type"
+    t.text "details"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "olcc_bottles", primary_key: "new_item_code", id: :string, force: :cascade do |t|
     t.string "old_item_code"
     t.string "name"

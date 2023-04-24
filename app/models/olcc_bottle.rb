@@ -1,5 +1,6 @@
 class OlccBottle < ApplicationRecord
   self.primary_key = "new_item_code"
+  has_many :bottle_events, foreign_key: "new_item_code"
 
   CATEGORIES = [
     "CACHACA",
