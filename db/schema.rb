@@ -13,7 +13,7 @@
 ActiveRecord::Schema[7.0].define(version: 2023_04_21_204704) do
   create_table "bottle_events", force: :cascade do |t|
     t.string "new_item_code"
-    t.string "event_type"
+    t.string "event_type", null: false
     t.text "details"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

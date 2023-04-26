@@ -19,7 +19,7 @@ class UpdateBottleInventory < ApplicationService
     # records in new_inv could be existing or new
     new_inv.each do |ir|
       inv = existing_inv[ir.store_num]
-      logger.info { "Found #{ir.quantity} bottles at #{ir.store_num}- existing inv: #{inv ? inv.quantity : "NONE"}" }
+      logger.info { "Found #{ir.quantity} bottles at #{ir.store_num} - existing inv: #{inv ? inv.quantity : "NONE"}" }
       if inv
         # PERF: Rails re-checks the FKs when the quantity is unchanged
         # alternative is to set the qty and call quantity_changed? before save

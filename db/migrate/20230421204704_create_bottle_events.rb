@@ -2,7 +2,7 @@ class CreateBottleEvents < ActiveRecord::Migration[7.0]
   def change
     create_table :bottle_events do |t|
       t.string :new_item_code
-      t.string :event_type
+      t.string :event_type, null: false
       t.text :details
 
       t.timestamps

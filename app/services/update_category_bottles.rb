@@ -17,16 +17,19 @@ class UpdateCategoryBottles < ApplicationService
   end
 
   def update_existing_bottle(bottle, new_bottle)
-    # watch for followed flag
-    bottle.assign_attributes(new_bottle.to_h)
-    changes = bottle.changes_to_save
-    bottle.save!
-    # create event
-    puts changes # WIP
+    attrs = new_bottle.to_h
+    attrs.delete(:followed)  # the API alwasys sets followed to false
+    bottle.assign_attributes(attrs)
+    if bottle.changed?
+      changes = bottle.changes_to_save
+      bottle.save!
+      BottleEvent.update_bottle(bottle, changes)
+    end
   end
 
   def insert_new_bottle(new_bottle)
-    OlccBottle.create(new_bottle.to_h)
-    # create event
+    attrs = new_bottle.to_h
+    bottle = OlccBottle.create!(attrs)
+    BottleEvent.new_bottle(bottle, attrs)
   end
 end
