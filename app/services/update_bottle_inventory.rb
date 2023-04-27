@@ -23,13 +23,17 @@ class UpdateBottleInventory < ApplicationService
       if inv
         # PERF: Rails re-checks the FKs when the quantity is unchanged
         # alternative is to set the qty and call quantity_changed? before save
+        orig_qty = inv.quantity
         inv.update(quantity: ir.quantity)
+        BottleEvent.new_inventory(inv) if orig_qty == 0
         existing_inv.delete(ir.store_num)
       else
         logger.info { "Adding #{ir.quantity} bottles at store #{ir.store_num}" }
         i = OlccInventory.create(new_item_code: ir.new_item_code,
           store_num: ir.store_num, quantity: ir.quantity)
-        unless i.valid?
+        if i.valid?
+          BottleEvent.new_inventory(i)
+        else
           logger.error { "Validations failed for store #{i.store_num} - #{i.errors.messages}" }
         end
       end
