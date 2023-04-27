@@ -1,7 +1,7 @@
 class UpdateCategoryBottles < ApplicationService
   def initialize(client, category)
     @client = client
-    @cateogy = category
+    @category = category
   end
 
   def call

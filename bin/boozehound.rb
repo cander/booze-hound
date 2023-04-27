@@ -52,6 +52,15 @@ class LoadStoresCmd
   end
 end
 
+class UpdateCategoryCmd
+  def call(client, category)
+    puts "Updating all bottles in #{category}..."
+    puts "There are now #{OlccBottle.count} bottles"
+    UpdateCategoryBottles.call(client, category)
+    puts "There are now #{OlccBottle.count} bottles"
+  end
+end
+
 class UpdateInventoryCmd
   def call(client)
     puts "Updating inventory..."
@@ -65,6 +74,7 @@ CMDS = {fetchbottlescsv: FetchBottlesCsvCmd.new,
         loadstores: LoadStoresCmd.new,
         loadbottle: LoadBottleCmd.new,
         loadbottlescsv: LoadBottlesCsvCmd.new,
+        updatecategory: UpdateCategoryCmd.new,
         updateinventory: UpdateInventoryCmd.new}
 
 cmd = ARGV.shift || usage
