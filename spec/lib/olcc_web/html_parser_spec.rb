@@ -168,7 +168,6 @@ RSpec.describe OlccWeb::HtmlParser do
       expect(avua.age).to eq("")
       expect(avua.bottle_price).to eq("49.35")
       expect(avua.category).to eq("CACHACA")
-      puts "followed: #{avua.followed}"
       expect(avua.followed).to be false
     end
   end
