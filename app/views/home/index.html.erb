@@ -1,0 +1,30 @@
+<h1>Home Page</h1>
+<h2>Other Pages:</h2>
+<ul>
+    <li> <a href="/olcc_bottles">Bottles you follow</a>
+    <li> <a href="/olcc_stores">Stores you go to</a>
+</ul>
+
+<h2>Recent Events:</h2>
+<% if @events.size == 0 %>
+  <h3>No news is boring</h3>
+<% else %>
+  <table>
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Type</th>
+        <th>Bottle</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @events.each_with_index do |event, index| %>
+        <tr class="<%= index.even? ? 'even-row' : 'odd-row' %>">
+          <td><%=  event.created_at.strftime("%e %b, %Y") %></td>
+          <td><%= event.event_type %></td>
+          <td><%= event.new_item_code %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<%end %>
