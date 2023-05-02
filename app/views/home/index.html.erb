@@ -22,7 +22,7 @@
         <tr class="<%= index.even? ? 'even-row' : 'odd-row' %>">
           <td><%=  event.created_at.strftime("%e %b, %Y") %></td>
           <td><%= event.event_type %></td>
-          <td><%= event.new_item_code %></td>
+          <td><%= link_to event.olcc_bottle.name, event.olcc_bottle %></td>
         </tr>
       <% end %>
     </tbody>

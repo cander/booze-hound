@@ -11,8 +11,10 @@ class BottleEvent < ApplicationRecord
   enum event_type: TYPES.index_by(&:to_s)
 
   def self.recents(since = 1.week.ago)
-    # eventually, all new bottles, and events on bottles we follow
-    BottleEvent.includes(:olcc_bottle).where("created_at > ?", since).order(created_at: :desc).limit(20)
+    # new bottles and events on bottles we already follow
+    BottleEvent.joins(:olcc_bottle).includes(:olcc_bottle)
+      .where("bottle_events.event_type = 'NEW BOTTLE' OR (bottle_events.created_at > ? AND olcc_bottles.followed = true)", since)
+      .order(created_at: :desc).limit(20)
   end
 
   def self.new_bottle(bottle, attrs)
