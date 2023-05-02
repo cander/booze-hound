@@ -20,7 +20,12 @@ class BottleEvent < ApplicationRecord
   end
 
   def self.update_bottle(bottle, changes)
-    create(olcc_bottle: bottle, event_type: "DESCRIPTION CHANGE", details: changes)
+    type = if (changes.size == 1) && changes.has_key?(:bottle_price)
+      "PRICE CHANGE"
+    else
+      "DESCRIPTION CHANGE"
+    end
+    create(olcc_bottle: bottle, event_type: type, details: changes)
   end
 
   def self.new_inventory(inv)

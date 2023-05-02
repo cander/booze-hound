@@ -50,6 +50,30 @@ RSpec.describe UpdateCategoryBottles do
     expect(changes["bottle_price"].last).to eq(new_price.to_s)
   end
 
+  it "should update the price an existing bottle and create an event" do
+    barcello = create(:olcc_bottle)
+    new_code = barcello.new_item_code
+    old_code = barcello.old_item_code
+    new_price = 132.95
+    client = double("olcc-client")
+    new_bottle = Dto::BottleData.new(
+      category: "RUM", new_item_code: new_code, old_item_code: old_code, name: barcello.name, size: barcello.size, proof: barcello.proof,
+      age: barcello.age, bottle_price: new_price, followed: false
+    )
+    expect(client).to receive(:get_category_bottles).and_return([new_bottle])
+
+    expect { UpdateCategoryBottles.call(client, "RUM") }
+      .to change { OlccBottle.count }.by(0)  # i.e., no change
+      .and change { BottleEvent.count }.by(1)
+
+    barcello.reload
+    expect(barcello.bottle_price).to eq(new_price)
+
+    event = barcello.bottle_events.last
+    expect(event.event_type).to eq("PRICE CHANGE")
+    expect(event.details["bottle_price"].last).to eq(new_price.to_s)
+  end
+
   it "should not create an event if there are no changes" do
     # the API always set followed to false - that's not a change
     barcello = create(:olcc_bottle, followed: true)
