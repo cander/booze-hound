@@ -15,4 +15,8 @@ FactoryBot.define do
     age { "" }
     bottle_price { 11.22 }
   end
+
+  factory :olcc_inventory do
+    quantity { 666 }
+  end
 end
