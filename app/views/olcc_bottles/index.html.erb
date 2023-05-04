@@ -1,6 +1,17 @@
 <%= stylesheet_link_tag "tables" %>
 
-<h1>List of My Bottles</h1>
+<h1>Bottles of Booze on the Wall</h1>
+<%= form_with method: :get do |form| %>
+  <%= form.label :query, "Search for bottle:" %>
+  <%= form.text_field :query, value: @query %>
+  <%= form.submit "Search" %>
+<% end %>
+
+<% if @query %>
+<h2>Bottles in OLCC</h2>
+<% else %>
+<h2>List of My Bottles</h2>
+<% end %>
 
 <table>
   <thead>
@@ -13,7 +24,7 @@
     <% @olcc_bottles.each_with_index do |bottle, index| %>
       <tr class="<%= index.even? ? 'even-row' : 'odd-row' %>">
         <td><%= link_to bottle.name, bottle %></td>
-        <td><%= bottle.bottle_price %></td>
+        <td>$<%= '%1.2f' % bottle.bottle_price %></td>
       </tr>
     <% end %>
   </tbody>

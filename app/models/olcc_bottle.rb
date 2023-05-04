@@ -15,4 +15,9 @@ class OlccBottle < ApplicationRecord
     # order by category so each category will show up as a block together
     OlccBottle.where(followed: true).order(:category)
   end
+
+  def self.search(unsafe_query)
+    safe_query = OlccBottle.sanitize_sql_like(unsafe_query)
+    OlccBottle.where("name LIKE ?", "%" + safe_query + "%")
+  end
 end
