@@ -12,8 +12,8 @@ module OlccWeb
       result = []
       new_item_code = doc.css("td.search-box").first.child["value"] # could assert this value against a param
 
-      doc.css("tr.row").each { |row| result << parse_inventory_row(new_item_code, row) }
-      doc.css("tr.alt-row").each { |row| result << parse_inventory_row(new_item_code, row) }
+      all_rows = merge_table_rows(doc.css("tr.alt-row"), doc.css("tr.row"))
+      all_rows.each { |row| result << parse_inventory_row(new_item_code, row) }
 
       result
     end
@@ -52,8 +52,8 @@ module OlccWeb
       doc = Nokogiri::HTML(cat_html)
 
       result = []
-      doc.css("tr.alt-row").each { |row| result << parse_bottle_row(row, cat) }
-      doc.css("tr.row").each { |row| result << parse_bottle_row(row, cat) }
+      all_rows = merge_table_rows(doc.css("tr.alt-row"), doc.css("tr.row"))
+      all_rows.each { |row| result << parse_bottle_row(row, cat) }
 
       result
     end
@@ -155,6 +155,19 @@ module OlccWeb
       if /An Error Has Occurred/.match?(html)
         raise "OLCC error page encountered"
       end
+    end
+
+    # merge two lists of alternating table rows
+    def self.merge_table_rows(a1, a2)
+      a2, a1 = a1, a2 if a2.size > a1.size
+      result = []
+      a2.size.times do |idx|
+        result << a1[idx]
+        result << a2[idx]
+      end
+      result << a1.last if a1.size == (a2.size + 1)
+
+      result
     end
   end
 end
