@@ -5,6 +5,7 @@
 Price: $<%= @bottle.bottle_price %><br>
 Size: <%= @bottle.size %><br>
 Proof: <%= @bottle.proof %><br>
+Age: <%= @bottle.age.empty? ? "NAS" : @bottle.age %><br>
 
 <% if @inventory.size == 0 %>
 <h2>It is NOT available at any of your stores.</h2>
