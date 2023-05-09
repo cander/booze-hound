@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_21_204704) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_08_213310) do
   create_table "bottle_events", force: :cascade do |t|
     t.string "new_item_code"
     t.string "event_type", null: false
@@ -32,6 +32,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_21_204704) do
     t.boolean "followed", default: false
   end
 
+  create_table "olcc_bottles_users", id: false, force: :cascade do |t|
+    t.string "new_item_code"
+    t.integer "user_id"
+    t.index ["new_item_code"], name: "index_olcc_bottles_users_on_new_item_code"
+    t.index ["user_id"], name: "index_olcc_bottles_users_on_user_id"
+  end
+
   create_table "olcc_inventories", force: :cascade do |t|
     t.integer "quantity"
     t.string "new_item_code"
@@ -47,6 +54,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_21_204704) do
     t.integer "zip"
     t.string "telephone"
     t.string "store_hours"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "email", null: false
+    t.string "encrypted_password"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
