@@ -19,4 +19,10 @@ FactoryBot.define do
   factory :olcc_inventory do
     quantity { 666 }
   end
+
+  factory :user do
+    first_name { "Joe" }
+    last_name { "Tester" }
+    email { "joe@test.com" }
+  end
 end
