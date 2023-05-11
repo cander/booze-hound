@@ -13,6 +13,7 @@ small_batch:
   age: 8 yrs
   bottle_price: 1.23
   followed: true
+  followers_count: 1
 
 #  new_item_code: 99900654675
 pipe_dream:
@@ -24,6 +25,7 @@ pipe_dream:
   age: ''
   bottle_price: 4.56
   followed: true
+  followers_count: 1
 
 #  new_item_code: 99900592775
 barcelo:
@@ -35,6 +37,7 @@ barcelo:
   age: ''
   bottle_price: 7.89
   followed: true
+  followers_count: 1
 
 #  new_item_code: 99900924275
 black_tot:
@@ -46,6 +49,7 @@ black_tot:
   age: ''
   bottle_price: 10.12
   followed: true
+  followers_count: 1
 
 #  new_item_code: 99900688105
 jack_honey:
@@ -57,4 +61,5 @@ jack_honey:
   age: ''
   bottle_price: 1.75
   followed: false
+  followers_count: 0
 
