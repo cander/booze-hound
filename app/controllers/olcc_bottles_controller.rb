@@ -4,6 +4,7 @@ class OlccBottlesController < ApplicationController
       @olcc_bottles = OlccBottle.search(params[:query])
       @query = params[:query]
     else
+      # TODO: based on @current_user
       @olcc_bottles = OlccBottle.followed_bottles
     end
     # might want two different views for my bottles vs. search bottles

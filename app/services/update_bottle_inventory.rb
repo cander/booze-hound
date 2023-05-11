@@ -28,6 +28,8 @@ class UpdateBottleInventory < ApplicationService
         BottleEvent.new_inventory(inv) if orig_qty == 0
         existing_inv.delete(ir.store_num)
       else
+        # TODO: eventually, only create a store inventory record for stores that
+        # some user is following. Will want a follower count for that.
         logger.info { "Adding #{ir.quantity} bottles at store #{ir.store_num}" }
         i = OlccInventory.create(new_item_code: ir.new_item_code,
           store_num: ir.store_num, quantity: ir.quantity)

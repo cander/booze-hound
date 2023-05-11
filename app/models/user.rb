@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   has_and_belongs_to_many :following_bottles, class_name: "OlccBottle", association_foreign_key: "new_item_code",
     after_add: :increment_bottle_counter_cache, after_remove: :decrement_bottle_counter_cache
+  has_and_belongs_to_many :favorite_stores, class_name: "OlccStore", association_foreign_key: "store_num"
 
   def increment_bottle_counter_cache(bottle)
     bottle.increment!(:followers_count)
