@@ -1,12 +1,11 @@
 class OlccStoresController < ApplicationController
   def index
-    @olcc_stores = OlccStore.all
+    @olcc_stores = OlccStore.find(@user.favorite_store_ids)
   end
 
   def show
     @store = OlccStore.find(params[:id])
     # TODO: sort the inventory by the name on the bottle, which isn't on inventory
-    # Someday, the bottles (second parameter) will be based on user's prefernences
-    @inventory = InventoryQuery.call([@store], [])
+    @inventory = InventoryQuery.call([@store], [@user.following_bottle_ids])
   end
 end
