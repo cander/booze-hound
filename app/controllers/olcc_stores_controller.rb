@@ -6,6 +6,6 @@ class OlccStoresController < ApplicationController
   def show
     @store = OlccStore.find(params[:id])
     # TODO: sort the inventory by the name on the bottle, which isn't on inventory
-    @inventory = InventoryQuery.call([@store], [@user.following_bottle_ids])
+    @inventory = InventoryQuery.call([@store], @user.following_bottle_ids)
   end
 end
