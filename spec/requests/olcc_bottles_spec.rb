@@ -33,8 +33,8 @@ RSpec.describe "OlccBottles", type: :request do
     it "returns http success" do
       bottle_id = "123"
       expect(OlccBottle).to receive(:find).with(bottle_id).and_return(bottle)
-      # TODO: Add user's stores
-      expect(StoreQuery).to receive(:call).with(bottle, nil).and_return([])
+      expect(user).to receive(:favorite_store_ids).and_return(fav_stores)
+      expect(StoreQuery).to receive(:call).with(bottle, fav_stores).and_return([])
 
       get olcc_bottle_url(bottle_id)
 

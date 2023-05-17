@@ -13,7 +13,6 @@ class OlccBottlesController < ApplicationController
 
   def show
     @bottle = OlccBottle.find(params[:id])
-    # Someday, the store (second parameter) will be based on user's prefernences
-    @inventory = StoreQuery.call(@bottle, nil)
+    @inventory = StoreQuery.call(@bottle, @user.favorite_store_ids)
   end
 end

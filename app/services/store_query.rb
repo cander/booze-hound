@@ -4,15 +4,16 @@
 # We do not handle ordering by distance with the idea that the list of
 # stores is already winnowed down to a manageable size.
 class StoreQuery < ApplicationService
-  def initialize(bottle_code, stores = nil)
+  def initialize(bottle_code, stores)
     @bottle_code = bottle_code
-    @stores = stores  # currently optional, but not long term
+    # stores were optional when we didn't have a way to keep track of a user's
+    # favorite stores. Might bring that back if we ever want to search
+    # across all stores - looking far afield for something.
+    @stores = stores
   end
 
   def call
-    result = OlccInventory.includes(:olcc_store).in_stock.where(new_item_code: @bottle_code)
-    result = result.where(store_num: @stores) unless @stores.nil?
-
-    result
+    OlccInventory.includes(:olcc_store).in_stock
+      .where(new_item_code: @bottle_code, store_num: @stores)
   end
 end
