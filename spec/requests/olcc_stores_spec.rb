@@ -20,13 +20,14 @@ RSpec.describe "OlccStores", type: :request do
     end
   end
 
-  describe "GET /<store-id>" do
+  describe "SHOW <store-id>" do
     it "returns http success" do
-      expect(OlccStore).to receive(:find).with("123").and_return(store)
+      store_id = "123"
+      expect(OlccStore).to receive(:find).with(store_id).and_return(store)
       expect(user).to receive(:following_bottle_ids).and_return(followed_bots)
       expect(InventoryQuery).to receive(:call).with([store], followed_bots).and_return([])
 
-      get "/olcc_stores/123"
+      get olcc_store_url(store_id)
 
       expect(response).to have_http_status(:success)
     end
