@@ -12,8 +12,10 @@ class BottleEvent < ApplicationRecord
 
   def self.recents(since = 1.week.ago)
     # new bottles and events on bottles we already follow
+    # TODO: this isn't right - this includes any bottles that are followed
+    # by anyone
     BottleEvent.joins(:olcc_bottle).includes(:olcc_bottle)
-      .where("bottle_events.event_type = 'NEW BOTTLE' OR (bottle_events.created_at > ? AND olcc_bottles.followed = true)", since)
+      .where("bottle_events.event_type = 'NEW BOTTLE' OR (bottle_events.created_at > ? AND olcc_bottles.followers_count > 0)", since)
       .order(created_at: :desc).limit(20)
   end
 

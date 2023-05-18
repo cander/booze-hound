@@ -5,7 +5,7 @@ RSpec.describe UpdateCategoryBottles do
   it "inserts a new bottle and creates an event" do
     client = double("olcc-client")
     new_bottle = Dto::BottleData.new(
-      category: "RUM", new_item_code: "111", old_item_code: "222B", name: "New Hooch", size: "666 ML", proof: 69, age: "13yrs", bottle_price: 69.69, followed: false
+      category: "RUM", new_item_code: "111", old_item_code: "222B", name: "New Hooch", size: "666 ML", proof: 69, age: "13yrs", bottle_price: 69.69
     )
     expect(client).to receive(:get_category_bottles).and_return([new_bottle])
 
@@ -15,7 +15,6 @@ RSpec.describe UpdateCategoryBottles do
 
     b = OlccBottle.find(new_bottle.new_item_code)
     expect(b.old_item_code).to eq(new_bottle.old_item_code)
-    expect(b.followed).to be false
     event = b.bottle_events.last
     expect(event.event_type).to eq("NEW BOTTLE")
   end
@@ -30,7 +29,7 @@ RSpec.describe UpdateCategoryBottles do
     client = double("olcc-client")
     new_bottle = Dto::BottleData.new(
       category: "RUM", new_item_code: new_code, old_item_code: old_code, name: new_name, size: barcello.size, proof: barcello.proof,
-      age: new_age, bottle_price: new_price, followed: false
+      age: new_age, bottle_price: new_price
     )
     expect(client).to receive(:get_category_bottles).and_return([new_bottle])
 
@@ -58,7 +57,7 @@ RSpec.describe UpdateCategoryBottles do
     client = double("olcc-client")
     new_bottle = Dto::BottleData.new(
       category: "RUM", new_item_code: new_code, old_item_code: old_code, name: barcello.name, size: barcello.size, proof: barcello.proof,
-      age: barcello.age, bottle_price: new_price, followed: false
+      age: barcello.age, bottle_price: new_price
     )
     expect(client).to receive(:get_category_bottles).and_return([new_bottle])
 
@@ -75,13 +74,12 @@ RSpec.describe UpdateCategoryBottles do
   end
 
   it "should not create an event if there are no changes" do
-    # the API always set followed to false - that's not a change
-    barcello = create(:olcc_bottle, followed: true)
+    barcello = create(:olcc_bottle)
     client = double("olcc-client")
     new_bottle = Dto::BottleData.new(
       category: "RUM", new_item_code: barcello.new_item_code, old_item_code: barcello.old_item_code,
       name: barcello.name, size: barcello.size, proof: barcello.proof,
-      age: barcello.age, bottle_price: barcello.bottle_price, followed: false
+      age: barcello.age, bottle_price: barcello.bottle_price
     )
     expect(client).to receive(:get_category_bottles).and_return([new_bottle])
 

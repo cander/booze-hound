@@ -5,7 +5,7 @@ RSpec.describe LoadBottle do
   it "should insert a bottle" do
     client = double("olcc-client")
     new_bottle = Dto::BottleData.new(
-      category: "RUM", new_item_code: "111", old_item_code: "222B", name: "New Hooch", size: "666 ML", proof: 69, age: "13yrs", bottle_price: 69.69, followed: false
+      category: "RUM", new_item_code: "111", old_item_code: "222B", name: "New Hooch", size: "666 ML", proof: 69, age: "13yrs", bottle_price: 69.69
     )
     expect(client).to receive(:get_bottle_details).and_return(new_bottle)
 
@@ -22,7 +22,7 @@ RSpec.describe LoadBottle do
     new_name = "Barcello Anejo"
     client = double("olcc-client")
     new_bottle = Dto::BottleData.new(
-      category: "RUM", new_item_code: new_code, old_item_code: old_code, name: new_name, size: barcello.size, proof: barcello.proof, age: "13yrs", bottle_price: 32.95, followed: false
+      category: "RUM", new_item_code: new_code, old_item_code: old_code, name: new_name, size: barcello.size, proof: barcello.proof, age: "13yrs", bottle_price: 32.95
     )
     expect(client).to receive(:get_bottle_details).and_return(new_bottle)
 
