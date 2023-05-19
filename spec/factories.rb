@@ -25,4 +25,9 @@ FactoryBot.define do
     last_name { "Tester" }
     email { "joe@test.com" }
   end
+
+  factory :bottle_event do
+    event_type { "NEW BOTTLE" }
+    new_item_code { "112233" }
+  end
 end

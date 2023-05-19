@@ -14,16 +14,16 @@ Welcome, <%= @user.first_name %>
     <thead>
       <tr>
         <th>Date</th>
-        <th>Type</th>
         <th>Bottle</th>
+        <th>Info</th>
       </tr>
     </thead>
     <tbody>
       <% @events.each_with_index do |event, index| %>
         <tr class="<%= index.even? ? 'even-row' : 'odd-row' %>">
-          <td><%=  event.created_at.strftime("%e %b, %Y") %></td>
-          <td><%= event.event_type %></td>
+          <td><%=  format_date(event) %></td>
           <td><%= link_to event.olcc_bottle.name, event.olcc_bottle %></td>
+          <td><%= show_event(event) %></td>
         </tr>
       <% end %>
     </tbody>
