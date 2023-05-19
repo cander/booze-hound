@@ -18,7 +18,6 @@ class UpdateCategoryBottles < ApplicationService
 
   def update_existing_bottle(bottle, new_bottle)
     attrs = new_bottle.to_h
-    attrs.delete(:followed)  # the API alwasys sets followed to false
     bottle.assign_attributes(attrs)
     if bottle.changed?
       changes = bottle.changes_to_save
