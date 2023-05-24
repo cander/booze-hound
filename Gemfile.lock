@@ -258,6 +258,9 @@ GEM
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
+    yaml_db (0.7.0)
+      rails (>= 3.0)
+      rake (>= 0.8.7)
     zeitwerk (2.6.8)
 
 PLATFORMS
@@ -285,6 +288,7 @@ DEPENDENCIES
   stimulus-rails
   tzinfo-data
   web-console
+  yaml_db
 
 RUBY VERSION
    ruby 3.2.0p0
