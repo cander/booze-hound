@@ -5,4 +5,4 @@ require_relative "config/application"
 
 Rails.application.load_tasks
 
-require "standard/rake"
+require "standard/rake" unless ENV["RAILS_ENV"] == "production"

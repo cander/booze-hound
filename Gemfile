@@ -81,3 +81,5 @@ group :development, :test do
   gem "rspec-rails"
   gem "factory_bot_rails", "~> 6.2"
 end
+
+gem "dockerfile-rails", ">= 1.3", group: :development
