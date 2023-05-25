@@ -1,0 +1,25 @@
+
+name: Deploy Fly
+
+on:
+  workflow_run:
+    workflows: [Ruby CI]
+    branches: [main]
+    types:
+      - completed
+
+jobs:
+  on-success:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - run: echo 'The Ruby CI workflow passed - ready to deploy'
+      - run: echo ${{ github.ref }}
+  on-failure:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    steps:
+      - run: echo 'Ruby CI failed - no deploy for you!'
+      - run: echo "### NOT deployed :no_entry_sign:" >> $GITHUB_STEP_SUMMARY ; exit 1
+
+
