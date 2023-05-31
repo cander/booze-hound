@@ -31,7 +31,7 @@ RSpec.describe "OlccBottles", type: :request do
 
   describe "SHOW <bottle-id>" do
     it "returns http success" do
-      bottle_id = "123"
+      bottle_id = bottle.id
       expect(OlccBottle).to receive(:find).with(bottle_id).and_return(bottle)
       expect(user).to receive(:favorite_store_ids).and_return(fav_stores)
       expect(StoreQuery).to receive(:call).with(bottle, fav_stores).and_return([])
@@ -39,7 +39,7 @@ RSpec.describe "OlccBottles", type: :request do
       get olcc_bottle_url(bottle_id)
 
       expect(response).to have_http_status(:success)
-      # expect(response).to render_template(:show)
+      expect(response).to render_template(:show)
     end
   end
 end
