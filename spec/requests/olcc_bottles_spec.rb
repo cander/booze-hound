@@ -42,4 +42,29 @@ RSpec.describe "OlccBottles", type: :request do
       expect(response).to render_template(:show)
     end
   end
+
+  describe "UPDATE <bottle-id>" do
+    it "follows the bottle and redirects to show page" do
+      bottle_id = bottle.id
+      expect(OlccBottle).to receive(:find).with(bottle_id).and_return(bottle)
+      expect(user).to receive(:follow_bottle).with(bottle)
+
+      patch olcc_bottle_url(bottle_id), params: {olcc_bottle: {follow: "true"}}
+
+      expect(response).to redirect_to(olcc_bottle_url(bottle))
+    end
+
+    it "unfollows the bottle and redirects to show page" do
+      bottle_id = bottle.id
+      expect(OlccBottle).to receive(:find).with(bottle_id).and_return(bottle)
+      expect(user).to receive(:unfollow_bottle).with(bottle)
+
+      patch olcc_bottle_url(bottle_id), params: {olcc_bottle: {follow: "false"}}
+
+      expect(response).to redirect_to(olcc_bottle_url(bottle))
+    end
+
+    # Would test 404 with an invalid bottle id, but Rails should automatically
+    # handle that in production (but not test)
+  end
 end

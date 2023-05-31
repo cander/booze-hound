@@ -15,4 +15,15 @@ class OlccBottlesController < ApplicationController
     @bottle = OlccBottle.find(params[:id])
     @inventory = StoreQuery.call(@bottle, @user.favorite_store_ids)
   end
+
+  def update
+    @bottle = OlccBottle.find(params[:id])
+    if params[:olcc_bottle][:follow] == "true"
+      @user.follow_bottle(@bottle)
+    else
+      @user.unfollow_bottle(@bottle)
+    end
+
+    redirect_to @bottle
+  end
 end
