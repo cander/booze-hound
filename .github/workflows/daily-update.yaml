@@ -1,0 +1,15 @@
+
+name: Daily Update
+
+on:
+  schedule:
+    - cron:  '50 22 * * *'
+
+jobs:
+  daily:
+    name: Daily Updates
+    runs-on: ubuntu-latest
+    steps:
+      - name: curl
+        run: |
+          curl -H 'Authorization: Bearer ${{ secrets.TASKS_TOKEN }}' 'https://booze-hound.fly.dev/tasks/daily'

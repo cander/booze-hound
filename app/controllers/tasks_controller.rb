@@ -9,7 +9,7 @@ class TasksController < ApplicationController
 
   def daily
     response.headers["Content-Type"] = "text/event-stream"
-    if Rails.env.test?
+    if Rails.env.test? || ENV["DISABLE_TASKS"]
       response.stream.write "OK\n"
       return
     end
