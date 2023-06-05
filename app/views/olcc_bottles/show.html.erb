@@ -38,7 +38,7 @@ Following: <%= user_follows %>
     <tbody>
     <% @inventory.each_with_index do |inv, index| %>
         <tr class="<%= index.even? ? 'even-row' : 'odd-row' %>">
-          <td><%= inv.olcc_store.name %></td>
+          <td><%= link_to inv.olcc_store.name, inv.olcc_store %></td>
           <td><%= inv.olcc_store.address %></td>
           <td><%= inv.olcc_store.store_hours %></td>
           <td class="right"><%= inv.quantity %></td>

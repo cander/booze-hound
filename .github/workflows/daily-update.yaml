@@ -3,7 +3,7 @@ name: Daily Update
 
 on:
   schedule:
-    - cron:  '50 22 * * *'
+    - cron:  '5 10 * * *'
 
 jobs:
   daily:

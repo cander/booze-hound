@@ -22,7 +22,7 @@ Inventory
   <% @inventory.each_with_index do |inv, index| %>
       <tr class="<%= index.even? ? 'even-row' : 'odd-row' %>">
         <td><%= inv.olcc_bottle.new_item_code %></td>
-        <td><%= inv.olcc_bottle.name %></td>
+        <td><%= link_to inv.olcc_bottle.name, inv.olcc_bottle %></td>
         <td><%= inv.olcc_bottle.bottle_price %></td>
         <td class="right"><%= inv.quantity %></td>
       </tr>
