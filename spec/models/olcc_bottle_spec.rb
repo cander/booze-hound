@@ -32,4 +32,26 @@ RSpec.describe OlccBottle do
       expect(bottle.followers_count).to eq(0)
     end
   end
+
+  describe "prettify_name" do
+    it "should titleize the description when no name is provided" do
+      expect(bottle.prettify_name).to be true
+      expect(bottle.name).to eq(bottle.description.titleize)
+    end
+    it "should set name to the provided name" do
+      bottle.name = "Replace Me"
+      new_name = "Great Rum"
+
+      expect(bottle.prettify_name(new_name)).to be true
+      expect(bottle.name).to eq(new_name)
+    end
+    it "should not replace a non-default name" do
+      orig_name = "Great Rum"
+      bottle.name = orig_name
+      bottle.save
+
+      expect(bottle.prettify_name).to be true
+      expect(bottle.name).to eq(orig_name)
+    end
+  end
 end

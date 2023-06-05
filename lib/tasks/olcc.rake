@@ -28,4 +28,9 @@ namespace :olcc do
     UpdateAllInventory.call(client)
     puts "There are now #{OlccInventory.count - count} new inventory records"
   end
+
+  desc "Pretty up the names of all bottles"
+  task prettify_bottles: :environment do |t, args|
+    OlccBottle.all.each { |b| b.prettify_name }
+  end
 end

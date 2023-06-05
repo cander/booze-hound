@@ -21,4 +21,14 @@ class OlccBottle < ApplicationRecord
     safe_query = OlccBottle.sanitize_sql_like(unsafe_query)
     OlccBottle.where("name LIKE ?", "%" + safe_query + "%")
   end
+
+  def prettify_name(better_name = nil)
+    if better_name
+      self.name = better_name
+    elsif name == description
+      self.name = name.titleize
+    end
+
+    save
+  end
 end
