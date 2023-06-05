@@ -6,6 +6,7 @@
 #  new_item_code: 99900621975
 small_batch:
   name: 1792 SMALL BATCH 8 YR
+  description: 1792 SMALL BATCH 8 YR
   old_item_code: 6219B
   category: DOMESTIC WHISKEY
   size: 750 ML
@@ -17,6 +18,7 @@ small_batch:
 #  new_item_code: 99900654675
 pipe_dream:
   name: REDWOOD EMPIRE PIPE DREAM
+  description: REDWOOD EMPIRE PIPE DREAM
   old_item_code: 6546B
   category: DOMESTIC WHISKEY
   size: 750 ML
@@ -28,6 +30,7 @@ pipe_dream:
 #  new_item_code: 99900592775
 barcelo:
   name: BARCELO IMPERIAL
+  description: BARCELO IMPERIAL
   old_item_code: 5927B
   category: RUM
   size: 750 ML
@@ -39,6 +42,7 @@ barcelo:
 #  new_item_code: 99900924275
 black_tot:
   name: BLACK TOT
+  description: BLACK TOT
   old_item_code: 9242B
   category: RUM
   size: 750 ML
@@ -50,6 +54,7 @@ black_tot:
 #  new_item_code: 99900688105
 jack_honey:
   name: JACK DANIEL'S TN HONEY
+  description: JACK DANIEL'S TN HONEY
   old_item_code: 6881F
   category: DOMESTIC WHISKEY
   size: 50 ML
@@ -57,4 +62,3 @@ jack_honey:
   age: ''
   bottle_price: 1.75
   followers_count: 0
-

@@ -15,6 +15,7 @@ RSpec.describe UpdateCategoryBottles do
 
     b = OlccBottle.find(new_bottle.new_item_code)
     expect(b.old_item_code).to eq(new_bottle.old_item_code)
+    expect(b.name).to eq(b.description)
     event = b.bottle_events.last
     expect(event.event_type).to eq("NEW BOTTLE")
   end

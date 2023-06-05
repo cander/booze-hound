@@ -28,6 +28,7 @@ class UpdateCategoryBottles < ApplicationService
 
   def insert_new_bottle(new_bottle)
     attrs = new_bottle.to_h
+    attrs[:description] = attrs[:name]
     bottle = OlccBottle.create!(attrs)
     BottleEvent.new_bottle(bottle, attrs)
   end
