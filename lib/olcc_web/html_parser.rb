@@ -79,7 +79,7 @@ module OlccWeb
       # NB: assuming the old item codes always end with a capital letter
       if desc =~ /Item\s+(\d+)\((\d+[A-Z])\):\s+(\w.*\S)\s+$/
         data = Regexp.last_match
-        {new_item_code: data[1], old_item_code: data[2], name: data[3].strip}
+        {new_item_code: data[1], old_item_code: data[2], description: data[3].strip}
       end
       # else returning nil
     end
@@ -139,7 +139,7 @@ module OlccWeb
       attrs = {
         new_item_code: data[0].text.strip,
         old_item_code: data[1].text.strip,
-        name: data[2].text.strip,
+        description: data[2].text.strip,
         size: data[3].text.strip,
         proof: data[4].text.strip,
         age: data[5].text.strip,

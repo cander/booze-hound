@@ -5,7 +5,8 @@ RSpec.describe UpdateCategoryBottles do
   it "inserts a new bottle and creates an event" do
     client = double("olcc-client")
     new_bottle = Dto::BottleData.new(
-      category: "RUM", new_item_code: "111", old_item_code: "222B", name: "New Hooch", size: "666 ML", proof: 69, age: "13yrs", bottle_price: 69.69
+      category: "RUM", new_item_code: "111", old_item_code: "222B",
+      description: "New Hooch", size: "666 ML", proof: 69, age: "13yrs", bottle_price: 69.69
     )
     expect(client).to receive(:get_category_bottles).and_return([new_bottle])
 
@@ -24,12 +25,13 @@ RSpec.describe UpdateCategoryBottles do
     barcello = create(:olcc_bottle)
     new_code = barcello.new_item_code
     old_code = barcello.old_item_code
-    new_name = "Barcello Anejo"
+    new_desc = "BARCELO ANEJO"
     new_age = "13 yrs"
     new_price = 32.95
     client = double("olcc-client")
     new_bottle = Dto::BottleData.new(
-      category: "RUM", new_item_code: new_code, old_item_code: old_code, name: new_name, size: barcello.size, proof: barcello.proof,
+      category: "RUM", new_item_code: new_code, old_item_code: old_code,
+      description: new_desc, size: barcello.size, proof: barcello.proof,
       age: new_age, bottle_price: new_price
     )
     expect(client).to receive(:get_category_bottles).and_return([new_bottle])
@@ -39,7 +41,10 @@ RSpec.describe UpdateCategoryBottles do
       .and change { BottleEvent.count }.by(1)
 
     barcello.reload
-    expect(barcello.name).to eq(new_name)
+    expect(barcello.description).to eq(new_desc)
+    # TODO - maybe : test that the name gets updated when description
+    # gets updated, although the model could/should be testing that.
+    # expect(barcello.name).to eq(new_desc.titleize)
     expect(barcello.age).to eq(new_age)
     expect(barcello.bottle_price).to eq(new_price)
 
@@ -57,7 +62,8 @@ RSpec.describe UpdateCategoryBottles do
     new_price = 132.95
     client = double("olcc-client")
     new_bottle = Dto::BottleData.new(
-      category: "RUM", new_item_code: new_code, old_item_code: old_code, name: barcello.name, size: barcello.size, proof: barcello.proof,
+      category: "RUM", new_item_code: new_code, old_item_code: old_code,
+      description: barcello.description, size: barcello.size, proof: barcello.proof,
       age: barcello.age, bottle_price: new_price
     )
     expect(client).to receive(:get_category_bottles).and_return([new_bottle])
@@ -79,7 +85,7 @@ RSpec.describe UpdateCategoryBottles do
     client = double("olcc-client")
     new_bottle = Dto::BottleData.new(
       category: "RUM", new_item_code: barcello.new_item_code, old_item_code: barcello.old_item_code,
-      name: barcello.name, size: barcello.size, proof: barcello.proof,
+      description: barcello.description, size: barcello.size, proof: barcello.proof,
       age: barcello.age, bottle_price: barcello.bottle_price
     )
     expect(client).to receive(:get_category_bottles).and_return([new_bottle])

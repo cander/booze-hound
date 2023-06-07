@@ -7,7 +7,6 @@ FactoryBot.define do
 
   factory :olcc_bottle do
     new_item_code { "99900592775" }
-    name { "BARCELO IMPERIAL" }
     description { "BARCELO IMPERIAL" }
     old_item_code { "5927B" }
     category { "RUM" }

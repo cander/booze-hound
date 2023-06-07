@@ -65,7 +65,7 @@ RSpec.describe OlccWeb::HtmlParser do
             expect(details).to_not be_nil
             expect(details[:new_item_code]).to eq(new_item_code)
             expect(details[:old_item_code]).to eq(old_item_code)
-            expect(details[:name]).to eq(description)
+            expect(details[:description]).to eq(description)
           }
         end
       end
@@ -143,7 +143,7 @@ RSpec.describe OlccWeb::HtmlParser do
       expect(details).to_not be_nil
       expect(details.new_item_code).to eq("99900592775")
       expect(details.old_item_code).to eq("5927B")
-      expect(details.name).to eq("BARCELO IMPERIAL")
+      expect(details.description).to eq("BARCELO IMPERIAL")
       expect(details.size).to eq("750 ML")
       expect(details.proof).to eq(80.0)
       expect(details.category).to eq("RUM")
@@ -162,7 +162,7 @@ RSpec.describe OlccWeb::HtmlParser do
       avua = bottles.first
       expect(avua.new_item_code).to eq("99900279575")
       expect(avua.old_item_code).to eq("2795B")
-      expect(avua.name).to eq("AVUA AMBURANA")
+      expect(avua.description).to eq("AVUA AMBURANA")
       expect(avua.size).to eq("750 ML")
       expect(avua.proof).to eq("80.0")
       expect(avua.age).to eq("")

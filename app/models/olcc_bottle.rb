@@ -3,6 +3,12 @@ class OlccBottle < ApplicationRecord
   has_many :bottle_events, foreign_key: "new_item_code"
   has_and_belongs_to_many :followers, class_name: "User", foreign_key: "new_item_code"
 
+  # description is ALL CAPS from OLCC. name is a more user-friendly
+  # version - give it an initial mixed-case value based on description.
+  before_create do
+    self.name = description.titleize if name.blank?
+  end
+
   CATEGORIES = [
     "CACHACA",
     "DOMESTIC WHISKEY",
@@ -22,6 +28,7 @@ class OlccBottle < ApplicationRecord
     OlccBottle.where("name LIKE ?", "%" + safe_query + "%")
   end
 
+  # After adding the before_create hook, this might be obsolete
   def prettify_name(better_name = nil)
     if better_name
       self.name = better_name
