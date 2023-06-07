@@ -22,16 +22,16 @@ RSpec.describe UpdateCategoryBottles do
   end
 
   it "should update an existing bottle and create an event" do
-    barcello = create(:olcc_bottle)
-    new_code = barcello.new_item_code
-    old_code = barcello.old_item_code
+    barcelo = create(:olcc_bottle)
+    new_code = barcelo.new_item_code
+    old_code = barcelo.old_item_code
     new_desc = "BARCELO ANEJO"
     new_age = "13 yrs"
     new_price = 32.95
     client = double("olcc-client")
     new_bottle = Dto::BottleData.new(
       category: "RUM", new_item_code: new_code, old_item_code: old_code,
-      description: new_desc, size: barcello.size, proof: barcello.proof,
+      description: new_desc, size: barcelo.size, proof: barcelo.proof,
       age: new_age, bottle_price: new_price
     )
     expect(client).to receive(:get_category_bottles).and_return([new_bottle])
@@ -40,13 +40,13 @@ RSpec.describe UpdateCategoryBottles do
       .to change { OlccBottle.count }.by(0)  # i.e., no change
       .and change { BottleEvent.count }.by(1)
 
-    barcello.reload
-    expect(barcello.description).to eq(new_desc)
-    expect(barcello.name).to eq(new_desc.titleize)
-    expect(barcello.age).to eq(new_age)
-    expect(barcello.bottle_price).to eq(new_price)
+    barcelo.reload
+    expect(barcelo.description).to eq(new_desc)
+    expect(barcelo.name).to eq(new_desc.titleize)
+    expect(barcelo.age).to eq(new_age)
+    expect(barcelo.bottle_price).to eq(new_price)
 
-    event = barcello.bottle_events.last
+    event = barcelo.bottle_events.last
     expect(event.event_type).to eq("DESCRIPTION CHANGE")
     changes = event.details
     expect(changes["age"].last).to eq(new_age)
@@ -54,15 +54,15 @@ RSpec.describe UpdateCategoryBottles do
   end
 
   it "should update the price an existing bottle and create an event" do
-    barcello = create(:olcc_bottle)
-    new_code = barcello.new_item_code
-    old_code = barcello.old_item_code
+    barcelo = create(:olcc_bottle)
+    new_code = barcelo.new_item_code
+    old_code = barcelo.old_item_code
     new_price = 132.95
     client = double("olcc-client")
     new_bottle = Dto::BottleData.new(
       category: "RUM", new_item_code: new_code, old_item_code: old_code,
-      description: barcello.description, size: barcello.size, proof: barcello.proof,
-      age: barcello.age, bottle_price: new_price
+      description: barcelo.description, size: barcelo.size, proof: barcelo.proof,
+      age: barcelo.age, bottle_price: new_price
     )
     expect(client).to receive(:get_category_bottles).and_return([new_bottle])
 
@@ -70,21 +70,21 @@ RSpec.describe UpdateCategoryBottles do
       .to change { OlccBottle.count }.by(0)  # i.e., no change
       .and change { BottleEvent.count }.by(1)
 
-    barcello.reload
-    expect(barcello.bottle_price).to eq(new_price)
+    barcelo.reload
+    expect(barcelo.bottle_price).to eq(new_price)
 
-    event = barcello.bottle_events.last
+    event = barcelo.bottle_events.last
     expect(event.event_type).to eq("PRICE CHANGE")
     expect(event.details["bottle_price"].last).to eq(new_price.to_s)
   end
 
   it "should not create an event if there are no changes" do
-    barcello = create(:olcc_bottle)
+    barcelo = create(:olcc_bottle)
     client = double("olcc-client")
     new_bottle = Dto::BottleData.new(
-      category: "RUM", new_item_code: barcello.new_item_code, old_item_code: barcello.old_item_code,
-      description: barcello.description, size: barcello.size, proof: barcello.proof,
-      age: barcello.age, bottle_price: barcello.bottle_price
+      category: "RUM", new_item_code: barcelo.new_item_code, old_item_code: barcelo.old_item_code,
+      description: barcelo.description, size: barcelo.size, proof: barcelo.proof,
+      age: barcelo.age, bottle_price: barcelo.bottle_price
     )
     expect(client).to receive(:get_category_bottles).and_return([new_bottle])
 
