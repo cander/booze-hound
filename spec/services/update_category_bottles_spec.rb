@@ -42,9 +42,7 @@ RSpec.describe UpdateCategoryBottles do
 
     barcello.reload
     expect(barcello.description).to eq(new_desc)
-    # TODO - maybe : test that the name gets updated when description
-    # gets updated, although the model could/should be testing that.
-    # expect(barcello.name).to eq(new_desc.titleize)
+    expect(barcello.name).to eq(new_desc.titleize)
     expect(barcello.age).to eq(new_age)
     expect(barcello.bottle_price).to eq(new_price)
 

@@ -33,6 +33,23 @@ RSpec.describe OlccBottle do
     end
   end
 
+  describe "updating description" do
+    it "should update the name based on the new description" do
+      bottle.update(description: "A FINE RUM")
+      bottle.reload
+
+      expect(bottle.name).to eq("A Fine Rum")
+    end
+    it "should not update a non-default name" do
+      non_default_name = "An OK Rum"
+      bottle.update(name: non_default_name)
+      bottle.update(description: "A FINE RUM")
+      bottle.reload
+
+      expect(bottle.name).to eq(non_default_name)
+    end
+  end
+
   describe "prettify_name" do
     it "should titleize the description when no name is provided" do
       expect(bottle.prettify_name).to be true

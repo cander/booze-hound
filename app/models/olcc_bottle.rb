@@ -8,6 +8,8 @@ class OlccBottle < ApplicationRecord
   before_create do
     self.name = description.titleize if name.blank?
   end
+  # and keep it in sync if the description changes
+  before_update :sync_name_to_description
 
   CATEGORIES = [
     "CACHACA",
@@ -37,5 +39,18 @@ class OlccBottle < ApplicationRecord
     end
 
     save
+  end
+
+  private
+
+  def sync_name_to_description
+    desc_change = changes_to_save[:description]
+    if desc_change
+      prev_desc = desc_change.first
+      if name == prev_desc.titleize
+        # the name is the default based on the previous description
+        self.name = description.titleize
+      end
+    end
   end
 end
