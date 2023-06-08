@@ -48,6 +48,7 @@ RSpec.describe "OlccBottles", type: :request do
       bottle_id = bottle.id
       expect(OlccBottle).to receive(:find).with(bottle_id).and_return(bottle)
       expect(user).to receive(:follow_bottle).with(bottle)
+      expect(ApplicationController).to receive(:olcc_client).and_return(nil)
 
       patch olcc_bottle_url(bottle_id), params: {olcc_bottle: {follow: "true"}}
 

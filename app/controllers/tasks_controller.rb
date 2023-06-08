@@ -14,12 +14,11 @@ class TasksController < ApplicationController
       return
     end
 
-    client = OlccWeb::Client.new(Rails.logger)
     count = OlccBottle.count
-    UpdateCategoryBottles.call(client, "DOMESTIC WHISKEY")
+    UpdateCategoryBottles.call(olcc_client, "DOMESTIC WHISKEY")
     response.stream.write "Found #{OlccBottle.count - count} new bottles\n"
     count = OlccInventory.count
-    UpdateAllInventory.call(client)
+    UpdateAllInventory.call(olcc_client)
     response.stream.write "There are now #{OlccInventory.count - count} new inventory records\n"
   ensure
     response.stream.close

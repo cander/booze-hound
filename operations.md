@@ -42,7 +42,7 @@ with the same value.
 
 To disable the work of the task (e.g., during testing)
 set the `DISABLE_TASKS` environment variable to any value.
-For the deployed instance, do this in `[fly.toml](fly.toml)`:
+For the deployed instance, add this in [`fly.toml`](fly.toml):
 ```
 [env]
   DISABLE_TASKS = true

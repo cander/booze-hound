@@ -19,7 +19,7 @@ class OlccBottlesController < ApplicationController
   def update
     @bottle = OlccBottle.find(params[:id])
     if params[:olcc_bottle][:follow] == "true"
-      @user.follow_bottle(@bottle)
+      UserFollowBottle.call(olcc_client, @user, @bottle)
     else
       @user.unfollow_bottle(@bottle)
     end
