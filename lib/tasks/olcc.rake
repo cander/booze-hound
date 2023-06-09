@@ -21,12 +21,7 @@ namespace :olcc do
   desc "Run the daily updates for everything we're following"
   task daily_update: :environment do |t, args|
     client = OlccWeb::Client.new(Rails.logger)
-    count = OlccBottle.count
-    UpdateCategoryBottles.call(client, "DOMESTIC WHISKEY")
-    puts "Found #{OlccBottle.count - count} new bottles"
-    count = OlccInventory.count
-    UpdateAllInventory.call(client)
-    puts "There are now #{OlccInventory.count - count} new inventory records"
+    DailyUpdate.call(client, $stdout)
   end
 
   desc "Pretty up the names of all bottles"

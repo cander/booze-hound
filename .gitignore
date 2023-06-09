@@ -8,6 +8,8 @@
 vendor
 *.swp
 .irb*
+# work is a junk drawer
+/work
 
 # Ignore bundler config.
 /.bundle

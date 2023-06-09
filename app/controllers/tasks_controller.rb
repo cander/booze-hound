@@ -14,12 +14,7 @@ class TasksController < ApplicationController
       return
     end
 
-    count = OlccBottle.count
-    UpdateCategoryBottles.call(olcc_client, "DOMESTIC WHISKEY")
-    response.stream.write "Found #{OlccBottle.count - count} new bottles\n"
-    count = OlccInventory.count
-    UpdateAllInventory.call(olcc_client)
-    response.stream.write "There are now #{OlccInventory.count - count} new inventory records\n"
+    DailyUpdate.call(olcc_client, response.stream)
   ensure
     response.stream.close
   end
