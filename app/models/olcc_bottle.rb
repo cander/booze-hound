@@ -27,7 +27,7 @@ class OlccBottle < ApplicationRecord
 
   def self.search(unsafe_query)
     safe_query = OlccBottle.sanitize_sql_like(unsafe_query)
-    OlccBottle.where("name LIKE ?", "%" + safe_query + "%")
+    OlccBottle.where("name LIKE ?", "%" + safe_query + "%").order(:name)
   end
 
   # After adding the before_create hook, this might be obsolete

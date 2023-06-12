@@ -13,8 +13,7 @@ RSpec.describe "OlccBottles", type: :request do
 
   describe "GET /index" do
     it "returns http success" do
-      expect(user).to receive(:following_bottle_ids).and_return(followed_bots)
-      expect(OlccBottle).to receive(:find).with(followed_bots).and_return([])
+      expect(UserBottlesQuery).to receive(:call).with(user).and_return([])
 
       get "/olcc_bottles"
 
