@@ -10,12 +10,11 @@ class InventoryQuery < ApplicationService
   end
 
   def call
-    # what if we joined instead of including? We could sort by bottle name
-    # someday we'll want/need pagination, in which case sorting and pagination
-    # needs to be handled by DB, which means joining.
-    result = OlccInventory.in_stock.includes(:olcc_bottle).where(store_num: @stores)
+    # we are joining in the DB and including in a second query.
+    # It would be nice if we could bring back all the joined rows and use them
+    # in the views. As I recall, there's a way to do that - later.
+    result = OlccInventory.in_stock.joins(:olcc_bottle).where(store_num: @stores)
     result = result.where(new_item_code: @bottles) unless @bottles.empty?
-
-    result
+    result.order(:category).order(:name).includes(:olcc_bottle)
   end
 end
