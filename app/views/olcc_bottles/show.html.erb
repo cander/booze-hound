@@ -19,11 +19,12 @@ Following: <%= user_follows %>
   <% end %>
 <% end %>
 
-<% if @inventory.size == 0 %>
+<% num_stores = @inventory.size %>
+<% if num_stores == 0 %>
 <h2>It is NOT available at any of your stores.</h2>
 <% else %>
   <h2>
-  Available at the following <%= @inventory.size %> stores:
+  Available at the following <%= num_stores %> stores:
   </h2>
 
   <table>
