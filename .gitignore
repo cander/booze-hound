@@ -25,6 +25,7 @@ vendor
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
+!/tmp/ui-dev
 !/log/.keep
 !/tmp/.keep
 
