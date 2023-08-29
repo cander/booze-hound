@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-bs-theme="dark">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,48 +18,65 @@
     <div class="container my-4"><!-- BEGIN page container -->
         <!-- BEGIN Header include -->
         <header class="my-4">
-            <div class="row">
-                <div class="col-2">
-                    <a href="/" class="mb-2 mb-lg-0 text-decoration-none">Booze Hound</a>
-                </div>
-                <div class="col-4">
-                    <ul class="nav me-lg-auto mb-2 mb-md-0">
-                        <li><a href="#" class="nav-link px-2 link-secondary">Page 1</a></li>
-                        <li><a href="#" class="nav-link px-2 link-body-emphasis">Page 2</a></li>
-                        <li><a href="#" class="nav-link px-2 link-body-emphasis">Page 3</a></li>
-                    </ul>
-                </div>
-                <div class="col-6">
-                    <div class="dropdown text-end">
-                        <div class="text-end">
-                            <button type="button" class="btn btn-outline-primary me-2">Login</button>
-                            <button type="button" class="btn btn-primary me-2">Sign-up</button>
-                            <a href="#" class="link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="https://avatars.githubusercontent.com/u/223165" alt="Charles Anderson" width="32" height="32" class="rounded-circle">
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end text-small">
-                                <li><a class="dropdown-item" href="#">Settings</a></li>
-                                <li><a class="dropdown-item" href="#">Profile</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#">Sign out</a></li>
-                            </ul>
+            <nav class="navbar navbar-expand-lg bg-body-tertiary">
+                <div class="container-fluid">
+                    <div class="me-5">
+                        <a class="navbar-brand mb-2 mb-lg-0 text-decoration-none fs-1" href="#"><i class="fa-solid fa-dog me-2"></i>Booze Hound</a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                    </div>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto mb-2 me-3 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="/">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="help">Help</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="about" role="button" data-bs-toggle="dropdown" aria-expanded="false">About</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Updates</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link link-primary" href="login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link link-primary" href="sign-up">Sign-up</a>
+                            </li>
+                        </ul>
+                        <div>
+                            <div>
+                                <a href="#" class="link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="https://avatars.githubusercontent.com/u/223165" alt="Charles Anderson" width="32" height="32" class="rounded-circle">
+                                </a>
+                                <ul class="dropdown-menu text-small dropdown-menu-lg-end" data-bs-display="static">
+                                    <li><a class="dropdown-item" href="user/settings"><i class="fa-solid fa-gear me-2"></i>Settings</a></li>
+                                    <li><a class="dropdown-item" href="user/profile"><i class="fa-solid fa-user me-2"></i>Profile</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="signout"><i class="fa-solid fa-arrow-right-from-bracket me-2"></i>Sign out</a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </nav>
         </header>
         <!-- END Header include -->
         <!-- END Body include -->
         <main>
             <div class="alert alert-primary" role="alert">
-                <p class="m-0 p-0"><i class="bi bi-chat-right-quote-fill me-2 fs-4 align-middle"></i>Welcome, Charles!</p>
+                <p class="m-0 p-0"><i class="fa-regular fa-message me-2 fs-4 align-middle"></i>Welcome, Charles!</p>
             </div>
             <div class="row">
-                <div class="col-8">
+                <div class="col-lg-8 mb-4">
                     <h2>Recent Events</h2>
-                    <table class="table table-dark table-striped table-hover align-top">
+                    <table class="table table-striped table-hover align-top">
                         <thead>
                             <tr>
+                                <th scope="col">New</th>
                                 <th scope="col">Date</th>
                                 <th scope="col">Bottle</th>
                                 <th scope="col">Info</th>
@@ -67,116 +84,146 @@
                         </thead>
                         <tbody class="table-striped table-group-divider">
                             <tr>
+                                <td><span class="text-danger"><i class="fa-solid fa-plus ms-2"></i></span></td>
                                 <td>26 Aug 2023</td>
                                 <td><a href="/olcc_bottles/99900052175">Distiller's Cut Rum</a></td>
                                 <td>New bottle</td>
                             </tr>
                             <tr>
+                                <td><span class="text-danger"><i class="fa-solid fa-plus ms-2"></i></span></td>
                                 <td>26 Aug 2023</td>
                                 <td><a href="/olcc_bottles/99901142875">Browne Family Rye Whiskey</a></td>
                                 <td>New bottle</td>
                             </tr>
                             <tr>
+                                <td></td>
                                 <td>25 Aug 2023</td>
                                 <td><a href="/olcc_bottles/99901121575">Templeton Rye 6 Yr Barrel</a></td>
                                 <td>New bottle</td>
                             </tr>
                             <tr>
+                                <td></td>
                                 <td>25 Aug 2023</td>
                                 <td><a href="/olcc_bottles/99901136575">Elijah Craig Ryder Cup</a></td>
                                 <td>New bottle</td>
                             </tr>
                             <tr>
+                                <td></td>
                                 <td>22 Aug 2023</td>
                                 <td><a href="/olcc_bottles/99900063310">Montego Bay Coconut</a></td>
                                 <td>New bottle</td>
                             </tr>
                             <tr>
+                                <td></td>
                                 <td>22 Aug 2023</td>
                                 <td><a href="/olcc_bottles/99901144237">Tin Cup Adventure Pack</a></td>
                                 <td>New bottle</td>
                             </tr>
                             <tr>
+                                <td></td>
                                 <td>1 Aug 2023</td>
                                 <td><a href="/olcc_bottles/99900916175">The Real Mccoy Limited</a></td>
                                 <td>price changed from $89.95 to $87.95</td>
                             </tr>
                             <tr>
+                                <td></td>
                                 <td>1 Aug 2023</td>
                                 <td><a href="/olcc_bottles/99900200375">Mt. Gay Dark Eclipse Rum</a></td>
                                 <td>price changed from $23.95 to $19.95</td>
                             </tr>
                             <tr>
+                                <td></td>
                                 <td>1 Aug 2023</td>
                                 <td><a href="/olcc_bottles/99900189275">Mt. Gay Black Barrel Rum</a></td>
                                 <td>price changed from $39.95 to $44.95</td>
                             </tr>
                             <tr>
+                                <td></td>
                                 <td>1 Aug 2023</td>
                                 <td><a href="/olcc_bottles/99900221775">Goslings Black Seal Rum</a></td>
                                 <td>price changed from $21.95 to $18.95</td>
                             </tr>
                             <tr>
+                                <td></td>
                                 <td>1 Aug 2023</td>
                                 <td><a href="/olcc_bottles/99900013975">Woodford Reserve</a></td>
                                 <td>price changed from $34.95 to $38.95</td>
                             </tr>
                             <tr>
+                                <td></td>
                                 <td>1 Aug 2023</td>
                                 <td><a href="/olcc_bottles/99900607175">Maker's 46</a></td>
                                 <td>price changed from $39.95 to $36.95</td>
                             </tr>
                             <tr>
+                                <td></td>
                                 <td>1 Aug 2023</td>
                                 <td><a href="/olcc_bottles/99900013817">Elijah Craig S/B 94 Proof</a></td>
                                 <td>price changed from $64.95 to $59.95</td>
                             </tr>
                             <tr>
+                                <td></td>
                                 <td>1 Aug 2023</td>
                                 <td><a href="/olcc_bottles/99900394875">David Nicholson 1843</a></td>
                                 <td>price changed from $34.95 to $29.95</td>
                             </tr>
                             <tr>
+                                <td></td>
                                 <td>1 Aug 2023</td>
                                 <td><a href="/olcc_bottles/99900621975">1792 Small Batch 8 Yr</a></td>
                                 <td>price changed from $29.95 to $31.95</td>
                             </tr>
                             <tr>
+                                <td></td>
                                 <td>7 Jul 2023</td>
                                 <td><a href="/olcc_bottles/99900839875">Old Forester Birthday Bour</a></td>
                                 <td>New bottle</td>
                             </tr>
                             <tr>
+                                <td></td>
                                 <td>1 Jul 2023</td>
                                 <td><a href="/olcc_bottles/99900115975">Knob Creek Rye 7 Yr</a></td>
                                 <td>price changed from $31.95 to $36.95</td>
                             </tr>
                             <tr>
+                                <td></td>
                                 <td>1 Jul 2023</td>
                                 <td><a href="/olcc_bottles/99900013817">Elijah Craig S/B 94 Proof</a></td>
                                 <td>price changed from $59.95 to $64.95</td>
                             </tr>
                             <tr>
+                                <td></td>
                                 <td>10 Jun 2023</td>
                                 <td><a href="/olcc_bottles/99900742275">Smith &amp; Cross London Rum</a></td>
                                 <td>arrived at Salem - 1157</td>
                             </tr>
                             <tr>
+                                <td></td>
                                 <td>10 Jun 2023</td>
                                 <td><a href="/olcc_bottles/99900742275">Smith &amp; Cross London Rum</a></td>
                                 <td>arrived at Salem - 1177</td>
                             </tr>
                         </tbody>
                     </table>
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item disabled"><a class="page-link">Previous</a></li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                        </ul>
+                    </nav>
                 </div>
-                <div class="col-4">
+                <div class="col-lg-4 mb-4">
+                    <!-- BEGIN My Links include -->
                     <h3>My Links</h3>
-                    <ul class="list-group">
-                        <li class="list-group-item"><i class="bi bi-bag-heart-fill me-2"></i> <a href="/olcc_bottles"> Favorite Bottles</a></li>
-                        <li class="list-group-item"><i class="bi bi-shop me-2"> </i><a href="/olcc_stores">Favorite Stores</a></li>
-                        
-                        <li class="list-group-item"><i class="bi bi-buildings-fill me-2"> </i><a href="/olcc_distillers">Favorite Distillers</a></li>
+                    <ul class="nav list-group">
+                        <li class="list-group-item nav-item"><i class="fa-solid fa-shop me-2"></i><a href="/olcc_bottles" class="nav-link d-inline">Favorite Bottles</a></li>
+                        <li class="list-group-item"><i class="fa-solid fa-whiskey-glass me-2" style="padding: 0 2px 0 2px;"></i><a href="/olcc_stores" class="nav-link d-inline">Favorite Stores</a></li>
+                        <li class="list-group-item"><i class="fa-solid fa-warehouse me-2"></i><a href="/olcc_distillers" class="nav-link d-inline">Favorite Distillers</a></li>
                     </ul>
+                    <!-- END My Links include -->
                 </div>
             </div>
         </main>
@@ -184,19 +231,18 @@
         <!-- BEGIN Footer include -->
         <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
             <div class="col-md-4 d-flex align-items-center">
-                <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
-                Booze Hound
-            </a> <span class="mb-3 mb-md-0 text-body-secondary">© <span id="footerCopyrightRange">2023</span> Booze Hound</span>
+                <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">Booze Hound</a>
+                <span class="mb-3 mb-md-0 text-body-secondary">© <span id="footerCopyrightRange">2023</span> Booze Hound</span>
             </div>
             <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-                <li class="ms-3"><a class="text-body-secondary" href="#">Page 1</a></li>
-                <li class="ms-3"><a class="text-body-secondary" href="#">Page 2</a></li>
-                <li class="ms-3"><a class="text-body-secondary" href="#">Page 3</a></li>
+                <li class="nav-item"><a class="nav-link text-body-secondary" href="">Home</a></li>
+                <li class="nav-item"><a class="nav-link text-body-secondary" href="help">Help</a></li>
+                <li class="nav-item"><a class="nav-link text-body-secondary" href="about">About</a></li>
             </ul>
         </footer>
         <!-- END Footer include -->
     </div><!-- END page container -->
-    <!-- BEGIN Foot JS include -->
+    <!-- BEGIN Foot include -->
     <!-- BEGIN Twitter Bootstrap include -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
     <!-- END Twitter Bootstrap include -->
@@ -204,9 +250,12 @@
     <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js" integrity="sha256-xLD7nhI62fcsEZK2/v8LsBcb4lG7dgULkuXoXB/j91c=" crossorigin="anonymous"></script>
     <!-- END jQuery and jQuery UI includes -->
+    <!-- BEGIN FontAwesome 6 include -->
+    <script src="https://kit.fontawesome.com/a744f5988e.js" crossorigin="anonymous"></script>
+    <!-- END FontAwesome 6 include -->
     <!-- BEGIN Booze Hound include -->
     <script src="js/main.js"></script>
     <!-- END Booze Hound include -->
-    <!-- END Foot JS include -->
+    <!-- END Foot include -->
 </body>
 </html>
