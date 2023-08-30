@@ -28,30 +28,29 @@
                     </div>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ms-auto mb-2 me-3 mb-lg-0">
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="/">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="help">Help</a>
+                            <li class="nav-item"><a class="nav-link active" aria-current="page" href="/">Home</a></li>
+                            <li class="nav-item"><a class="nav-link" href="find">Find</a></li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="browse" role="button" data-bs-toggle="dropdown" aria-expanded="false">Browse</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="stores">Stores</a></li>
+                                    <li><a class="dropdown-item" href="bottles">Bottles</a></li>
+                                    <li><a class="dropdown-item" href="distillers">Distillers</a></li>
+                                </ul>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="about" role="button" data-bs-toggle="dropdown" aria-expanded="false">About</a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Updates</a></li>
+                                    <li><a class="dropdown-item" href="about/help">Help</a></li>
+                                    <li><a class="dropdown-item" href="about/updates">Updates</a></li>
                                 </ul>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link link-primary" href="login">Login</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link link-primary" href="sign-up">Sign-up</a>
-                            </li>
+                            <li class="nav-item"><a class="nav-link link-primary" href="login">Login</a></li>
+                            <li class="nav-item"><a class="nav-link link-primary" href="sign-up">Sign-up</a></li>
                         </ul>
                         <div>
                             <div>
-                                <a href="#" class="link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="https://avatars.githubusercontent.com/u/223165" alt="Charles Anderson" width="32" height="32" class="rounded-circle">
-                                </a>
+                                <a href="#" class="link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><img src="https://avatars.githubusercontent.com/u/223165" alt="Charles Anderson" width="32" height="32" class="rounded-circle"></a>
                                 <ul class="dropdown-menu text-small dropdown-menu-lg-end" data-bs-display="static">
                                     <li><a class="dropdown-item" href="user/settings"><i class="fa-solid fa-gear me-2"></i>Settings</a></li>
                                     <li><a class="dropdown-item" href="user/profile"><i class="fa-solid fa-user me-2"></i>Profile</a></li>
@@ -236,7 +235,8 @@
             </div>
             <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
                 <li class="nav-item"><a class="nav-link text-body-secondary" href="">Home</a></li>
-                <li class="nav-item"><a class="nav-link text-body-secondary" href="help">Help</a></li>
+                <li class="nav-item"><a class="nav-link text-body-secondary" href="find">Find</a></li>
+                <li class="nav-item"><a class="nav-link text-body-secondary" href="browse">Browse</a></li>
                 <li class="nav-item"><a class="nav-link text-body-secondary" href="about">About</a></li>
             </ul>
         </footer>
