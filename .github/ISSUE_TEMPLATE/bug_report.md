@@ -17,8 +17,8 @@ A description of the bug and how you found it, including steps to reproduce and 
 
 ## Approach
 
-- Bulleted list of steps to take in order to achieve this feature
-- It's okay if you don't know how to fill out this section at the time of submission
+- Bulleted list of steps to take in order to fix this bug
+- It's okay if you don't know how to fill out this section at the time of submission.
 
 ## Notes
 
