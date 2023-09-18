@@ -12,7 +12,14 @@ class OlccBottlesController < ApplicationController
 
   def show
     @bottle = OlccBottle.find(params[:id])
-    @inventory = StoreQuery.call(@bottle, @user.favorite_store_ids)
+    @user_follows = @user.is_following?(@bottle)
+    @inventory = if @user_follows
+      StoreQuery.call(@bottle, @user.favorite_store_ids)
+    else
+      # NB: objects returned are DTOs not Models
+      # Causes problems trying to get the store from a bottle. We might not even know of the store
+      olcc_client.get_item_inventory(@bottle.category, @bottle.new_item_code, @bottle.old_item_code)
+    end
   end
 
   def update

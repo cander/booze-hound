@@ -6,11 +6,10 @@ Price: $<%= @bottle.bottle_price %><br>
 Size: <%= @bottle.size %><br>
 Proof: <%= @bottle.proof %><br>
 Age: <%= @bottle.age.empty? ? "NAS" : @bottle.age %><br>
-<% user_follows = @user.is_following?(@bottle) %>
-Following: <%= user_follows %>
+Following: <%= @user_follows %>
 
 <%= form_with(model: @bottle, method: "patch") do |form| %>
-  <% if user_follows %>
+  <% if @user_follows %>
     <%= form.hidden_field :follow, value: "false" %>
     <%= form.button "Unfollow" %>
   <% else %>
