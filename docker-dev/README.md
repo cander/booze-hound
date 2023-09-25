@@ -17,19 +17,17 @@ becomes a problem.
 
 ## Usage
 
-> _This section presumes that you're in `(working directory)/docker-dev`.
+This section assume that you're in `(working directory)/docker-dev`.
 If you are calling these commands from the working directory's root, you'll
-need to preface these commands with the path, such as
-`./docker-dev/server-ctl.sh build` with the first command._
+need to preface these commands with the `docker-dev`, such as
+`./docker-dev/server-ctl.sh build`.
 
-----
-
-### Build
+### Build the Docker Image
 
 Build (or update) the Docker image of the app:
 
 ```bash
-server-ctl.sh build
+./server-ctl.sh build
 ```
 
 This has to be run if the `Gemfile.lock` file is updated, which happens
@@ -37,14 +35,12 @@ weekly via Dependabot.
 
 ### Load Database
 
-> _This step will fail if the DB does not already exist; fix pending._
-
 Load the development database with some initial data in `db/data.yml`, which
 is not committed in git. (You'll have to obtain the `data.yml` file from a
-project coordinator and then save it to the `db/` directory.)
+project coordinator and then save it to the `db` directory.)
 
 ```bash
-server-ctl.sh loaddb
+./server-ctl.sh loaddb
 ```
 
 This is only really necessary initially or after (significant) database
@@ -55,7 +51,7 @@ migrations.
 Run the app:
 
 ```bash
-server-ctl.sh run
+./server-ctl.sh run
 ```
 
 Wait for console log messages to appear before trying to access the app.

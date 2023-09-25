@@ -16,13 +16,17 @@ case "$1" in
         docker build -t $IMAGE_TAG -f docker-dev/Dockerfile --build-arg BUNDLE_DATE="$now" .
         ;;
     loaddb)
+        prepare_task=""
         echo "Load the development database with data from db/data.yml"
         if [ -f db/development.sqlite3 ] ; then
-            echo "Backing up existing DB to /tmp"
+            echo "Backing up existing development DB to /tmp"
             cp db/development.sqlite3 /tmp
+        else
+            echo "There is no existing development DB. We will create one before loading."
+            prepare_task="db:prepare"
         fi
-        echo "Running db:data:load..."
-        docker run -it --rm -v $(pwd):/rails $IMAGE_TAG bin/rake db:data:load
+        echo "Running $prepare_task db:data:load..."
+        docker run -it --rm -v $(pwd):/rails $IMAGE_TAG bin/rake $prepare_task db:data:load
         ;;
     run)
         echo "Running Rails app on port 3000. Use ctl-C to exit"
