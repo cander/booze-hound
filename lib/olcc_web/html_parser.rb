@@ -10,10 +10,18 @@ module OlccWeb
       check_quiet_error(inventory_page_html)
       doc = Nokogiri::HTML(inventory_page_html)
       result = []
-      new_item_code = doc.css("td.search-box").first.child["value"] # could assert this value against a param
 
-      all_rows = merge_table_rows(doc.css("tr.alt-row"), doc.css("tr.row"))
-      all_rows.each { |row| result << parse_inventory_row(new_item_code, row) }
+      new_item_code = doc.css("td.search-box").first.child["value"] # could assert this value against a param
+      page_title = doc.css("div#page-title").first.css("img").first["alt"]
+      if page_title == "Product Details"
+        # Zero or many stores
+        all_rows = merge_table_rows(doc.css("tr.alt-row"), doc.css("tr.row"))
+        all_rows.each { |row| result << parse_inventory_row(new_item_code, row) }
+      elsif page_title == "Product & Location Details"
+        # NB: the data format when the bottle is available at a single store is totally
+        # different. It's a detail of the bottle and the store with no mention of quantity
+        result = parse_single_store_inventory(new_item_code, doc)
+      end
 
       result
     end
@@ -59,6 +67,18 @@ module OlccWeb
     end
 
     # pseudo private methods
+
+    def self.parse_single_store_inventory(new_item_code, doc)
+      store_str = doc.css("td#location-display").css("h2").first.text.strip
+      # Store\r\n\t\t\t\t\t1198:\r\n\t\t\t\t\tSalem Battlecreek
+      if store_str =~ /^Store\s+(\d+)/
+        store_num = Regexp.last_match[1]
+        quantity = 1 # totally unknown but at least one
+        [Dto::InventoryData.new(new_item_code, store_num, quantity)]
+      else
+        []   # maybe this should be an error
+      end
+    end
 
     def self.parse_inventory_row(new_item_code, row)
       store_num = row.css("td.store-no").text.strip

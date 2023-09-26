@@ -2,7 +2,7 @@ RSpec.describe OlccWeb::HtmlParser do
   let(:quiet_error) { open_html_fixture("quiet-error.html") }
 
   describe "parse_inventory" do
-    it "parses the inventory for a bottle" do
+    it "parses the inventory for a bottle at multiple stores" do
       inv = OlccWeb::HtmlParser.parse_inventory(open_html_fixture("barcelo-detail.html"))
       expect(inv.count).to eq(9)
 
@@ -10,6 +10,20 @@ RSpec.describe OlccWeb::HtmlParser do
       dallas_inventory = inv.find { |i| i.store_num == dallas_store_num }
       expect(dallas_inventory).to_not be_nil
       expect(dallas_inventory.quantity).to eq(6)
+    end
+
+    it "parses the inventory for a bottle at a single store" do
+      inv = OlccWeb::HtmlParser.parse_inventory(open_html_fixture("single-store-inventory.html"))
+      expect(inv.count).to eq(1)
+      store_inv = inv.first
+      expect(store_inv.store_num).to eq("1198")
+      expect(store_inv.new_item_code).to eq("99900885175")
+      expect(store_inv.quantity).to eq(1)
+    end
+
+    it "parses no inventory when not available" do
+      inv = OlccWeb::HtmlParser.parse_inventory(open_html_fixture("zero-store-inventory.html"))
+      expect(inv.count).to eq(0)
     end
 
     it "raises an error for a quiet error in the HTML" do
