@@ -46,31 +46,6 @@ project coordinator and then save it to the `db` directory.)
 This is only really necessary initially or after (significant) database
 migrations.
 
-If you've attempted to run the DB migration (`loaddb` command) previously, then
-you'll need to first delete the SQLite database file:
-
-- `rm db/development.sqlite3`
-
-You'll know if this is necessary because you'll see an error like this after
-running the `loaddb` command:
-
-```bash
-Caused by:
-SQLite3::SQLException: near "TRUNCATE": syntax error
-```
-
-> TODO: This should eventually be handled automatically by the `server-ctl.sh` script.
-
-#### Clean Up
-
-The `loaddb` command will modify the `db/schema.rb` file, but you don't want to
-commit that change. Instead, reset that file back to it's original state by
-running the following command:
-
-`git checkout HEAD -- db/schema.rb`
-
-> TODO: This should eventually be handled automatically by the `server-ctl.sh` script.
-
 ### Run the Application
 
 Run the app:
