@@ -61,5 +61,3 @@ Wait for console log messages to appear before trying to access the app.
 - Maybe prune the Docker image to reduce its size. Use a multi-stage build to
   separate a bunch of the development tools from what's actually needed to deploy
   a development image.
-- Update `server-ctl.sh` to handle empty SQLite DB files.
-- Update `server-ctl.sh` to handle reverting the `db/schema.rb` file changes.
