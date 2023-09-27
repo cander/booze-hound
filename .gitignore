@@ -17,6 +17,9 @@ vendor
 # Ignore the default SQLite database.
 /db/*.sqlite3
 /db/*.sqlite3-*
+# Ignore data.yml file for prepopupating the DB as this is not stored in Git.
+# Obtain this from a project coordinator and see the instructions in
+# docker-dev/README.md.
 /db/data.yml
 
 # Ignore all logfiles and tempfiles.
@@ -41,3 +44,6 @@ vendor
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+# Ignore OS files
+.DS_Store
