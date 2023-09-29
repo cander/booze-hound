@@ -7,7 +7,7 @@ Welcome, <%= @user.first_name %>
 </ul>
 
 <h2>Recent Events:</h2>
-<% if @events.size == 0 %>
+<% if @events.none? %>
   <h3>No news is boring</h3>
 <% else %>
   <table>
@@ -29,3 +29,8 @@ Welcome, <%= @user.first_name %>
     </tbody>
   </table>
 <%end %>
+
+<% if @prev_page %>
+<br><%= link_to "Previous", home_path(page: @prev_page) %>
+<% end %>
+<br><%= link_to "Next", home_path(page: @next_page) %>

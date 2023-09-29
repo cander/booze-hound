@@ -41,14 +41,7 @@ RSpec.describe OlccBottle do
 
       expect(events.size).to eq(1)
     end
-    it "should ignore old events" do
-      BottleEvent.new_bottle(bottle, {})
-      BottleEvent.last.update(created_at: 2.weeks.ago)
 
-      events = BottleEvent.recents([], 1.week.ago)
-
-      expect(events.size).to eq(0)
-    end
     it "should ignore other events for bottles we're not following" do
       bottle.name = "fire water"
       changes = bottle.changes_to_save

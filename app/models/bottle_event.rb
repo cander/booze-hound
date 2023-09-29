@@ -9,14 +9,19 @@ class BottleEvent < ApplicationRecord
     "DESCRIPTION CHANGE"
   ].freeze
   enum event_type: TYPES.index_by(&:to_s)
+  EVENTS_PER_PAGE = 20
 
-  def self.recents(bottle_ids, since = 1.week.ago)
+  def self.recents(bottle_ids, page = 0)
     # new bottles and events on bottles we already follow
-    BottleEvent.includes(:olcc_bottle)
-      .where("bottle_events.created_at > ?", since)
+    result = BottleEvent.includes(:olcc_bottle)
       .where(event_type: "NEW BOTTLE")
       .or(BottleEvent.where(new_item_code: bottle_ids))
-      .order(created_at: :desc).limit(20)
+      .order(created_at: :desc).limit(EVENTS_PER_PAGE)
+    if page > 0
+      result = result.offset(page * EVENTS_PER_PAGE)
+    end
+
+    result.to_a
   end
 
   def self.new_bottle(bottle, attrs)
