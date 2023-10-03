@@ -3,7 +3,7 @@
 
 <h2><%= @bottle.name %><br></h2>
 Category: <%= @bottle.category.titleize %><br>
-Price: $<%= @bottle.bottle_price %><br>
+Price: <%= number_to_currency(@bottle.bottle_price) %><br>
 Size: <%= @bottle.size %><br>
 Proof: <%= @bottle.proof %><br>
 Age: <%= @bottle.age.empty? ? "NAS" : @bottle.age %><br>

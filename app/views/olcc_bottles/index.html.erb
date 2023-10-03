@@ -24,7 +24,7 @@
     <% @olcc_bottles.each_with_index do |bottle, index| %>
       <tr class="<%= index.even? ? 'even-row' : 'odd-row' %>">
         <td><%= link_to bottle.name, bottle %></td>
-        <td>$<%= '%1.2f' % bottle.bottle_price %></td>
+        <td><%= number_to_currency(bottle.bottle_price) %></td>
       </tr>
     <% end %>
   </tbody>

@@ -23,7 +23,7 @@ Inventory
       <tr class="<%= index.even? ? 'even-row' : 'odd-row' %>">
         <td><%= inv.olcc_bottle.new_item_code %></td>
         <td><%= link_to inv.olcc_bottle.name, inv.olcc_bottle %></td>
-        <td><%= inv.olcc_bottle.bottle_price %></td>
+        <td><%= number_to_currency(inv.olcc_bottle.bottle_price) %></td>
         <td class="right"><%= inv.quantity %></td>
       </tr>
     <% end %>

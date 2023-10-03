@@ -9,7 +9,7 @@ module BottleEventHelper
       "arrived at #{store.name}"
     when "PRICE CHANGE"
       delta = evt.details["bottle_price"]
-      "price changed from $#{delta[0]} to $#{delta[1]}"
+      "price changed from #{number_to_currency(delta[0])} to #{number_to_currency(delta[1])}"
     when "DESCRIPTION CHANGE"
       changes = evt.details.keys.first(3)
       "description changed - #{changes.join(",")}"
