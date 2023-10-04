@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_15_223946) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_04_202603) do
   create_table "bottle_events", force: :cascade do |t|
     t.string "new_item_code"
     t.string "event_type", null: false
@@ -32,7 +32,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_15_223946) do
     t.decimal "bottle_price"
     t.integer "followers_count", default: 0
     t.string "description"
-    t.index ["name"], name: "index_olcc_bottles_on_name"
   end
 
   create_table "olcc_bottles_users", id: false, force: :cascade do |t|
@@ -60,6 +59,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_15_223946) do
     t.string "store_hours"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "followers_count", default: 0
   end
 
   create_table "olcc_stores_users", id: false, force: :cascade do |t|
