@@ -32,4 +32,26 @@ RSpec.describe "OlccStores", type: :request do
       expect(response).to have_http_status(:success)
     end
   end
+
+  describe "UPDATE <store-num>" do
+    it "favors the store and redirects to show page" do
+      store_num = store.store_num
+      expect(OlccStore).to receive(:find).with(store_num).and_return(store)
+      expect(user).to receive(:favor_store).with(store)
+
+      patch olcc_store_url(store_num), params: {olcc_store: {follow: "true"}}
+
+      expect(response).to redirect_to(olcc_store_url(store))
+    end
+
+    it "unfavors the store and redirects to show page" do
+      store_num = store.store_num
+      expect(OlccStore).to receive(:find).with(store_num).and_return(store)
+      expect(user).to receive(:unfavor_store).with(store)
+
+      patch olcc_store_url(store_num), params: {olcc_store: {follow: "false"}}
+
+      expect(response).to redirect_to(olcc_store_url(store))
+    end
+  end
 end
