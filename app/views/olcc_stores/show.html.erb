@@ -4,6 +4,18 @@
 <h2><%= @store.name %><br></h2>
 <%= @store.address %><br>
 <%= @store.store_hours %><br>
+<% user_favorite = @user.is_favorite_store?(@store) %>
+Is a favorite store: <%= user_favorite %>
+
+<%= form_with(model: @store, method: "patch") do |form| %>
+  <% if user_favorite %>
+    <%= form.hidden_field :follow, value: "false" %>
+    <%= form.button "Unfollow" %>
+  <% else %>
+    <%= form.hidden_field :follow, value: "true" %>
+    <%= form.button "Follow" %>
+  <% end %>
+<% end %>
 
 <h2>
 Inventory
