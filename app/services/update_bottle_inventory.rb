@@ -27,16 +27,23 @@ class UpdateBottleInventory < ApplicationService
         inv.update(quantity: ir.quantity)
         BottleEvent.new_inventory(inv) if orig_qty == 0
         existing_inv.delete(ir.store_num)
+        # ignore the case where OLCC reports inventory, but the store is no longer
+        # followed by any users - not going to delete the inventory record.
       else
         # TODO: eventually, only create a store inventory record for stores that
         # some user is following. Will want a follower count for that.
-        logger.info { "Adding #{ir.quantity} bottles at store #{ir.store_num}" }
-        i = OlccInventory.create(new_item_code: ir.new_item_code,
-          store_num: ir.store_num, quantity: ir.quantity)
-        if i.valid?
-          BottleEvent.new_inventory(i)
+        store = OlccStore.find_by(store_num: ir.store_num)
+        if store && store.followers_count > 0
+          logger.info { "Adding #{ir.quantity} bottles at store #{ir.store_num} with #{store.followers_count} followers" }
+          i = OlccInventory.create(new_item_code: ir.new_item_code,
+            store_num: ir.store_num, quantity: ir.quantity)
+          if i.valid?
+            BottleEvent.new_inventory(i)
+          else
+            logger.error { "Validations failed for store #{i.store_num} - #{i.errors.messages}" }
+          end
         else
-          logger.error { "Validations failed for store #{i.store_num} - #{i.errors.messages}" }
+          logger.info { "Ignoring #{ir.quantity} bottles at store #{ir.store_num} with no followers" }
         end
       end
     end

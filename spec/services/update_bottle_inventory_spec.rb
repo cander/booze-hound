@@ -3,7 +3,7 @@ require_relative "../../test/test_helper"
 
 RSpec.describe UpdateBottleInventory do
   let(:bottle) { create :olcc_bottle }
-  let(:store) { create :olcc_store }
+  let(:store) { create :olcc_store, followers_count: 1 }
   let(:client) { double "olcc-client" }
 
   def inv_dto(qty)
@@ -46,6 +46,28 @@ RSpec.describe UpdateBottleInventory do
 
     event = bottle.bottle_events.last
     expect(event.event_type).to eq("NEW INVENTORY")
+  end
+
+  it "should not update inventory or create an event if the store has no followers" do
+    store.update(followers_count: 0)
+    expect(client).to receive(:get_item_inventory).and_return([inv_dto(13)])
+
+    expect { UpdateBottleInventory.call(client, bottle) }
+      .to change { OlccInventory.count }.by(0)
+      .and change { BottleEvent.count }.by(0)
+  end
+
+  it "should not update inventory or create an event if we don't know the store" do
+    unknown_num = store.store_num + "0"
+    inv = Dto::InventoryData.new(
+      new_item_code: bottle.new_item_code, store_num: unknown_num,
+      quantity: 13
+    )
+    expect(client).to receive(:get_item_inventory).and_return([inv])
+
+    expect { UpdateBottleInventory.call(client, bottle) }
+      .to change { OlccInventory.count }.by(0)
+      .and change { BottleEvent.count }.by(0)
   end
 
   it "should create an event when the quanity increases from zero" do
