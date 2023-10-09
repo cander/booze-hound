@@ -18,6 +18,14 @@ RSpec.describe "OlccStores", type: :request do
 
       expect(response).to have_http_status(:success)
     end
+
+    it "queries for a store by name" do
+      store_name = "Dallas"
+      expect(OlccStore).to receive(:search).with(store_name).and_return([])
+      get "/olcc_stores", params: {query: store_name}
+
+      expect(response).to have_http_status(:success)
+    end
   end
 
   describe "SHOW <store-id>" do

@@ -1,6 +1,11 @@
 class OlccStoresController < ApplicationController
   def index
-    @olcc_stores = OlccStore.find(@user.favorite_store_ids)
+    if params[:query]
+      @olcc_stores = OlccStore.search(params[:query])
+      @query = params[:query]
+    else
+      @olcc_stores = OlccStore.find(@user.favorite_store_ids)
+    end
   end
 
   def show
