@@ -4,7 +4,7 @@ class OlccStoresController < ApplicationController
       @olcc_stores = OlccStore.search(params[:query])
       @query = params[:query]
     else
-      @olcc_stores = OlccStore.find(@user.favorite_store_ids)
+      @olcc_stores = OlccStore.where(store_num: @user.favorite_store_ids).order(:name)
     end
   end
 
