@@ -18,7 +18,7 @@ RSpec.describe OlccWeb::HtmlParser do
       store_inv = inv.first
       expect(store_inv.store_num).to eq("1198")
       expect(store_inv.new_item_code).to eq("99900885175")
-      expect(store_inv.quantity).to eq(1)
+      expect(store_inv.quantity).to eq(69)
     end
 
     it "parses no inventory when not available" do

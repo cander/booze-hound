@@ -73,7 +73,7 @@ module OlccWeb
       # Store\r\n\t\t\t\t\t1198:\r\n\t\t\t\t\tSalem Battlecreek
       if store_str =~ /^Store\s+(\d+)/
         store_num = Regexp.last_match[1]
-        quantity = 1 # totally unknown but at least one
+        quantity = 69 # totally unknown but make it non-zero and obvious
         [Dto::InventoryData.new(new_item_code, store_num, quantity)]
       else
         []   # maybe this should be an error
