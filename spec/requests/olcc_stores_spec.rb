@@ -9,10 +9,10 @@ RSpec.describe "OlccStores", type: :request do
   before do
     expect(User).to receive(:first).and_return(user)
   end
+
   describe "GET /index" do
     it "returns http success" do
-      expect(user).to receive(:favorite_store_ids).and_return(fav_stores)
-      expect(OlccStore).to receive(:find).with(fav_stores).and_return([])
+      expect(UserStoresQuery).to receive(:call).with(user).and_return([])
 
       get "/olcc_stores"
 
