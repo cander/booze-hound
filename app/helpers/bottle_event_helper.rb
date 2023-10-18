@@ -6,7 +6,8 @@ module BottleEventHelper
       "New bottle"
     when "NEW INVENTORY"
       store = OlccStore.find(evt.details["store_num"])
-      "arrived at #{store.name}"
+      # prepend is a trick/hack to keep the HTML from being escaped incorrectly
+      link_to(store.name, store).prepend("arrived at ")
     when "PRICE CHANGE"
       delta = evt.details["bottle_price"]
       "price changed from #{number_to_currency(delta[0])} to #{number_to_currency(delta[1])}"

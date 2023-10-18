@@ -13,7 +13,9 @@ RSpec.describe BottleEventHelper, type: :helper do
       store = create(:olcc_store)
       dets = {store_num: store.store_num}
       evt = build_stubbed(:bottle_event, event_type: "NEW INVENTORY", details: dets)
-      expect(helper.show_event(evt)).to eq("arrived at #{store.name}")
+      html = helper.show_event(evt)
+      # gross match for a link to the store - too lazy to find something better
+      expect(html).to match("arrived at.*href.*olcc_store.*#{store.name}")
     end
     it "should render a price change" do
       dets = {bottle_price: ["39.95", "49.95"]}
