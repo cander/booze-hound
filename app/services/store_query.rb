@@ -13,7 +13,9 @@ class StoreQuery < ApplicationService
   end
 
   def call
-    OlccInventory.includes(:olcc_store).in_stock
+    result = OlccInventory.includes(:olcc_store).in_stock
       .where(new_item_code: @bottle_code, store_num: @stores)
+    # if we joined store, we should be able to sort on name in the DB
+    result.sort { |x, y| x.olcc_store.name <=> y.olcc_store.name }
   end
 end
