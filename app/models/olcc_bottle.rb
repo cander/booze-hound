@@ -12,11 +12,15 @@ class OlccBottle < ApplicationRecord
   before_update :sync_name_to_description
 
   CATEGORIES = [
+    "BRANDY / COGNAC",
     "CACHACA",
+    "CORDIALS",
     "DOMESTIC WHISKEY",
     "GIN",
+    "IRISH",
     "RUM",
-    "TEQUILA"
+    "TEQUILA",
+    "VODKA"
   ].freeze
   enum category: CATEGORIES.index_by(&:to_s)
 

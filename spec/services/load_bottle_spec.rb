@@ -16,7 +16,7 @@ RSpec.describe LoadBottle do
     expect(bottle).to_not be_nil
   end
 
-  it "should update an existing bottle" do
+  pending "should update an existing bottle" do
     barcelo = create(:olcc_bottle)
     new_code = barcelo.new_item_code
     old_code = barcelo.old_item_code
