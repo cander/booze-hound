@@ -8,7 +8,7 @@ Welcome, <%= @user.first_name %>
            <div>
              <%= form.label :new_item_code %>
              <%= form.text_field :new_item_code %>
-           <%= form.select :category, ["GIN", "CORDIALS"] %>
+             <%= category_select(form) %>
            </div>
            <div>
              <%= form.submit "Search" %>
