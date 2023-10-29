@@ -1,22 +1,7 @@
 <h1>Home Page</h1>
-Welcome, <%= @user.first_name %>
-<h2>Bottle Tasks:</h2>
-<ul>
-    <li> <a href="/olcc_bottles">Bottles you follow</a> </li>
-    <li> Add a bottle based on the OLCC new item code:
-         <%= form_with url: olcc_bottles_path do |form| %>
-           <div>
-             <%= form.label :new_item_code %>
-             <%= form.text_field :new_item_code %>
-             <%= category_select(form) %>
-           </div>
-           <div>
-             <%= form.submit "Search" %>
-           </div>
-       <% end %>
-    </li>
-</ul>
-
+<div class="alert alert-primary" role="alert">
+  <p class="m-0 p-0"><i class="fa-regular fa-message me-2 fs-4 align-middle"></i>Welcome, <%= @user.first_name.capitalize() %>!</p>
+</div>
 <h2>Other Pages:</h2>
 <ul>
     <li> <a href="/olcc_stores">Stores you go to</a>

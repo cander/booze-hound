@@ -1,18 +1,35 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>BoozeHound</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
-  </head>
-
-  <body>
-    <%= render 'shared/flashes' %>
-
-    <%= yield %>
-  </body>
+<!doctype html>
+<html lang="en">
+<head>
+  <%= render 'layouts/components/head' %>
+</head>
+<body>
+  <div class="container my-4"><!-- BEGIN page container -->
+    <%= render 'layouts/components/header' %>
+    <div class="my-2">
+      <input type="radio" class="btn-check" name="auth-options" id="anon-toggle" autocomplete="off" checked>
+      <label class="btn btn-outline-success" for="anon-toggle">Anonymous</label>
+      <input type="radio" class="btn-check" name="auth-options" id="auth-toggle" autocomplete="off">
+      <label class="btn btn-outline-danger" for="auth-toggle">Authenticated</label>
+    </div>
+    <main>
+        <div class="row">
+            <div class="col-lg-8 mb-5">
+                <%= render 'layouts/content/home_authenticated' %>
+                <!-- BEGIN Main Body Content include -->
+                <%= render 'layouts/content/home_anonymous' %>
+                <!-- END Main Body Content include -->
+            </div>
+            <div class="col-lg-4 mb-4">
+              <%= render 'layouts/sidebar/user_menu_authenticated' %>
+              <%= render 'layouts/sidebar/home_anonymous' %>
+            </div>
+        </div>
+    </main>
+    <!-- END Body include -->
+    <%= render 'layouts/components/footer' %>
+  </div><!-- END page container -->
+  <%= render 'layouts/components/foot' %>
+  <%= javascript_include_tag 'application'%>
+</body>
 </html>
