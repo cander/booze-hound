@@ -16,7 +16,7 @@ RSpec.describe LoadBottle do
     expect(bottle).to_not be_nil
   end
 
-  pending "should update an existing bottle" do
+  it "should update an existing bottle" do
     barcelo = create(:olcc_bottle)
     new_code = barcelo.new_item_code
     old_code = barcelo.old_item_code
@@ -28,7 +28,7 @@ RSpec.describe LoadBottle do
     )
     expect(client).to receive(:get_bottle_details).and_return(new_bottle)
 
-    expect { LoadBottle.call(client, "RUM", new_code, old_code) }.to_not change { OlccStore.count }
+    expect { LoadBottle.call(client, "RUM", new_code, old_code) }.to_not change { OlccBottle.count }
 
     barcelo.reload
     expect(barcelo.description).to eq(new_desc)
