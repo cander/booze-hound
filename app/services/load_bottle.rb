@@ -21,7 +21,7 @@ class LoadBottle < ApplicationService
   rescue => e
     # NB: this is a wide net to cast for catching errors
     # Want to handle the OLCC client errors separately? And report through error API
-    logger.error("Exception loading bottle #{new_item_code}: #{e}")
+    logger.error("Exception loading bottle #{@new_item_code}: #{e}")
     nil
   end
 end
