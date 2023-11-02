@@ -6,6 +6,8 @@ class InitializeStoreFollowersCount < ActiveRecord::Migration[7.0]
   def up
     # Let's assume there is only one user in the DB
     u = User.first
+    return unless u
+
     puts "Updating followers_count on #{u.favorite_store_ids.count} out of #{OlccStore.count} stores..."
     u.favorite_store_ids.each do |store_num|
       store = OlccStore.find(store_num)
