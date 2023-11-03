@@ -9,11 +9,19 @@ if [ -f ../Gemfile ] ; then
     cd ..
 fi
 
+function docker_run() {
+    echo Running: docker run -it --rm -v $(pwd):/rails -p 3000:3000 $IMAGE_TAG $*
+    docker run -it --rm -v $(pwd):/rails -p 3000:3000 $IMAGE_TAG $*
+}
+
 case "$1" in
     build)
         echo "Rebuild the Docker image..."
         now=`date`
         docker build -t $IMAGE_TAG -f docker-dev/Dockerfile --build-arg BUNDLE_DATE="$now" .
+        ;;
+    console)
+        docker_run /bin/bash
         ;;
     loaddb)
         prepare_task=""
@@ -34,7 +42,7 @@ case "$1" in
         prepare_task="db:prepare"
         
         echo "Running $prepare_task db:data:load..."
-        docker run -it --rm -v $(pwd):/rails $IMAGE_TAG bin/rake $prepare_task db:data:load
+        docker_run bin/rake $prepare_task db:data:load
 
         # check for file cleanup
         if [[ `git status | grep "schema.rb"` ]]; then
@@ -43,18 +51,23 @@ case "$1" in
             echo "db/schema.rb has been reset."
         fi
         ;;
+    migratedb)
+        docker_run bin/rake db:migrate
+        ;;
     run)
         echo "Running Rails app on port 3000. Use ctl-C to exit."
         echo "Wait until you see the message, 'Listening on http://0.0.0.0:3000'"
         echo "Then you can go to:"
         echo ""
         echo "     http://localhost:3000"
-        docker run -it --rm -v $(pwd):/rails -p 3000:3000 $IMAGE_TAG
+        docker_run
         ;;
     *)
         echo "Usage: $0 [build|run]"
         echo "     build: Rebuild the Docker image with the latest dependencies"
+        echo "   console: Open a bash shell running in the Docker container"
         echo "    loaddb: Load the database with initial data"
-        echo "       run:   Run the Rails app"
+        echo " migratedb: Run database migrations to update the schema"
+        echo "       run: Run the Rails app"
         ;;
 esac
