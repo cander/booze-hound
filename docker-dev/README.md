@@ -64,6 +64,14 @@ Run the app:
 
 Wait for console log messages to appear before trying to access the app.
 
+### Access the Docker Console
+
+Enter the Docker console (bash) for debugging:
+
+```bash
+./server-ctl.sh console
+```
+
 ## Future Work
 
 - Maybe prune the Docker image to reduce its size. Use a multi-stage build to
