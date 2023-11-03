@@ -46,6 +46,14 @@ project coordinator and then save it to the `db` directory.)
 This is only really necessary initially or after (significant) database
 migrations.
 
+### Migrate (Update) Database
+
+Run database migrations to update the database with the latest changes:
+
+```bash
+./server-ctl.sh migratedb
+```
+
 ### Run the Application
 
 Run the app:
