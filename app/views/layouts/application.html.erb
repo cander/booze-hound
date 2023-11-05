@@ -4,14 +4,16 @@
   <%= render 'layouts/components/head' %>
 </head>
 <body>
-  <div class="container my-4"><!-- BEGIN page container -->
+<div class="container my-4">
+  <!-- BEGIN page container -->
+  <div class="my-2 p-2 border border-primary-subtle">
+    <p class="fst-italic">Simulate anonymous/authentication experience</a></p>
+    <input type="radio" class="btn-check" name="auth-options" id="anon-toggle" autocomplete="off" checked>
+    <label class="btn btn-outline-success" for="anon-toggle">Anonymous</label>
+    <input type="radio" class="btn-check" name="auth-options" id="auth-toggle" autocomplete="off">
+    <label class="btn btn-outline-danger" for="auth-toggle">Authenticated</label>
+  </div>
     <%= render 'layouts/components/header' %>
-    <div class="my-2">
-      <input type="radio" class="btn-check" name="auth-options" id="anon-toggle" autocomplete="off" checked>
-      <label class="btn btn-outline-success" for="anon-toggle">Anonymous</label>
-      <input type="radio" class="btn-check" name="auth-options" id="auth-toggle" autocomplete="off">
-      <label class="btn btn-outline-danger" for="auth-toggle">Authenticated</label>
-    </div>
     <main>
         <div class="row">
             <div class="col-lg-8 mb-5">
