@@ -15,11 +15,11 @@ function getCopyrightRange(startYear = 2023) {
     return copyrightRange;
 } // end getCopyrightRange function
 
-window.getCopyrightRange = getCopyrightRange;
+//window.getCopyrightRange = getCopyrightRange;
 
 $(document).ready(function() {
     let footerCopyrightRangeElement = $("#footerCopyrightRange");
-    footerCopyrightRangeElement.text(getCopyrightRange(footerCopyrightRangeElement.text() + 'XXX'));
+    footerCopyrightRangeElement.text(getCopyrightRange(footerCopyrightRangeElement.text()));
 
     // Setup auth/anon simulation
     $('.authenticated-display').hide();
