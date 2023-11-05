@@ -64,9 +64,17 @@ Run the app:
 
 Wait for console log messages to appear before trying to access the app.
 
-### Access the Docker Console
+### Rebuild and Run (RR) the Application
 
-Enter the Docker console (bash) for debugging:
+The `rr` command is just a shortcut for running the `build` and `run` commands back to back:
+
+```bash
+./server-ctl.sh rr
+```
+
+### Access the Docker Console for Debugging
+
+The `console` command logs the user into the Docker container's bash terminal:
 
 ```bash
 ./server-ctl.sh console
