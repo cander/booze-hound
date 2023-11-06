@@ -46,8 +46,7 @@ RSpec.describe "OlccBottles", type: :request do
     it "follows the bottle and redirects to show page" do
       bottle_id = bottle.id
       expect(OlccBottle).to receive(:find).with(bottle_id).and_return(bottle)
-      expect(user).to receive(:follow_bottle).with(bottle)
-      expect(ApplicationController).to receive(:olcc_client).and_return(nil)
+      expect(UserFollowBottle).to receive(:call).and_return(nil)
 
       patch olcc_bottle_url(bottle_id), params: {olcc_bottle: {follow: "true"}}
 
@@ -66,5 +65,41 @@ RSpec.describe "OlccBottles", type: :request do
 
     # Would test 404 with an invalid bottle id, but Rails should automatically
     # handle that in production (but not test)
+  end
+
+  describe "CREATE <bottle-id>" do
+    let(:olcc_client) { nil }
+    let(:new_item_code) { "1234" }
+    let(:category) { "GIN" }
+
+    before do
+      allow_any_instance_of(OlccBottlesController).to receive(:olcc_client).and_return(olcc_client)
+    end
+
+    it "calls LoadBottle to add the bottle to the system" do
+      expect(LoadBottle).to receive(:call).with(olcc_client, category, new_item_code, "none")
+        .and_return(bottle)
+
+      post "/olcc_bottles", params: {new_item_code: new_item_code, category: category}
+
+      expect(response).to redirect_to(olcc_bottle_url(bottle))
+    end
+
+    it "redirects to root if LoadBottle fails" do
+      expect(LoadBottle).to receive(:call).with(olcc_client, category, new_item_code, "none")
+        .and_return(nil)
+
+      post "/olcc_bottles", params: {new_item_code: new_item_code, category: category}
+
+      expect(response).to redirect_to(root_path)
+      expect(flash[:notice]).to match(/An error occurred finding/)
+    end
+
+    it "redirects to root if item code is invalid" do
+      post "/olcc_bottles", params: {new_item_code: "bogus", category: category}
+
+      expect(response).to redirect_to(root_path)
+      expect(flash[:notice]).to match(/An error.*Sorry/)
+    end
   end
 end
