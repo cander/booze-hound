@@ -172,7 +172,7 @@ module OlccWeb
 
     def self.check_quiet_error(html)
       if /An Error Has Occurred/.match?(html)
-        raise "OLCC error page encountered"
+        raise ApiError, "OLCC error page encountered"
       end
     end
 

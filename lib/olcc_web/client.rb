@@ -87,7 +87,7 @@ module OlccWeb
 
     def error(msg)
       logger.error msg
-      raise msg
+      raise ApiError, msg
     end
   end
 end

@@ -27,7 +27,7 @@ RSpec.describe OlccWeb::HtmlParser do
     end
 
     it "raises an error for a quiet error in the HTML" do
-      expect { OlccWeb::HtmlParser.parse_inventory(quiet_error) }.to raise_error(RuntimeError)
+      expect { OlccWeb::HtmlParser.parse_inventory(quiet_error) }.to raise_error(OlccWeb::ApiError)
     end
   end
 
@@ -47,7 +47,7 @@ RSpec.describe OlccWeb::HtmlParser do
     end
 
     it "raises an error for a quiet error in the HTML" do
-      expect { OlccWeb::HtmlParser.parse_stores(quiet_error) }.to raise_error(RuntimeError)
+      expect { OlccWeb::HtmlParser.parse_stores(quiet_error) }.to raise_error(OlccWeb::ApiError)
     end
   end
 
@@ -165,7 +165,7 @@ RSpec.describe OlccWeb::HtmlParser do
       expect(details.bottle_price).to eq(35.95)
     end
     it "raises an error for a quiet error in the HTML" do
-      expect { OlccWeb::HtmlParser.parse_product_details(quiet_error) }.to raise_error(RuntimeError)
+      expect { OlccWeb::HtmlParser.parse_product_details(quiet_error) }.to raise_error(OlccWeb::ApiError)
     end
   end
   describe "parse_category_bottles" do

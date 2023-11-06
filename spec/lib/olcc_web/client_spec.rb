@@ -63,6 +63,6 @@ RSpec.describe OlccWeb::Client do
     stubs.get("/FrontController") { [200, {}, err_html] }
 
     expect { client.get_item_inventory("RUM", "99900592775", "5927B") }
-      .to raise_error("OLCC error page encountered")
+      .to raise_error(OlccWeb::ApiError, "OLCC error page encountered")
   end
 end
