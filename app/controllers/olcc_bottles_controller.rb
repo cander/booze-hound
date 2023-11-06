@@ -35,7 +35,7 @@ class OlccBottlesController < ApplicationController
       return
     end
 
-    bottle = LoadBottle.call(olcc_client, category, new_item_code, "none")
+    bottle = LoadBottle.call(olcc_client, category, new_item_code)
     if bottle
       # success - show it
       redirect_to bottle

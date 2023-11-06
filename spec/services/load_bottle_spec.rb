@@ -16,9 +16,9 @@ RSpec.describe LoadBottle do
     }
 
     it "should insert a bottle" do
-      expect(client).to receive(:get_bottle_details).and_return(new_bottle)
+      expect(client).to receive(:get_bottle_details).with(category, new_item_code).and_return(new_bottle)
 
-      expect { LoadBottle.call(client, category, new_item_code, old_item_code) }.to change { OlccBottle.count }.by 1
+      expect { LoadBottle.call(client, category, new_item_code) }.to change { OlccBottle.count }.by 1
 
       bottle = OlccBottle.find(new_item_code)
       expect(bottle).to_not be_nil
@@ -28,7 +28,7 @@ RSpec.describe LoadBottle do
       expect(client).to receive(:get_bottle_details).and_return(new_bottle)
       allow_any_instance_of(OlccBottle).to receive(:save).and_return(false)
 
-      expect(LoadBottle.call(client, category, new_item_code, old_item_code)).to be_nil
+      expect(LoadBottle.call(client, category, new_item_code)).to be_nil
 
       expect { OlccBottle.find(new_item_code) }.to raise_error(ActiveRecord::RecordNotFound)
     end
@@ -49,7 +49,7 @@ RSpec.describe LoadBottle do
     it "should update an existing bottle" do
       expect(client).to receive(:get_bottle_details).and_return(new_bottle)
 
-      expect { LoadBottle.call(client, "RUM", new_code, old_code) }.to_not change { OlccBottle.count }
+      expect { LoadBottle.call(client, "RUM", new_code) }.to_not change { OlccBottle.count }
 
       barcelo.reload
       expect(barcelo.description).to eq(new_desc)
@@ -60,7 +60,7 @@ RSpec.describe LoadBottle do
       expect(client).to receive(:get_bottle_details).and_return(new_bottle)
       allow_any_instance_of(OlccBottle).to receive(:update).and_return(false)
 
-      expect(LoadBottle.call(client, "RUM", new_code, old_code)).to be_nil
+      expect(LoadBottle.call(client, "RUM", new_code)).to be_nil
 
       barcelo.reload
       expect(barcelo.description).to eq(old_desc)
@@ -70,6 +70,6 @@ RSpec.describe LoadBottle do
   it "should return nil if web client fails" do
     expect(client).to receive(:get_bottle_details).and_raise(RuntimeError, "boom!")
 
-    expect(LoadBottle.call(client, "RUM", "123", "456")).to be_nil
+    expect(LoadBottle.call(client, "RUM", "123")).to be_nil
   end
 end

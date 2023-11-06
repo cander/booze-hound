@@ -27,9 +27,9 @@ class FetchBottlesCsvCmd
 end
 
 class LoadBottleCmd
-  def call(client, category, new_code, old_code)
-    puts "Loading inventory for #{category} #{new_code} #{old_code}"
-    LoadBottle.call(client, category, new_code, old_code)
+  def call(client, category, new_code)
+    puts "Loading inventory info for #{category} #{new_code}"
+    LoadBottle.call(client, category, new_code)
   end
 end
 

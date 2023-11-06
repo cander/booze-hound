@@ -77,7 +77,7 @@ RSpec.describe "OlccBottles", type: :request do
     end
 
     it "calls LoadBottle to add the bottle to the system" do
-      expect(LoadBottle).to receive(:call).with(olcc_client, category, new_item_code, "none")
+      expect(LoadBottle).to receive(:call).with(olcc_client, category, new_item_code)
         .and_return(bottle)
 
       post "/olcc_bottles", params: {new_item_code: new_item_code, category: category}
@@ -86,7 +86,7 @@ RSpec.describe "OlccBottles", type: :request do
     end
 
     it "redirects to root if LoadBottle fails" do
-      expect(LoadBottle).to receive(:call).with(olcc_client, category, new_item_code, "none")
+      expect(LoadBottle).to receive(:call).with(olcc_client, category, new_item_code)
         .and_return(nil)
 
       post "/olcc_bottles", params: {new_item_code: new_item_code, category: category}
