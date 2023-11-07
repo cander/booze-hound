@@ -40,6 +40,7 @@ class OlccBottlesController < ApplicationController
       # success - show it
       redirect_to bottle
     else
+      # Could get the error_message from LoadBottle - maybe someday
       flash[:notice] = "An error occurred finding bottle #{new_item_code}. Sorry."
       redirect_back(fallback_location: root_path)
     end

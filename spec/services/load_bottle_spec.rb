@@ -24,12 +24,18 @@ RSpec.describe LoadBottle do
       expect(bottle).to_not be_nil
     end
 
+    it "should return nil if there is an OLCC error" do
+      expect(client).to receive(:get_bottle_details).and_raise(OlccWeb::ApiError, "boom")
+
+      expect(LoadBottle.call(client, category, new_item_code)).to be_nil
+      expect(LoadBottle.error_message).to_not be_nil
+    end
+
     it "should return nil if there is an error creating a bottle" do
       expect(client).to receive(:get_bottle_details).and_return(new_bottle)
       allow_any_instance_of(OlccBottle).to receive(:save).and_return(false)
 
       expect(LoadBottle.call(client, category, new_item_code)).to be_nil
-
       expect { OlccBottle.find(new_item_code) }.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
