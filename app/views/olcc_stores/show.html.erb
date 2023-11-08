@@ -1,43 +1,10 @@
-<%= stylesheet_link_tag "tables" %>
-
-
-<h2><%= @store.name %><br></h2>
-<%= @store.address %><br>
-<%= @store.store_hours %><br>
-<% user_favorite = @user.is_favorite_store?(@store) %>
-Is a favorite store: <%= user_favorite %>
-
-<%= form_with(model: @store, method: "patch") do |form| %>
-  <% if user_favorite %>
-    <%= form.hidden_field :follow, value: "false" %>
-    <%= form.button "Unfollow" %>
-  <% else %>
-    <%= form.hidden_field :follow, value: "true" %>
-    <%= form.button "Follow" %>
-  <% end %>
-<% end %>
-
-<h2>
-Inventory
-</h2>
-
-<table>
-  <thead>
-    <tr>
-      <th>Item Code</th>
-      <th>Name</th>
-      <th>Price</th>
-      <th>Quantity</th>
-    </tr>
-  </thead>
-  <tbody>
-  <% @inventory.each_with_index do |inv, index| %>
-      <tr class="<%= index.even? ? 'even-row' : 'odd-row' %>">
-        <td><%= inv.olcc_bottle.new_item_code %></td>
-        <td><%= link_to inv.olcc_bottle.name, inv.olcc_bottle %></td>
-        <td><%= number_to_currency(inv.olcc_bottle.bottle_price) %></td>
-        <td class="right"><%= inv.quantity %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="row">
+    <div class="col-lg-8 mb-5">
+      <!-- BEGIN Main Body Content include -->
+      <%= render 'layouts/content/stores_show' %>
+      <!-- END Main Body Content include -->
+    </div>
+    <div class="col-lg-4 mb-4">
+      <%= render 'layouts/sidebar/user_menu_authenticated' %>
+    </div>
+</div>

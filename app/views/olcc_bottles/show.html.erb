@@ -1,51 +1,10 @@
-<%= stylesheet_link_tag "tables" %>
-
-
-<h2><%= @bottle.name %><br></h2>
-Category: <%= @bottle.category.titleize %><br>
-Price: <%= number_to_currency(@bottle.bottle_price) %><br>
-Size: <%= @bottle.size %><br>
-Proof: <%= @bottle.proof %><br>
-Age: <%= @bottle.age.empty? ? "NAS" : @bottle.age %><br>
-<% user_follows = @user.is_following?(@bottle) %>
-Following: <%= user_follows %>
-
-<%= form_with(model: @bottle, method: "patch") do |form| %>
-  <% if user_follows %>
-    <%= form.hidden_field :follow, value: "false" %>
-    <%= form.button "Unfollow" %>
-  <% else %>
-    <%= form.hidden_field :follow, value: "true" %>
-    <%= form.button "Follow" %>
-  <% end %>
-<% end %>
-
-<% num_stores = @inventory.size %>
-<% if num_stores == 0 %>
-<h2>It is NOT available at any of your stores.</h2>
-<% else %>
-  <h2>
-  Available at the following <%= num_stores %> stores:
-  </h2>
-
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Address</th>
-        <th>Hours</th>
-        <th>Quantity</th>
-      </tr>
-    </thead>
-    <tbody>
-    <% @inventory.each_with_index do |inv, index| %>
-        <tr class="<%= index.even? ? 'even-row' : 'odd-row' %>">
-          <td><%= link_to inv.olcc_store.name, inv.olcc_store %></td>
-          <td><%= inv.olcc_store.address %></td>
-          <td><%= inv.olcc_store.store_hours %></td>
-          <td class="right"><%= inv.quantity %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-<% end %>
+<div class="row">
+    <div class="col-lg-8 mb-5">
+      <!-- BEGIN Main Body Content include -->
+      <%= render 'layouts/content/bottles_show' %>
+      <!-- END Main Body Content include -->
+    </div>
+    <div class="col-lg-4 mb-4">
+      <%= render 'layouts/sidebar/user_menu_authenticated' %>
+    </div>
+</div>
