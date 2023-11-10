@@ -1,31 +1,10 @@
-<%= stylesheet_link_tag "tables" %>
-
-<h1>Bottles of Booze on the Wall</h1>
-<%= form_with method: :get do |form| %>
-  <%= form.label :query, "Search for bottle:" %>
-  <%= form.text_field :query, value: @query %>
-  <%= form.submit "Search" %>
-<% end %>
-
-<% if @query %>
-<h2>Bottles in OLCC</h2>
-<% else %>
-<h2>List of My Bottles</h2>
-<% end %>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Price</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @olcc_bottles.each_with_index do |bottle, index| %>
-      <tr class="<%= index.even? ? 'even-row' : 'odd-row' %>">
-        <td><%= link_to bottle.name, bottle %></td>
-        <td><%= number_to_currency(bottle.bottle_price) %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="row">
+    <div class="col-lg-8 mb-5">
+      <!-- BEGIN Main Body Content include -->
+      <%= render 'layouts/content/bottles_index' %>
+      <!-- END Main Body Content include -->
+    </div>
+    <div class="col-lg-4 mb-4">
+      <%= render 'layouts/sidebar/user_menu_authenticated' %>
+    </div>
+</div>

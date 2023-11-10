@@ -1,52 +1,12 @@
-<h1>Home Page</h1>
-Welcome, <%= @user.first_name %>
-<h2>Bottle Tasks:</h2>
-<ul>
-    <li> <a href="/olcc_bottles">Bottles you follow</a> </li>
-    <li> Add a bottle based on the OLCC new item code:
-         <%= form_with url: olcc_bottles_path do |form| %>
-           <div>
-             <%= form.label :new_item_code %>
-             <%= form.text_field :new_item_code %>
-             <%= category_select(form) %>
-           </div>
-           <div>
-             <%= form.submit "Search" %>
-           </div>
-       <% end %>
-    </li>
-</ul>
-
-<h2>Other Pages:</h2>
-<ul>
-    <li> <a href="/olcc_stores">Stores you go to</a>
-</ul>
-
-<h2>Recent Events:</h2>
-<% if @events.none? %>
-  <h3>No news is boring</h3>
-<% else %>
-  <table>
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th>Bottle</th>
-        <th>Info</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @events.each_with_index do |event, index| %>
-        <tr class="<%= index.even? ? 'even-row' : 'odd-row' %>">
-          <td><%=  format_date(event) %></td>
-          <td><%= link_to event.olcc_bottle.name, event.olcc_bottle %></td>
-          <td><%= show_event(event) %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-<%end %>
-
-<% if @prev_page %>
-<br><%= link_to "Previous", home_path(page: @prev_page) %>
-<% end %>
-<br><%= link_to "Next", home_path(page: @next_page) %>
+<div class="row">
+    <div class="col-lg-8 mb-5">
+      <!-- BEGIN Main Body Content include -->
+      <%= render 'layouts/content/home_authenticated' %>
+      <%= render 'layouts/content/home_anonymous' %>
+      <!-- END Main Body Content include -->
+    </div>
+    <div class="col-lg-4 mb-4">
+      <%= render 'layouts/sidebar/user_menu_authenticated' %>
+      <%= render 'layouts/sidebar/home_anonymous' %>
+    </div>
+</div>

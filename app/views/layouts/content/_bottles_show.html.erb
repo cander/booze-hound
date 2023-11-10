@@ -1,0 +1,52 @@
+<!-- BEGIN Bottles Show (Authenticated) include -->
+<div class="border border-danger p-4 mb-5 authenticated-display">
+    <div class="mb-5">
+        <div>
+            <h2 class="d-inline"><%= @bottle.name %></h2>
+            <% user_follows = @user.is_following?(@bottle) %>
+            <%= form_with(model: @bottle, method: "patch", class: "d-inline") do |form| %>
+                <% if user_follows %>
+                    <%= form.hidden_field :follow, value: "false" %>
+                    <i class="bi bi-heart-fill fs-5 text-danger"></i>
+                    <%= form.button "Unfollow" %>
+                <% else %>
+                    <%= form.hidden_field :follow, value: "true" %>
+                    <i class="bi bi-heart fs-5 text-danger"></i>
+                    <%= form.button "Follow" %>
+                <% end %>
+            <% end %>
+        </div>
+        <p class="mb-0">Category: <%= @bottle.category.titleize %></p>
+        <p class="mb-0">Price: <%= number_to_currency(@bottle.bottle_price) %></p>
+        <p class="mb-0">Size: <%= @bottle.size %></p>
+        <p class="mb-0">Proof: <%= @bottle.proof %></p>
+        <p class="mb-0">Age: <%= @bottle.age.empty? ? "NAS" : @bottle.age %></p>
+    </div>
+    <% num_stores = @inventory.size %>
+    <% if num_stores == 0 %>
+        <h2>It is NOT available at any of your stores.</h2>
+    <% else %>
+        <h2>Available at the following <%= num_stores %> stores:</h2>
+        <table class="table table-striped table-hover align-top mb-5 table-feature-comparison">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Hours</th>
+                    <th scope="col">Quantity</th>
+                </tr>
+            </thead>
+            <tbody class="table-striped table-group-divider align-middle">
+                <% @inventory.each_with_index do |inv, index| %>
+                    <tr>
+                        <td><%= link_to inv.olcc_store.name, inv.olcc_store %></td>
+                        <td><address class="mb-0"><%= inv.olcc_store.address %></address></td>
+                        <td class="fst-italic"><%= inv.olcc_store.store_hours %></td>
+                        <td class="text-end pe-4"><%= inv.quantity %></td>
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+    <% end %>
+</div>
+<!-- END Bottles Show (Authenticated) include -->

@@ -1,33 +1,10 @@
-<%= stylesheet_link_tag "tables" %>
-
-<h1>Stores</h1>
-<%= form_with method: :get do |form| %>
-  <%= form.label :query, "Search for stores:" %>
-  <%= form.text_field :query, value: @query %>
-  <%= form.submit "Search" %>
-<% end %>
-
-<% if @query %>
-<h2>OLCC Stores</h2>
-<% else %>
-<h2>List of My OLCC Stores</h1>
-<% end %>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Address</th>
-      <th>Store Hours</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @olcc_stores.each_with_index do |store, index| %>
-      <tr class="<%= index.even? ? 'even-row' : 'odd-row' %>">
-        <td><%= link_to store.name, store %></td>
-        <td><%= store.address %></td>
-        <td><%= store.store_hours %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="row">
+    <div class="col-lg-8 mb-5">
+      <!-- BEGIN Main Body Content include -->
+      <%= render 'layouts/content/stores_index' %>
+      <!-- END Main Body Content include -->
+    </div>
+    <div class="col-lg-4 mb-4">
+      <%= render 'layouts/sidebar/user_menu_authenticated' %>
+    </div>
+</div>
