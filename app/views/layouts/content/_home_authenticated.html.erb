@@ -1,15 +1,15 @@
 <!-- BEGIN Home (Authenticated) include -->
-<div class="border border-danger p-4 mb-5 authenticated-display">
+<div class="p-4 mb-5">
     <%= yield %>
     <div class="alert alert-primary" role="alert">
-        <p class="m-0 p-0"><i class="fa-regular fa-message me-2 fs-4 align-middle"></i>Welcome, <%= @user.first_name.capitalize() %>!</p>
+        <p class="m-0 p-0"><i class="fa-regular fa-message me-2 fs-4 align-middle"></i>Welcome, <%= @user.first_name %>!</p>
     </div>
 
     <h2>Recent Events:</h2>
     <% if @events.none? %>
         <h3>No news is boring</h3>
     <% else %>
-        <table class="table table-striped table-hover align-top mb-5 table-feature-comparison">
+        <table class="table table-striped table-hover align-top mb-3 table-feature-comparison">
             <thead>
                 <tr>
                     <th scope="col">Date</th>

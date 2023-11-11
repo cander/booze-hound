@@ -1,12 +1,12 @@
 <div class="row">
-    <div class="col-lg-8 mb-5">
+    <div class="colmb-5">
       <!-- BEGIN Main Body Content include -->
-      <%= render 'layouts/content/home_authenticated' %>
-      <%= render 'layouts/content/home_anonymous' %>
+      <%#= // TODO: Replace the if true check below with the helper function for user auth check %>
+      <% if true %>
+        <%= render 'layouts/content/home_authenticated' %>
+      <% else %>
+        <%= render 'layouts/content/home_anonymous' %>
+      <% end %>
       <!-- END Main Body Content include -->
-    </div>
-    <div class="col-lg-4 mb-4">
-      <%= render 'layouts/sidebar/user_menu_authenticated' %>
-      <%= render 'layouts/sidebar/home_anonymous' %>
     </div>
 </div>
