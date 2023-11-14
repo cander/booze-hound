@@ -9,4 +9,5 @@ Rails.application.routes.draw do
 
   resources :olcc_bottles
   resources :olcc_stores
+  resources :user
 end
