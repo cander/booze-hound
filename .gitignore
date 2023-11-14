@@ -47,3 +47,6 @@ vendor
 
 # Ignore OS files
 .DS_Store
+
+# Ignore VS Code workspace settings file
+.vscode
