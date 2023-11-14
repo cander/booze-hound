@@ -1,4 +1,5 @@
 <!-- BEGIN Stores Show (Authenticated) include -->
+<<<<<<< HEAD
 <div class="">
   <div class="mb-5">
     <div class="mb-3">
@@ -15,6 +16,27 @@
           <%= form.button "Follow" %>
         <% end %>
       <% end %>
+=======
+<div class="p-4 mb-5">
+    <div class="mb-5">
+        <div>
+            <h2 class="d-inline"><%= @store.name %></h2>
+            <% user_favorite = @user.is_favorite_store?(@store) %>
+            <%= form_with(model: @store, method: "patch", class: "d-inline") do |form| %>
+                <% if user_favorite %>
+                    <%= form.hidden_field :follow, value: "false" %>
+                    <i class="bi bi-heart-fill fs-5 text-danger"></i>
+                    <%= form.button "Unfollow" %>
+                <% else %>
+                    <%= form.hidden_field :follow, value: "true" %>
+                    <i class="bi bi-heart fs-5 text-danger"></i>
+                    <%= form.button "Follow" %>
+                <% end %>
+            <% end %>
+        </div>
+        <address class="mb-0"><%= @store.address %></address>
+        <p class="mb-0 fst-italic"><%= @store.store_hours %></p>
+>>>>>>> b1aa13f (Fixing User link and indentation, removing borders)
     </div>
     <div class="text-secondary">
       <div class="row">
