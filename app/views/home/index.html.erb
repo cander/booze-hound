@@ -1,12 +1,22 @@
 <div class="row">
-    <div class="colmb-5">
-      <!-- BEGIN Main Body Content include -->
-      <%#= // TODO: Replace the if true check below with the helper function for user auth check %>
-      <% if true %>
-        <%= render 'layouts/content/home_authenticated' %>
-      <% else %>
-        <%= render 'layouts/content/home_anonymous' %>
-      <% end %>
-      <!-- END Main Body Content include -->
+  <div class="col">
+    <div class="alert alert-primary" role="alert">
+      <p class="m-0 p-0"><i class="fa-regular fa-message me-2 fs-4 align-middle"></i>Welcome, <%= @user.first_name %>!</p>
     </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-4 order-lg-2">
+    <%= render 'layouts/sidebar/user_menu_authenticated' %>
+  </div>
+  <div class="col-lg-8 order-lg-1">
+    <!-- BEGIN Main Body Content include -->
+    <%#= // TODO: Replace the if true check below with the helper function for user auth check %>
+    <% if true %>
+      <%= render 'layouts/content/home_authenticated' %>
+    <% else %>
+      <%= render 'layouts/content/home_anonymous' %>
+    <% end %>
+    <!-- END Main Body Content include -->
+  </div>
 </div>

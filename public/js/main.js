@@ -1,21 +1,21 @@
 function getCopyrightRange(startYear = 2023) {
-    const enDash = '–';
+  const enDash = '–';
 
-    let copyrightRange = '';
-    let currentYear = new Date().getFullYear();
+  let copyrightRange = '';
+  let currentYear = new Date().getFullYear();
 
-    if (currentYear == Number(startYear)) {
-        copyrightRange = startYear;
-    } // end if test
-    else {
-        copyrightRange = startYear + '' + enDash + '' + currentYear;
-        console.log(copyrightRange);
-    } // end else test
+  if (currentYear == Number(startYear)) {
+    copyrightRange = startYear;
+  } // end if test
+  else {
+    copyrightRange = startYear + '' + enDash + '' + currentYear;
+    console.log(copyrightRange);
+  } // end else test
 
-    return copyrightRange;
+  return copyrightRange;
 } // end getCopyrightRange function
 
 $(document).ready(function() {
-    let footerCopyrightRangeElement = $("#footerCopyrightRange");
-    footerCopyrightRangeElement.text(getCopyrightRange(footerCopyrightRangeElement.text()));
+  let footerCopyrightRangeElement = $("#footerCopyrightRange");
+  footerCopyrightRangeElement.text(getCopyrightRange(footerCopyrightRangeElement.text()));
 }); // end jQuery document-ready

@@ -1,10 +1,10 @@
 <div class="row">
-    <div class="col-lg-8 mb-5">
-      <!-- BEGIN Main Body Content include -->
-      <%= render 'layouts/content/stores_index' %>
-      <!-- END Main Body Content include -->
-    </div>
-    <div class="col-lg-4 mb-4">
-      <%= render 'layouts/sidebar/user_menu_authenticated' %>
-    </div>
+  <div class="col-lg-4 order-lg-2">
+    <%= render 'layouts/sidebar/user_menu_authenticated' %>
+  </div>
+  <div class="col-lg-8 order-lg-1">
+    <!-- BEGIN Main Body Content include -->
+    <%= render 'layouts/content/stores_index' %>
+    <!-- END Main Body Content include -->
+  </div>
 </div>

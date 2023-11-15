@@ -1,44 +1,41 @@
 <!-- BEGIN Home (Authenticated) include -->
-<div class="p-4 mb-5">
-    <%= yield %>
-    <div class="alert alert-primary" role="alert">
-        <p class="m-0 p-0"><i class="fa-regular fa-message me-2 fs-4 align-middle"></i>Welcome, <%= @user.first_name %>!</p>
-    </div>
-    <h2>Recent Events:</h2>
-    <% if @events.none? %>
-        <h3>No news is boring</h3>
-    <% else %>
-        <table class="table table-striped table-hover align-top mb-3 table-feature-comparison">
-            <thead>
-                <tr>
-                    <th scope="col">Date</th>
-                    <th scope="col">Bottle</th>
-                    <th scope="col">Info</th>
-                </tr>
-            </thead>
-            <tbody class="table-striped table-group-divider align-middle">
-                <% @events.each_with_index do |event, index| %>
-                    <tr>
-                        <td><%= format_date(event) %></td>
-                        <td><%= link_to event.olcc_bottle.name, event.olcc_bottle %></td>
-                        <td><%= show_event(event) %></td>
-                    </tr>
-                <% end %>
-            </tbody>
-        </table>
-    <%end %>
-    <% if @prev_page %>
-        <%= link_to home_path(page: @prev_page), class: "my-2, link-underline link-underline-opacity-0" do %>
-            <i class="bi bi-arrow-left-square me-1"></i>Previous
-        <% end %>
+<div class="">
+  <%= yield %>
+  <h2>Recent Events:</h2>
+  <% if @events.none? %>
+    <h3>No news is boring</h3>
+  <% else %>
+    <table class="table table-striped table-hover align-top mb-3 table-feature-comparison">
+      <thead>
+        <tr>
+          <th scope="col">Date</th>
+          <th scope="col">Bottle</th>
+          <th scope="col">Info</th>
+        </tr>
+      </thead>
+      <tbody class="table-striped table-group-divider align-middle">
+      <% @events.each_with_index do |event, index| %>
+        <tr>
+          <td><%= format_date(event) %></td>
+          <td><%= link_to event.olcc_bottle.name, event.olcc_bottle %></td>
+          <td><%= show_event(event) %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  <%end %>
+  <% if @prev_page %>
+    <%= link_to home_path(page: @prev_page), class: "my-2, link-underline link-underline-opacity-0" do %>
+      <i class="bi bi-arrow-left-square me-1"></i>Previous
     <% end %>
-    <% if @next_page and @prev_page %>
-        <span class="mx-2"></span>
+  <% end %>
+  <% if @next_page and @prev_page %>
+    <span class="mx-2"></span>
+  <% end %>
+  <% if @next_page %>
+    <%= link_to home_path(page: @next_page), class: "my-2, link-underline link-underline-opacity-0" do %>
+      Next<i class="bi bi-arrow-right-square ms-1"></i>
     <% end %>
-    <% if @next_page %>
-        <%= link_to home_path(page: @next_page), class: "my-2, link-underline link-underline-opacity-0" do %>
-            Next<i class="bi bi-arrow-right-square ms-1"></i>
-        <% end %>
-    <% end %>
+  <% end %>
 </div>
 <!-- END Home (Authenticated) include -->

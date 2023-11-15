@@ -1,44 +1,60 @@
 <!-- BEGIN Stores Show (Authenticated) include -->
-<div class="p-4 mb-5">
-    <div class="mb-5">
-        <div>
-            <h2 class="d-inline"><%= @store.name %></h2>
-            <% user_favorite = @user.is_favorite_store?(@store) %>
-            <%= form_with(model: @store, method: "patch", class: "d-inline") do |form| %>
-                <% if user_favorite %>
-                    <%= form.hidden_field :follow, value: "false" %>
-                    <i class="bi bi-heart-fill fs-5 text-danger"></i>
-                    <%= form.button "Unfollow" %>
-                <% else %>
-                    <%= form.hidden_field :follow, value: "true" %>
-                    <i class="bi bi-heart fs-5 text-danger"></i>
-                    <%= form.button "Follow" %>
-                <% end %>
-            <% end %>
-        </div>
-        <address class="mb-0"><%= @store.address %></address>
-        <p class="mb-0 fst-italic"><%= @store.store_hours %></p>
+<div class="">
+  <div class="mb-5">
+    <div class="mb-3">
+      <h2 class="d-inline"><%= @store.name %></h2>
+      <% user_favorite = @user.is_favorite_store?(@store) %>
+      <%= form_with(model: @store, method: "patch", class: "d-inline") do |form| %>
+        <% if user_favorite %>
+          <%= form.hidden_field :follow, value: "false" %>
+          <i class="bi bi-heart-fill fs-5 text-danger"></i>
+          <%= form.button "Unfollow" %>
+        <% else %>
+          <%= form.hidden_field :follow, value: "true" %>
+          <i class="bi bi-heart fs-5 text-danger"></i>
+          <%= form.button "Follow" %>
+        <% end %>
+      <% end %>
     </div>
-    <h3>Inventory</h3>
-    <table class="table table-striped table-hover align-top mb-5 table-feature-comparison">
-        <thead>
-            <tr>
-                <th scope="col">Item Code</th>
-                <th scope="col">Name</th>
-                <th scope="col">Price</th>
-                <th scope="col">Quantity</th>
-            </tr>
-        </thead>
-        <tbody class="table-striped table-group-divider align-middle">
-            <% @inventory.each_with_index do |inv, index| %>
-                <tr>
-                    <td><%= inv.olcc_bottle.new_item_code %></td>
-                    <td><%= link_to inv.olcc_bottle.name, inv.olcc_bottle %></td>
-                    <td><%= number_to_currency(inv.olcc_bottle.bottle_price) %></td>
-                    <td class="text-end"><%= inv.quantity %></td>
-                </tr>
-            <% end %>
-        </tbody>
-    </table>
+    <div class="text-secondary">
+      <div class="row">
+        <div class="col-2 text-end text-nowrap">
+          <p class="mb-2"><i class="bi bi-geo-alt-fill"></i> Address</p>
+        </div>
+        <div class="col-10">
+          <address class="mb-0"><%= @store.address %></address>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-2 text-end text-nowrap">
+          <p class="mb-2"><i class="bi bi-clock-fill"></i> Hours</p>
+        </div>
+        <div class="col-10">
+          <p class="mb-0 fst-italic"><%= @store.store_hours %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <h3>Store Inventory</h3>
+  <table class="table table-striped table-hover align-top mb-5 table-feature-comparison">
+    <thead>
+      <tr>
+        <th scope="col">Item Code</th>
+        <th scope="col">Name</th>
+        <th scope="col" class="text-end">Price</th>
+        <th scope="col" class="text-end">Quantity</th>
+      </tr>
+    </thead>
+    <tbody class="table-striped table-group-divider align-middle">
+    <% @inventory.each_with_index do |inv, index| %>
+      <tr>
+        <td><%= inv.olcc_bottle.new_item_code %></td>
+        <td><%= link_to inv.olcc_bottle.name, inv.olcc_bottle %></td>
+        <td class="text-end"><%= number_to_currency(inv.olcc_bottle.bottle_price) %></td>
+        <td class="text-end pe-4"><%= inv.quantity %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
 </div>
 <!-- END Stores Show (Authenticated) include -->
