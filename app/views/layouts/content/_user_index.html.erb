@@ -19,13 +19,13 @@
               <label for="username" class="form-label">Username</label>
               <div class="input-group has-validation">
                 <span class="input-group-text">@</span>
-                <input type="text" class="form-control" id="username" placeholder="Username" value="<%= "@user.username" %>" required>
+                <input type="text" class="form-control" id="username" placeholder="Username" value="<%= "@user.username (add to model)" %>" required>
               <div class="invalid-feedback">Your username is required.</div>
               </div>
             </div>
             <div class="col-12">
               <label for="email" class="form-label">Email Address</label>
-              <input type="email" class="form-control" id="email" placeholder="you@example.com" value="<%= "@user.email" %>" required>
+              <input type="email" class="form-control" id="email" placeholder="you@example.com" value="<%= @user.email %>" required>
               <div class="invalid-feedback">Please enter a valid email address.</div>
             </div>
             <div class="col-md-3">
