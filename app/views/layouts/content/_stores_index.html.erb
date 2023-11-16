@@ -1,35 +1,35 @@
 <!-- BEGIN Stores Index (Authenticated) include -->
-<div class="border border-danger p-4 mb-5 authenticated-display">
-    <div class="mb-5">
-        <h2>Stores</h2>
-        <%= form_with method: :get do |form| %>
-            <%= form.label :query, "Search for stores:" %>
-            <%= form.text_field :query, value: @query %>
-            <%= form.submit "Search" %>
-        <% end %>
-    </div>
-    <% if @query %>
-        <h3>OLCC Stores</h3>
-    <% else %>
-        <h3>List of My OLCC Stores</h3>
+<div class="">
+  <div class="mb-5">
+    <h2>Stores</h2>
+    <%= form_with method: :get do |form| %>
+      <%= form.label :query, "Search for stores:" %>
+      <%= form.text_field :query, value: @query %>
+      <%= form.submit "Search" %>
     <% end %>
-    <table class="table table-striped table-hover align-top mb-5 table-feature-comparison">
-        <thead>
-            <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Address</th>
-                <th scope="col">Store Hours</th>
-            </tr>
-        </thead>
-        <tbody class="table-striped table-group-divider align-middle">
-            <% @olcc_stores.each_with_index do |store, index| %>
-                <tr>
-                    <td><%= link_to store.name, store %></td>
-                    <td><%= store.address %></td>
-                    <td><%= store.store_hours %></td>
-                </tr>
-            <% end %>
-        </tbody>
-    </table>
+  </div>
+  <% if @query %>
+    <h3>OLCC Stores</h3>
+  <% else %>
+    <h3>List of My OLCC Stores</h3>
+  <% end %>
+  <table class="table table-striped table-hover align-top mb-5 table-feature-comparison">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Address</th>
+        <th scope="col">Store Hours</th>
+      </tr>
+    </thead>
+    <tbody class="table-striped table-group-divider align-middle">
+    <% @olcc_stores.each_with_index do |store, index| %>
+      <tr>
+          <td><%= link_to store.name, store %></td>
+          <td><%= store.address %></td>
+          <td><%= store.store_hours %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
 </div>
 <!-- END Stores Index (Authenticated) include -->
