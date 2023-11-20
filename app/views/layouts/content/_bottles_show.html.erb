@@ -1,5 +1,4 @@
 <!-- BEGIN Bottles Show (Authenticated) include -->
-<<<<<<< HEAD
 <div class="">
   <div class="mb-5">
     <div class="mb-3">
@@ -16,30 +15,6 @@
           <%= form.button "Follow" %>
         <% end %>
       <% end %>
-=======
-<div class="p-4 mb-5">
-    <div class="mb-5">
-        <div>
-            <h2 class="d-inline"><%= @bottle.name %></h2>
-            <% user_follows = @user.is_following?(@bottle) %>
-            <%= form_with(model: @bottle, method: "patch", class: "d-inline") do |form| %>
-                <% if user_follows %>
-                    <%= form.hidden_field :follow, value: "false" %>
-                    <i class="bi bi-heart-fill fs-5 text-danger"></i>
-                    <%= form.button "Unfollow" %>
-                <% else %>
-                    <%= form.hidden_field :follow, value: "true" %>
-                    <i class="bi bi-heart fs-5 text-danger"></i>
-                    <%= form.button "Follow" %>
-                <% end %>
-            <% end %>
-        </div>
-        <p class="mb-0">Category: <%= @bottle.category.titleize %></p>
-        <p class="mb-0">Price: <%= number_to_currency(@bottle.bottle_price) %></p>
-        <p class="mb-0">Size: <%= @bottle.size %></p>
-        <p class="mb-0">Proof: <%= @bottle.proof %></p>
-        <p class="mb-0">Age: <%= @bottle.age.empty? ? "NAS" : @bottle.age %></p>
->>>>>>> b1aa13f (Fixing User link and indentation, removing borders)
     </div>
     <div class="text-secondary">
       <div class="row">

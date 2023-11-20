@@ -1,5 +1,4 @@
 <!-- BEGIN Bottles Index (Authenticated) include -->
-<<<<<<< HEAD
 <div class="">
   <div class="mb-5">
     <h2>Bottles</h2>
@@ -7,21 +6,6 @@
       <%= form.label :query, "Search for bottle:" %>
       <%= form.text_field :query, value: @query %>
       <%= form.submit "Search" %>
-=======
-<div class="p-4 mb-5">
-    <div class="mb-5">
-        <h2>Bottles of Booze on the Wall</h2>
-        <%= form_with method: :get do |form| %>
-            <%= form.label :query, "Search for bottle:" %>
-            <%= form.text_field :query, value: @query %>
-            <%= form.submit "Search" %>
-        <% end %>
-    </div>
-    <% if @query %>
-        <h3>Bottles in OLCC</h3>
-    <% else %>
-        <h3>List of My Bottles</h3>
->>>>>>> b1aa13f (Fixing User link and indentation, removing borders)
     <% end %>
   </div>
   <% if @query %>
