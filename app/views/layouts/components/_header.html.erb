@@ -22,11 +22,18 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="/user/1" role="button" data-bs-toggle="dropdown" aria-expanded="false">User</a>
             <ul class="dropdown-menu">
+<<<<<<< HEAD
             <% if user_signed_in? %>
               <li><a class="dropdown-item" href="/user/1"><i class="fa-solid fa-user me-2" style="width: 20px;"></i>User Profile</a></li>
               <li><a class="dropdown-item" href="/olcc_bottles"><i class="fa-solid fa-whiskey-glass me-2" style="width: 20px;"></i>Favorite Bottles</a></li>
               <li><a class="dropdown-item" href="/olcc_stores"><i class="fa-solid fa-shop me-2" style="width: 20px;"></i>Favorite Stores</a></li>
             <% else %>
+=======
+              <li><a class="dropdown-item" href="/user"><i class="fa-solid fa-user me-2" style="width: 20px;"></i>User Profile</a></li>
+              <li><a class="dropdown-item" href="/olcc_bottles"><i class="fa-solid fa-whiskey-glass me-2" style="width: 20px;"></i>Favorite Bottles</a></li>
+              <li><a class="dropdown-item" href="/olcc_stores"><i class="fa-solid fa-shop me-2" style="width: 20px;"></i>Favorite Stores</a></li>
+              <li><hr class="dropdown-divider"></li>
+>>>>>>> d317cee (Adding Bottle/Store links to User nav, more Profile updates)
               <li><a class="dropdown-item" href="/user/create"><i class="fa-solid fa-user-plus me-2 text-danger" style="width: 20px;"></i>Create an Account<i class="bi bi-unlock-fill ms-2"></i></a></li>
               <li><a class="dropdown-item" href="/user/sign-in"><i class="fa-solid fa-right-to-bracket me-2 text-danger" style="width: 20px"></i>Sign In<i class="bi bi-unlock-fill ms-2"></i></a></li>
             <% end %>
