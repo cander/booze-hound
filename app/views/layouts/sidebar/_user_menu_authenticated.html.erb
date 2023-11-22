@@ -1,13 +1,17 @@
-    <div class="mb-5">
-        <!-- BEGIN My Links include -->
-        <h3>My Links</h3>
-        <ul class="nav list-group">
-            <% if !current_page?(:controller => 'olcc_bottles', :action => 'index') %>
-                <li class="list-group-item nav-item"><i class="fa-solid fa-shop" style="width: 20px;"></i><a href="/olcc_bottles" class="nav-link d-inline">Favorite Bottles</a></li>
-            <% end %>
-            <% if !current_page?(:controller => 'olcc_stores', :action => 'index') %>
-                <li class="list-group-item"><i class="fa-solid fa-whiskey-glass" style="padding: 0 2px 0 2px; width: 20px;"></i><a href="/olcc_stores" class="nav-link d-inline">Favorite Stores</a></li>
-            <% end %>
-        </ul>
-        <!-- END My Links include -->
-    </div>
+<!-- BEGIN My Links include -->
+<div class="mb-5">
+  <h3>My Links</h3>
+  <% if user_signed_in? %>
+    <ul class="nav list-group">
+      <% if !current_page?(:controller => 'olcc_bottles', :action => 'index') %>
+        <li class="list-group-item nav-item"><i class="fa-solid fa-shop" style="width: 20px;"></i><a href="/olcc_bottles" class="nav-link d-inline">Favorite Bottles</a></li>
+      <% end %>
+      <% if !current_page?(:controller => 'olcc_stores', :action => 'index') %>
+        <li class="list-group-item"><i class="fa-solid fa-whiskey-glass" style="padding: 0 2px 0 2px; width: 20px;"></i><a href="/olcc_stores" class="nav-link d-inline">Favorite Stores</a></li>
+      <% end %>
+    </ul>
+  <% else %>
+    <div class="alert alert-danger" role="alert">Access denied.</div>
+  <% end %>
+  </div>
+  <!-- END My Links include -->
