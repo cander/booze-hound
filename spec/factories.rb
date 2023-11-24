@@ -24,6 +24,7 @@ FactoryBot.define do
     first_name { "Joe" }
     last_name { "Tester" }
     email { "joe@test.com" }
+    password { "Testy McTester" }
   end
 
   factory :bottle_event do

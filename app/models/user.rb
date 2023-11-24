@@ -3,6 +3,11 @@ class User < ApplicationRecord
     after_add: :increment_bottle_counter_cache, after_remove: :decrement_bottle_counter_cache
   has_and_belongs_to_many :favorite_stores, class_name: "OlccStore", association_foreign_key: "store_num",
     after_add: :increment_store_counter_cache, after_remove: :decrement_store_counter_cache
+  #
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable,
+    :recoverable, :rememberable, :validatable
 
   def is_following?(bottle)
     following_bottles.include?(bottle)
