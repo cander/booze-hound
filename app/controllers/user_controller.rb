@@ -1,6 +1,10 @@
 class UserController < ApplicationController
   def index
-    @user = User.first
+    if helpers.user_signed_in?
+      @user = helpers.current_user
+    else
+      redirect_to "/"
+    end
   end
 
   def show
