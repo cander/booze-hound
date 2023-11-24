@@ -18,42 +18,42 @@
     </div>
     <div class="text-secondary">
       <div class="row">
-        <div class="col-2 text-end text-nowrap">
+        <div class="col-3 col-md-2 text-end text-nowrap">
           <p class="mb-2"><i class="bi bi-diagram-3-fill"></i> Category</p>
         </div>
-        <div class="col-10">
+        <div class="col-auto">
           <p class="mb-0"><%= @bottle.category.titleize %></p>
         </div>
       </div>
       <div class="row">
-        <div class="col-2 text-end text-nowrap">
+        <div class="col-3 col-md-2 text-end text-nowrap">
           <p class="mb-2"><i class="bi bi-tag-fill"></i> Price</p>
         </div>
-        <div class="col-10">
+        <div class="col-auto">
           <p class="mb-0 fst-italic"><%= number_to_currency(@bottle.bottle_price) %></p>
         </div>
       </div>
       <div class="row">
-        <div class="col-2 text-end text-nowrap">
+        <div class="col-3 col-md-2 text-end text-nowrap">
           <p class="mb-2"><i class="bi bi-arrows-fullscreen"></i> Size</p>
         </div>
-        <div class="col-10">
+        <div class="col-auto">
           <p class="mb-0 fst-italic"><%= @bottle.size %></p>
         </div>
       </div>
       <div class="row">
-        <div class="col-2 text-end text-nowrap">
+        <div class="col-3 col-md-2 text-end text-nowrap">
           <p class="mb-2"><i class="bi bi-radioactive"></i> Proof</p>
         </div>
-        <div class="col-10">
+        <div class="col-auto">
           <p class="mb-0 fst-italic"><%= @bottle.proof %></p>
         </div>
       </div>
       <div class="row">
-        <div class="col-2 text-end text-nowrap">
+        <div class="col-3 col-md-2 text-end text-nowrap">
           <p class="mb-2"><i class="bi bi-hourglass-split"></i> Age</p>
         </div>
-        <div class="col-10">
+        <div class="col-auto">
           <p class="mb-0 fst-italic"><%= @bottle.age.empty? ? "NAS" : @bottle.age %></p>
         </div>
       </div>
