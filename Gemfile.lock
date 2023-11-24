@@ -70,7 +70,7 @@ GEM
     base64 (0.1.1)
     bcrypt (3.1.19)
     bindex (0.8.1)
-    bootsnap (1.16.0)
+    bootsnap (1.17.0)
       msgpack (~> 1.2)
     builder (3.2.4)
     concurrent-ruby (1.2.2)
@@ -136,7 +136,7 @@ GEM
     method_source (1.0.0)
     mini_mime (1.1.5)
     minitest (5.20.0)
-    msgpack (1.6.0)
+    msgpack (1.7.2)
     net-imap (0.4.2)
       date
       net-protocol
