@@ -82,7 +82,7 @@ group :development, :test do
   gem "standard"
   gem "rspec-rails"
   gem "rails-controller-testing"
-  gem "factory_bot_rails", "~> 6.2"
+  gem "factory_bot_rails", "~> 6.4"
 end
 
 gem "devise", "~> 4.9"
