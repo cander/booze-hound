@@ -20,13 +20,19 @@ Load the data into the `to` environement from `db/data.yml`:
 RAILS_ENV=to rake db:data:load
 ```
 
-## Run rake Tasks on production
+## Run Rake Tasks in production
 
 First run a web request to launch the machine. Then,
 ```
 fly ssh console
 root@148e470f751e89:/rails# bin/rake olcc:prettify_bottles
 ```
+
+Note: the default, tiny, free memory configuration for the VM does not allow
+running the Rails console when you ssh into the console. But, since it can
+run Rake tasks, one-off commands can hacked into `lib/tasks` and then run
+via Rake.  After a couple of commands, the console might go away when it
+gets killed by the OOM killer. (Clearly, this will not scale.)
 
 ## Setup Daily Update from GitHub Actions
 It's a bit of a Rube Goldberg machine, but we're using a
@@ -47,3 +53,16 @@ For the deployed instance, add this in [`fly.toml`](fly.toml):
 [env]
   DISABLE_TASKS = true
 ```
+
+## Configuring Gmail as the SMTP Server
+We're (currently) using Gmail as the SMTP server. To configure this in
+production, there are two environment variables/secrets that need to be set
+in Fly:
+
+* `GMAIL_USER` - the email address of a Gmail user. Emails will come from
+  that user. This isn't super-sensitive (unlike a password or API key), but
+  it could/should be configured as a secret in Fly anyway.
+* `GMAIL_APP_PW` - the Gmail app password that is required if you have 2FA on
+  your Gmail account. It should be 4 groups of 4 letters like: 
+  `abcd abcd abcd abcd`. Since this is a password, it should be stored
+  as a secret in Fly.
