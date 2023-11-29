@@ -29,10 +29,10 @@
 
 <p><em>Warning: some hacky UI stuff below:</em></p>
 
-Logged in: <%= user_signed_in? %>
-
 <p>
 <% if user_signed_in? %>
+  Logged in as: <%= current_user.email %>
+
   <%= form_with url: destroy_user_session_path, method: :delete do |form| %>
     <%= form.button "Logout" %>
   <% end %>
