@@ -3,7 +3,7 @@
   <div class="mb-5">
     <div class="mb-3">
       <h2 class="d-inline"><%= @store.name %></h2>
-      <% user_favorite = @user.is_favorite_store?(@store) %>
+      <% user_favorite = current_user.is_favorite_store?(@store) %>
       <%= form_with(model: @store, method: "patch", class: "d-inline") do |form| %>
         <% if user_favorite %>
           <%= form.hidden_field :follow, value: "false" %>
