@@ -8,7 +8,6 @@ RSpec.describe "OlccStores", type: :request do
 
   context "user logged in" do
     before do
-      # expect(User).to receive(:first).and_return(user)
       sign_in user
     end
 

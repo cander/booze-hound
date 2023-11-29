@@ -1,4 +1,5 @@
 class OlccStoresController < ApplicationController
+  # for now, all operations require login
   before_action :check_and_setup_user
 
   def index
