@@ -20,6 +20,13 @@ class HomeController < ApplicationController
     # In theory, this won't be bad b/c recent events are limited.
     # We could create some sort of helper/service to
     # fetch all the stores into a hash that could be consulted.
-    @events = BottleEvent.recents(@user.following_bottle_ids, page)
+    @events = if user_signed_in?
+      BottleEvent.recents(current_user.following_bottle_ids, page)
+    else
+      # in theory, only signed-in user should get to the home controller,
+      # but will leave it open for the moment while the UI is in some flux.
+      # Later, when user's have preferred categories, it really won't make sense.
+      []
+    end
   end
 end

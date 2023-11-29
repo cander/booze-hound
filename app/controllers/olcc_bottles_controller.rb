@@ -1,10 +1,13 @@
 class OlccBottlesController < ApplicationController
+  # for now, all operations require login
+  before_action :check_and_setup_user
+
   def index
     if params[:query]
       @olcc_bottles = OlccBottle.search(params[:query])
       @query = params[:query]
     else
-      @olcc_bottles = UserBottlesQuery.call(@user)
+      @olcc_bottles = UserBottlesQuery.call(current_user)
     end
     # might want two different views for my bottles vs. search bottles
     # with the option to start following bottles in search results
@@ -12,15 +15,15 @@ class OlccBottlesController < ApplicationController
 
   def show
     @bottle = OlccBottle.find(params[:id])
-    @inventory = StoreQuery.call(@bottle, @user.favorite_store_ids)
+    @inventory = StoreQuery.call(@bottle, current_user.favorite_store_ids)
   end
 
   def update
     @bottle = OlccBottle.find(params[:id])
     if params[:olcc_bottle][:follow] == "true"
-      UserFollowBottle.call(olcc_client, @user, @bottle)
+      UserFollowBottle.call(olcc_client, current_user, @bottle)
     else
-      @user.unfollow_bottle(@bottle)
+      current_user.unfollow_bottle(@bottle)
     end
 
     redirect_to @bottle
