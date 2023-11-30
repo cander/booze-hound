@@ -1,10 +1,18 @@
 class HomeController < ApplicationController
   def index
-    page = if params[:page]
-      params[:page].to_i
+    @user = current_user   # may be nil if not logged in
+
+    get_user_events(params[:page])
+  end
+
+  # eventually, this event code should be a separate controller
+  def get_user_events(page_str)
+    page = if page_str
+      page_str.to_i
     else
       0
     end
+
     if page > 0
       @next_page = page + 1
       @prev_page = page - 1
