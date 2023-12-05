@@ -31,7 +31,9 @@
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="/users/sign_out" data-turbo-method=":delete"><i class="fa-solid fa-right-from-bracket me-2" style="width: 20px;"></i>Logout</a></li>
             <% else %>
-              <li><a class="dropdown-item" href=<%= new_user_registration_path %>><i class="fa-solid fa-user-plus me-2 text-danger" style="width: 20px;"></i>Create an Account<i class="bi bi-unlock-fill ms-2"></i></a></li>
+              <% if false %>
+                <li><a class="dropdown-item" href=<%= new_user_registration_path %>><i class="fa-solid fa-user-plus me-2 text-danger" style="width: 20px;"></i>Create an Account<i class="bi bi-unlock-fill ms-2"></i></a></li>
+              <% end %>
               <li><a class="dropdown-item" href=<%= new_user_session_path %>><i class="fa-solid fa-right-to-bracket me-2 text-danger" style="width: 20px"></i>Sign In<i class="bi bi-unlock-fill ms-2"></i></a></li>
             <% end %>
             </ul>
