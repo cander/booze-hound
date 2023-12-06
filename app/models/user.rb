@@ -1,4 +1,8 @@
 class User < ApplicationRecord
+  validates :username, length: {in: 3..24}
+  validates :username, format: {with: /\A[a-zA-Z0-9._-]+\z/,
+                                message: "only allows: a-zA-Z0-9._-"}
+
   has_and_belongs_to_many :following_bottles, class_name: "OlccBottle", association_foreign_key: "new_item_code",
     after_add: :increment_bottle_counter_cache, after_remove: :decrement_bottle_counter_cache
   has_and_belongs_to_many :favorite_stores, class_name: "OlccStore", association_foreign_key: "store_num",

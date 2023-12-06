@@ -4,6 +4,45 @@ require_relative "../../test/test_helper"
 RSpec.describe User do
   let(:user) { create :user }
 
+  describe "username constraints" do
+    # arguably, these tests are unnecessary - re-testing Rails validations
+    def new_user(name)
+      result = User.new(user.attributes)
+      result.username = name
+      result.password = "password"
+
+      result
+    end
+
+    it "should be at least 3 characters long" do
+      bad_u = new_user("to")
+
+      expect(bad_u.valid?).to be false
+      expect(bad_u.errors[:username].first).to match(/too short/)
+    end
+
+    it "should be no more than 24 characters long" do
+      bad_u = new_user("x" * 25)
+
+      expect(bad_u.valid?).to be false
+      expect(bad_u.errors[:username].first).to match(/too long/)
+    end
+
+    it "should allow a-zA-Z0-9._- " do
+      good_u = new_user("Ab09._-")
+      good_u.email = "unqiue@email.com"
+
+      expect(good_u.valid?).to be true
+    end
+
+    it "should not allow characters other than a-zA-Z0-9._- " do
+      bad_u = new_user("Joe#%")
+
+      expect(bad_u.valid?).to be false
+      expect(bad_u.errors[:username].first).to match(/only allows/)
+    end
+  end
+
   describe "User and Bottles" do
     let(:bottle) { create :olcc_bottle }
 
