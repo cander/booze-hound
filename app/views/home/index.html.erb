@@ -1,13 +1,9 @@
 <!-- BEGIN Home include -->
-<% if user_signed_in? %>
-  <div class="row">
-    <div class="col">
-      <div class="alert alert-primary" role="alert">
-        <p class="m-0 p-0"><i class="fa-regular fa-message me-2 fs-4 align-middle"></i>Welcome, <%= @user.first_name %>!</p>
-      </div>
-    </div>
+<div class="row">
+  <div class="col">
+    <%= render 'shared/flashes' %>
   </div>
-<% end %>
+</div>
 <div class="row">
   <div class="col-lg-4 order-lg-2">
     <% if user_signed_in? %>
