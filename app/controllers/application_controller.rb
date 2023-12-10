@@ -1,4 +1,7 @@
 class ApplicationController < ActionController::Base
+  # Additional flash types beyond info and alert are defined here
+  add_flash_types :welcome
+
   def olcc_client
     @olcc_client ||= OlccWeb::Client.new(Rails.logger)
   end
@@ -13,5 +16,11 @@ class ApplicationController < ActionController::Base
       flash[:error] = "You must be logged in to access this section"
       redirect_to home_url
     end
+  end
+
+  def after_sign_in_path_for(resource)
+    # After sign in, this flash is added to welcome the user
+    flash[:welcome] = "Welcome, " + current_user.first_name + "!"
+    root_url
   end
 end

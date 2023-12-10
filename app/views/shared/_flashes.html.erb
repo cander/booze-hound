@@ -1,6 +1,13 @@
-<% flash.each do |type, msg| %>
-  <div>
-    <%= type %> : 
-    <%= msg %>
+<% if flash.any? %>
+  <div class="alert alert-primary p-0" role="alert">
+    <ul class="list-group list-group-flush">
+    <% flash.each do |type, msg| %>
+      <% if type == "welcome" %>
+        <li class="list-group-item bg-transparent"><i class="fa-regular fa-message me-2 fs-4 align-middle"></i> <span class="fst-italic small"><%= msg %></span></li>
+      <% else %>
+        <li class="list-group-item bg-transparent"><span class="badge border border-2 <%= flash_type_class(type) %> me-2"><%= type.titleize %></span> <span class="fst-italic small"><%= msg %></span></li>
+      <% end %>
+    <% end %>
+    </ul>
   </div>
 <% end %>
