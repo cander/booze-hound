@@ -4,3 +4,12 @@
     padding-bottom: 2em;
 }
 /* END Home (anonymous) styling */
+
+/* BEGIN User Profile styling */
+#change-password-toggle[aria-expanded=false] .block-expanded {
+  display: none;
+}
+#change-password-toggle[aria-expanded=true] .block-collapsed {
+  display: none;
+}
+/* END User Profile styling */
