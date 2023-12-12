@@ -1,43 +1,151 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
-
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+<!-- BEGIN Devise Registrations Edit include -->
+<div class="mb-5">
+  <h2>User Profile for <span class="fst-italic fw-normal text-primary"><%= @user.first_name + " " + @user.last_name %></span></h2>
+  <div class="row mb-3">
+    <div class="col">
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link" href="/user/me">View Profile</a>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Edit Profile", edit_user_registration_path(current_user), :class => 'nav-link active', 'aria-current' => 'page' %>
+        </li>
+      </ul>
+    </div>
   </div>
-
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <div class="row mb-5">
+        <div class="col">
+          <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+        </div>
+      </div>
     <% end %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "current-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Update" %>
-  </div>
-<% end %>
-
-<h3>Cancel my account</h3>
-
-<div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete %></div>
-
-<%= link_to "Back", :back %>
+    <div class="row mb-5">
+      <div class="col">
+        <form class="needs-validation" novalidate="">
+          <div class="row">
+            <div class="col-sm-6 mb-5">
+              <label for="firstName" class="form-label fw-bold"><%= f.label :first_name %></label>
+              <%= f.text_field :first_name, autofocus: true, :class => 'form-control' %>
+              <div class="invalid-feedback">Valid first name is required.</div>
+            </div>
+            <div class="col-sm-6 mb-5">
+              <label for="lastName" class="form-label fw-bold"><%= f.label :last_name %></label>
+              <%= f.text_field :last_name, autofocus: true, :class => 'form-control' %>
+              <div class="invalid-feedback">Valid last name is required.</div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 mb-5">
+              <label for="email" class="form-label fw-bold"><%= f.label :email %></label>
+              <p class="fst-italic small">Your email address is used for notifications and password reset links.</p>
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", :class => 'form-control' %>
+              <div class="invalid-feedback">Please enter a valid email address.</div>
+            </div>
+            <div class="col-sm-6"></div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 mb-5">
+              <label for="username" class="form-label fw-bold">Username</label>
+              <p class="fst-italic small">This is your display name as it appears to other users.</p>
+              <div class="input-group has-validation">
+                <input type="text" class="form-control" id="username" placeholder="Username" value="<%= @user.username %>" required>
+                <div class="invalid-feedback">Your username is required.</div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 mb-5">
+              <label class="form-label fw-bold">Followed categories</label>
+              <p class="fst-italic small">Specify the bottle categories you'd like to follow.</p>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="category-1">
+                <label class="form-check-label" for="category-1">Domestic Whiskey</label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="category-2" checked>
+                <label class="form-check-label" for="category-2">Rum</label>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 mb-5">
+              <label class="form-label fw-bold">Terms and conditions acknowledgements</label>
+              <p class="fst-italic small">These fields are read-only.</p>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="ack-age" checked disabled readonly>
+                <label class="form-check-label fst-italic" for="ack-age">I affirm that I am at least 21 years of age.</label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="ack-resident" checked disabled readonly>
+                <label class="form-check-label fst-italic" for="ack-resident">I affirm that I am a legal resident of the state of Oregon.</label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="ack-tc" checked disabled readonly>
+                <label class="form-check-label fst-italic" for="ack-tc">I affirm that I have agreed to the terms and conditions of this site.</label>
+              </div>
+            </div>
+          </div>
+          <div class="row mb-5">
+            <div class="col">
+              <p class="d-inline-flex gap-1">
+                <button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#change-password" id="change-password-toggle" aria-expanded="false" aria-controls="change-password">Change Password<i class="bi bi-caret-up-square-fill ms-2 block-expanded"></i><i class="bi bi-caret-down-square-fill ms-2 block-collapsed"></i></button>
+              </p>
+              <div class="collapse" id="change-password">
+                <div class="card card-body">
+                  <div>
+                    <p>To change your password, enter your new password and then confirm it. You'll need to enter your existing password below to save any changes, including a password change.</p>
+                    <p>If you don't want to change your password, leave these fields blank.</p>
+                    <%= f.label :password, :class => 'form-label fw-bold' %>
+                    <%= f.password_field :password, autocomplete: "new-password", :class => 'form-control' %>
+                    <% if @minimum_password_length %>
+                      <p class="fst-italic text-danger"><%= @minimum_password_length %> characters minimum</p>
+                    <% end %>
+                  </div>
+                  <div>
+                    <%= f.label :password_confirmation, :class => 'form-label fw-bold' %>
+                    <%= f.password_field :password_confirmation, autocomplete: "new-password", :class => 'form-control' %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mb-5">
+            <div class="col">
+              <%= f.label :current_password, :class => 'form-label fw-bold' %>
+              <%= f.password_field :current_password, autocomplete: "current-password", :class => 'form-control' %>
+              <p class="fst-italic">You must enter your current password to save any changes.</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <%= f.submit "Save User Profile", :class => 'btn btn-primary' %>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <hr class="border border-2 border-secondary mb-5" />
+    <div class="row mb-5">
+      <div class="col">
+        <h3>Reset Password</h3>
+        <form class="needs-validation" novalidate="">
+          <p class="fst-italic small">Click the button below to have a password reset link sent to the email address on file for your account.</p>
+          <%= button_to "Email Password Reset Link", edit_user_password_url(reset_password_token: @token), :id => "open-contacts-dialog-btn", :class => "btn btn-outline-danger", :method => :post %>
+        </form>
+      </div>
+    </div>
+    <div class="row mb-5">
+      <div class="col">
+        <h3>Cancel Your Account</h3>
+        <form class="needs-validation" novalidate="">
+          <p class="fst-italic small">Click the button below if you'd like to cancel your account.</p>
+          <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete, :class => 'btn btn-outline-danger' %>
+        </form>
+      </div>
+    </div>
+  <% end %>
+</div>
+<!-- END Devise Registrations Edit include -->
