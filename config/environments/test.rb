@@ -57,4 +57,8 @@ Rails.application.configure do
 
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
+
+  # FactoryBot 1.4.2 introduced a change that causes it to bitch at us about our models
+  # that use keys that we inherit from OLCC instead of using the Rails id. Turn that off.
+  config.factory_bot.reject_primary_key_attributes = false
 end
