@@ -51,7 +51,7 @@
               <label for="username" class="form-label fw-bold">Username</label>
               <p class="fst-italic small">This is your display name as it appears to other users.</p>
               <div class="input-group has-validation">
-                <input type="text" class="form-control" id="username" placeholder="Username" value="<%= @user.username %>" required>
+                <%= f.text_field :username, autofocus: true, :class => 'form-control' %>
                 <div class="invalid-feedback">Your username is required.</div>
               </div>
             </div>
