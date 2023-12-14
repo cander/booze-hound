@@ -14,4 +14,21 @@ class UserController < ApplicationController
     # the login session. So, the ID is "me", and we just use current_user.
     @user = current_user
   end
+
+  def update
+    # Again, we only support editing the current user
+    @user = current_user
+
+    if @user.update(user_params)
+      redirect to @user
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  private
+
+  def user_params
+    params.require(:user).permit(:first_name, :last_name, :username)
+  end
 end
