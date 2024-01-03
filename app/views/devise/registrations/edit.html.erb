@@ -130,15 +130,6 @@
     <hr class="border border-2 border-secondary mb-5" />
     <div class="row mb-5">
       <div class="col">
-        <h3>Reset Password</h3>
-        <form class="needs-validation" novalidate="">
-          <p class="fst-italic small">Click the button below to have a password reset link sent to the email address on file for your account.</p>
-          <%= button_to "Email Password Reset Link", edit_user_password_url(reset_password_token: @token), :id => "open-contacts-dialog-btn", :class => "btn btn-outline-danger", :method => :post %>
-        </form>
-      </div>
-    </div>
-    <div class="row mb-5">
-      <div class="col">
         <h3>Cancel Your Account</h3>
         <form class="needs-validation" novalidate="">
           <p class="fst-italic small">Click the button below if you'd like to cancel your account.</p>
