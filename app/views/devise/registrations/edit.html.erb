@@ -89,7 +89,6 @@
             </div>
           </div>
           <div class="row mb-5">
-          <!--
             <div class="col">
               <p class="d-inline-flex gap-1">
                 <button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#change-password" id="change-password-toggle" aria-expanded="false" aria-controls="change-password">Change Password<i class="bi bi-caret-up-square-fill ms-2 block-expanded"></i><i class="bi bi-caret-down-square-fill ms-2 block-collapsed"></i></button>
@@ -97,9 +96,12 @@
               <div class="collapse" id="change-password">
                 <div class="card card-body">
                   <div>
-                    <p>To change your password, enter your new password and then confirm it. You'll need to enter your existing password below to save any changes, including a password change.</p>
+                    <p>To change your password, enter your existing password, your new password, and then confirm the new password.</p>
                     <p>If you don't want to change your password, leave these fields blank.</p>
-                    <%= f.label :password, :class => 'form-label fw-bold' %>
+
+                    <%= f.label :current_password, :class => 'form-label fw-bold' %>
+                    <%= f.password_field :current_password, autocomplete: "current-password", :class => 'form-control' %>
+                    <%= f.label :new_password, :class => 'form-label fw-bold' %>
                     <%= f.password_field :password, autocomplete: "new-password", :class => 'form-control' %>
                     <% if @minimum_password_length %>
                       <p class="fst-italic text-danger"><%= @minimum_password_length %> characters minimum</p>
@@ -113,14 +115,6 @@
               </div>
             </div>
           </div>
-          <div class="row mb-5">
-            <div class="col">
-              <%= f.label :current_password, :class => 'form-label fw-bold' %>
-              <%= f.password_field :current_password, autocomplete: "current-password", :class => 'form-control' %>
-              <p class="fst-italic">You must enter your current password to save any changes.</p>
-            </div>
-          </div>
-          -->
           <div class="row">
             <div class="col">
               <%= f.submit "Save User Profile", :class => 'btn btn-primary' %>
