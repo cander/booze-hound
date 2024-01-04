@@ -14,8 +14,6 @@ Rails.application.routes.draw do
   # bottles and stores aren't full CRUD - maybe not resources
   resources :olcc_bottles
   resources :olcc_stores
-  # might not need User resource - we have devised stuff
-  resources :user
 
   get "tasks/daily"
 end
