@@ -140,4 +140,13 @@ RSpec.describe User do
       end
     end
   end
+
+  describe "User and bottle categories" do
+    it "should return the hard-coded categories" do
+      # In the future, set up UserCategories for the User
+      cats = user.get_categories
+
+      expect(cats).to match_array(["DOMESTIC WHISKEY", "RUM"])
+    end
+  end
 end

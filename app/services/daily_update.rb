@@ -6,9 +6,9 @@ class DailyUpdate < ApplicationService
 
   def call
     count = OlccBottle.count
-    # TODO: the next time we add a category, iterate over a list instead
-    UpdateCategoryBottles.call(@client, "DOMESTIC WHISKEY")
-    UpdateCategoryBottles.call(@client, "RUM")
+    UserCategory.get_user_categories.each do |cat|
+      UpdateCategoryBottles.call(@client, cat)
+    end
     @writer.write "Found #{OlccBottle.count - count} new bottles\n"
 
     count = OlccInventory.count

@@ -45,6 +45,11 @@ class User < ApplicationRecord
     end
   end
 
+  def get_categories
+    # hard-coded for the moment - will change soon
+    ["DOMESTIC WHISKEY", "RUM"]
+  end
+
   private
 
   def increment_bottle_counter_cache(bottle)
