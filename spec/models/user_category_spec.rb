@@ -6,6 +6,6 @@ RSpec.describe UserCategory do
     # In the future, set up UserCategories for several Users
     cats = UserCategory.get_user_categories
 
-    expect(cats).to match_array(["DOMESTIC WHISKEY", "RUM"])
+    expect(cats).to match_array(["DOMESTIC WHISKEY", "RUM", "GIN"])
   end
 end

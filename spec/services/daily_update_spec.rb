@@ -8,7 +8,7 @@ RSpec.describe DailyUpdate do
   it "should call UpdateCategoryBottles twice and UpdateAllInventory once" do
     # TODO: create UserCategory records for users to control how many categories are updated
     ucb = double "update-bottles"
-    expect(ucb).to receive(:call).twice
+    expect(ucb).to receive(:call).thrice
     allow(UpdateCategoryBottles).to receive(:new).and_return(ucb)
 
     uai = double "update-all-inventyory"

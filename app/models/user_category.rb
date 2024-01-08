@@ -4,6 +4,6 @@ class UserCategory # < ApplicationRecord
 
   def self.get_user_categories
     # hard-coded for the moment - will change soon
-    ["DOMESTIC WHISKEY", "RUM"]
+    ["DOMESTIC WHISKEY", "RUM", "GIN"]
   end
 end
