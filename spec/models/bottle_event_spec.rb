@@ -3,6 +3,7 @@ require_relative "../../test/test_helper"
 
 RSpec.describe OlccBottle do
   let(:bottle) { create :olcc_bottle }
+  let(:user_cats) { ["RUM", "DOMESTIC WHISKEY"] }
   describe "new_bottle" do
     it "should create a NEW BOTTLE event" do
       expect { BottleEvent.new_bottle(bottle, {}) }.to change { BottleEvent.count }.by 1
@@ -34,12 +35,21 @@ RSpec.describe OlccBottle do
   end
 
   describe "recents" do
-    it "should return a recent new bottle event for any bottle" do
+    it "should return a recent new bottle event for a bottle category we follow" do
       BottleEvent.new_bottle(bottle, {})
 
-      events = BottleEvent.recents([])
+      events = BottleEvent.recents([], user_cats)
 
       expect(events.size).to eq(1)
+    end
+
+    it "should ignore a bottle event for a bottle category we don't follow" do
+      tequila = create(:olcc_bottle, category: "TEQUILA")
+      BottleEvent.new_bottle(tequila, {})
+
+      events = BottleEvent.recents([], user_cats)
+
+      expect(events.size).to eq(0)
     end
 
     it "should ignore other events for bottles we're not following" do
@@ -51,7 +61,7 @@ RSpec.describe OlccBottle do
       changes = bottle.changes_to_save
       BottleEvent.update_bottle(other, changes)
 
-      events = BottleEvent.recents([bottle.new_item_code])
+      events = BottleEvent.recents([bottle.new_item_code], user_cats)
 
       expect(events.size).to eq(1)
       expect(events.last.new_item_code).to eq(bottle.new_item_code)

@@ -25,11 +25,12 @@ class HomeController < ApplicationController
     # query of the stores. We can't just includes(:stores) because there
     # is no relation from events to stores b/c the store
     # is in the JSON and not every event has a store.
-    # In theory, this won't be bad b/c recent events are limited.
+    # In theory, this won't be bad b/c recent events are limited and we're
+    # using SQLite, so everything is in memory - no DB server round-trips.
     # We could create some sort of helper/service to
-    # fetch all the stores into a hash that could be consulted.
+    # fetch all the stores into a hash that could be consulted if it were a problem.
     @events = if user_signed_in?
-      BottleEvent.recents(current_user.following_bottle_ids, page)
+      BottleEvent.recents(current_user.following_bottle_ids, current_user.get_categories, page)
     else
       # in theory, only signed-in user should get to the home controller,
       # but will leave it open for the moment while the UI is in some flux.

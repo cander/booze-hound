@@ -7,6 +7,7 @@ class DailyUpdate < ApplicationService
   def call
     count = OlccBottle.count
     UserCategory.get_user_categories.each do |cat|
+      @writer.write "Updating #{cat}\n"
       UpdateCategoryBottles.call(@client, cat)
     end
     @writer.write "Found #{OlccBottle.count - count} new bottles\n"
