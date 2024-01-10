@@ -1,9 +1,9 @@
-class UserCategory # < ApplicationRecord
-  # coming soon - will be a real model
-  # belongs_to :user
+class UserCategory < ApplicationRecord
+  belongs_to :user
+  validates :category, inclusion: {in: OlccBottle::CATEGORIES,
+                                   message: "%{value} is not a valid category"}
 
   def self.get_user_categories
-    # hard-coded for the moment - will change soon
-    ["DOMESTIC WHISKEY", "RUM", "GIN"]
+    UserCategory.select(:category).distinct.pluck(:category)
   end
 end

@@ -7,6 +7,8 @@ class User < ApplicationRecord
     after_add: :increment_bottle_counter_cache, after_remove: :decrement_bottle_counter_cache
   has_and_belongs_to_many :favorite_stores, class_name: "OlccStore", association_foreign_key: "store_num",
     after_add: :increment_store_counter_cache, after_remove: :decrement_store_counter_cache
+
+  has_many :user_categories
   #
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -46,8 +48,14 @@ class User < ApplicationRecord
   end
 
   def get_categories
-    # hard-coded for the moment - will change soon
-    ["DOMESTIC WHISKEY", "RUM"]
+    user_categories.pluck(:category)
+  end
+
+  def add_category(cat)
+    if user_categories.where(category: cat).empty?
+      uc = UserCategory.create(user: self, category: cat)
+      user_categories << uc
+    end
   end
 
   private

@@ -142,11 +142,21 @@ RSpec.describe User do
   end
 
   describe "User and bottle categories" do
-    it "should return the hard-coded categories" do
-      # In the future, set up UserCategories for the User
-      cats = user.get_categories
+    it "should add a category for a user only once" do
+      expect(UserCategory.count).to be_zero
 
-      expect(cats).to match_array(["DOMESTIC WHISKEY", "RUM"])
+      user.add_category("RUM")
+      expect(UserCategory.count).to eq(1)
+
+      user.add_category("RUM")
+      expect(UserCategory.count).to eq(1)
+    end
+
+    it "should return the user's categories" do
+      user.add_category("DOMESTIC WHISKEY")
+      user.add_category("RUM")
+
+      expect(user.get_categories).to match_array(["DOMESTIC WHISKEY", "RUM"])
     end
   end
 end
