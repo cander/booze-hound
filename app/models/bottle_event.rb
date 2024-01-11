@@ -1,6 +1,6 @@
 class BottleEvent < ApplicationRecord
   belongs_to :olcc_bottle, foreign_key: "new_item_code"
-  serialize :details, JSON
+  serialize :details, coder: JSON
 
   TYPES = [
     "NEW BOTTLE",
