@@ -13,6 +13,6 @@ class ActiveSupport::TestCase
 end
 
 def open_html_fixture(file_name)
-  # File.open("#{ActiveSupport::TestCase.fixture_path}/html/#{file_name}").readlines
-  IO.read("#{ActiveSupport::TestCase.fixture_path}/html/#{file_name}")
+  # Assume our HTML fixtures are under the first path in fixture_paths
+  IO.read("#{ActiveSupport::TestCase.fixture_paths.first}/html/#{file_name}")
 end
