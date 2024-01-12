@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  before_action :configure_permitted_parameters, if: :devise_controller?
+
   # Additional flash types beyond info and alert are defined here
   add_flash_types :welcome
 
@@ -22,5 +24,12 @@ class ApplicationController < ActionController::Base
     # After sign in, this flash is added to welcome the user
     flash[:welcome] = "Welcome, " + current_user.first_name + "!"
     root_url
+  end
+
+  protected
+
+  def configure_permitted_parameters
+    # devise_parameter_sanitizer.permit(:sign_up, keys: [:username])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:first_name, :last_name, :username])
   end
 end

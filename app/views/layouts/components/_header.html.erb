@@ -25,7 +25,7 @@
             <% if user_signed_in? %>
               <li><span class="dropdown-item fst-italic bg-transparent"><%= current_user.email %></span></li>
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="/user/me"><i class="fa-solid fa-user me-2" style="width: 20px;"></i>User Profile</a></li>
+              <li><a class="dropdown-item" href="<%= user_root_url %>" class="fa-solid fa-user me-2" style="width: 20px;"></i>User Profile</a></li>
               <li><a class="dropdown-item" href="/olcc_bottles"><i class="fa-solid fa-whiskey-glass me-2" style="width: 20px;"></i>Favorite Bottles</a></li>
               <li><a class="dropdown-item" href="/olcc_stores"><i class="fa-solid fa-shop me-2" style="width: 20px;"></i>Favorite Stores</a></li>
               <li><hr class="dropdown-divider"></li>

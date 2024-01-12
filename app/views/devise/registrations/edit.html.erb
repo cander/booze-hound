@@ -5,7 +5,7 @@
     <div class="col">
       <ul class="nav nav-tabs">
         <li class="nav-item">
-          <a class="nav-link" href="/user/me">View Profile</a>
+          <a class="nav-link" href="<%= user_root_url %>">View Profile</a>
         </li>
         <li class="nav-item">
           <%= link_to "Edit Profile", edit_user_registration_path(current_user), :class => 'nav-link active', 'aria-current' => 'page' %>
@@ -51,7 +51,7 @@
               <label for="username" class="form-label fw-bold">Username</label>
               <p class="fst-italic small">This is your display name as it appears to other users.</p>
               <div class="input-group has-validation">
-                <input type="text" class="form-control" id="username" placeholder="Username" value="<%= @user.username %>" required>
+                <%= f.text_field :username, autofocus: true, :class => 'form-control' %>
                 <div class="invalid-feedback">Your username is required.</div>
               </div>
             </div>
@@ -96,9 +96,12 @@
               <div class="collapse" id="change-password">
                 <div class="card card-body">
                   <div>
-                    <p>To change your password, enter your new password and then confirm it. You'll need to enter your existing password below to save any changes, including a password change.</p>
+                    <p>To change your password, enter your existing password, your new password, and then confirm the new password.</p>
                     <p>If you don't want to change your password, leave these fields blank.</p>
-                    <%= f.label :password, :class => 'form-label fw-bold' %>
+
+                    <%= f.label :current_password, :class => 'form-label fw-bold' %>
+                    <%= f.password_field :current_password, autocomplete: "current-password", :class => 'form-control' %>
+                    <%= f.label :new_password, :class => 'form-label fw-bold' %>
                     <%= f.password_field :password, autocomplete: "new-password", :class => 'form-control' %>
                     <% if @minimum_password_length %>
                       <p class="fst-italic text-danger"><%= @minimum_password_length %> characters minimum</p>
@@ -112,13 +115,6 @@
               </div>
             </div>
           </div>
-          <div class="row mb-5">
-            <div class="col">
-              <%= f.label :current_password, :class => 'form-label fw-bold' %>
-              <%= f.password_field :current_password, autocomplete: "current-password", :class => 'form-control' %>
-              <p class="fst-italic">You must enter your current password to save any changes.</p>
-            </div>
-          </div>
           <div class="row">
             <div class="col">
               <%= f.submit "Save User Profile", :class => 'btn btn-primary' %>
@@ -128,15 +124,6 @@
       </div>
     </div>
     <hr class="border border-2 border-secondary mb-5" />
-    <div class="row mb-5">
-      <div class="col">
-        <h3>Reset Password</h3>
-        <form class="needs-validation" novalidate="">
-          <p class="fst-italic small">Click the button below to have a password reset link sent to the email address on file for your account.</p>
-          <%= button_to "Email Password Reset Link", edit_user_password_url(reset_password_token: @token), :id => "open-contacts-dialog-btn", :class => "btn btn-outline-danger", :method => :post %>
-        </form>
-      </div>
-    </div>
     <div class="row mb-5">
       <div class="col">
         <h3>Cancel Your Account</h3>
