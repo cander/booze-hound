@@ -72,7 +72,7 @@ group :test do
 end
 
 gem "nokogiri", "~> 1.16"
-gem "faraday", "~> 2.7"
+gem "faraday", "~> 2.9"
 gem "faraday-cookie_jar", "~> 0.0.7"
 gem "faraday-follow_redirects", "~> 0.3.0"
 gem "dockerfile-rails", ">= 1.3", group: :development
