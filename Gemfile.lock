@@ -97,7 +97,7 @@ GEM
       responders
       warden (~> 1.2.3)
     diff-lcs (1.5.0)
-    dockerfile-rails (1.5.12)
+    dockerfile-rails (1.6.3)
       rails (>= 3.0.0)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
@@ -130,9 +130,9 @@ GEM
       activesupport (>= 6.0.0)
       railties (>= 6.0.0)
     io-console (0.7.1)
-    irb (1.11.0)
+    irb (1.11.1)
       rdoc
-      reline (>= 0.3.8)
+      reline (>= 0.4.2)
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
@@ -149,7 +149,7 @@ GEM
       net-smtp
     marcel (1.0.2)
     mini_mime (1.1.5)
-    minitest (5.20.0)
+    minitest (5.21.1)
     msgpack (1.7.2)
     mutex_m (0.2.0)
     net-imap (0.4.9.1)
