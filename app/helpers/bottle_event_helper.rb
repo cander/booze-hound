@@ -1,3 +1,4 @@
+# This could/should be a decorator with the Drapper gem
 module BottleEventHelper
   def show_event(evt)
     # arguably, this case says we should have polymorphism

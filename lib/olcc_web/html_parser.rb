@@ -96,7 +96,9 @@ module OlccWeb
 
     def self.unpack_description(desc)
       # \r\n\t\t\t\tItem\r\n\t\t\t99900592775(5927B):\r\n\t\tBARCELO IMPERIAL\r\n\t
-      # NB: assuming the old item codes always end with a capital letter
+      # NB: assuming the old item codes always end with a capital letter. For what it's
+      # worth, the letter seems to encode the size. When multiple sizes are available,
+      # the digits will be the same, and the letter will vary.
       if desc =~ /Item\s+(\d+)\((\d+[A-Z])\):\s+(\w.*\S)\s+$/
         data = Regexp.last_match
         {new_item_code: data[1], old_item_code: data[2], description: data[3].strip}
