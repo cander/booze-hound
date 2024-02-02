@@ -3,8 +3,9 @@ RSpec.describe OlccWeb::HtmlParser do
 
   describe "parse_inventory" do
     it "parses the inventory for a bottle at multiple stores" do
-      inv = OlccWeb::HtmlParser.parse_inventory(open_html_fixture("barcelo-detail.html"))
+      inv, has_next = OlccWeb::HtmlParser.parse_inventory(open_html_fixture("barcelo-detail.html"))
       expect(inv.count).to eq(9)
+      expect(has_next).to be false
 
       dallas_store_num = "1016"
       dallas_inventory = inv.find { |i| i.store_num == dallas_store_num }
@@ -13,8 +14,11 @@ RSpec.describe OlccWeb::HtmlParser do
     end
 
     it "parses the inventory for a bottle at a single store" do
-      inv = OlccWeb::HtmlParser.parse_inventory(open_html_fixture("single-store-inventory.html"))
+      inv, has_next = OlccWeb::HtmlParser.parse_inventory(open_html_fixture("single-store-inventory.html"))
+
       expect(inv.count).to eq(1)
+      expect(has_next).to be false
+
       store_inv = inv.first
       expect(store_inv.store_num).to eq("1198")
       expect(store_inv.new_item_code).to eq("99900885175")
@@ -22,8 +26,15 @@ RSpec.describe OlccWeb::HtmlParser do
     end
 
     it "parses no inventory when not available" do
-      inv = OlccWeb::HtmlParser.parse_inventory(open_html_fixture("zero-store-inventory.html"))
+      inv, has_next = OlccWeb::HtmlParser.parse_inventory(open_html_fixture("zero-store-inventory.html"))
       expect(inv.count).to eq(0)
+      expect(has_next).to be false
+    end
+
+    it "recognizes a Next link in pages results " do
+      inv, has_next = OlccWeb::HtmlParser.parse_inventory(open_html_fixture("inventory-with-next.html"))
+      expect(has_next).to be true
+      expect(inv.count).to eq(10)
     end
 
     it "raises an error for a quiet error in the HTML" do

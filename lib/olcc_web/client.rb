@@ -18,6 +18,7 @@ module OlccWeb
       end
       @last_category = ""
       @logger = log
+      @default_page_size = true
 
       welcome
     end
@@ -42,11 +43,21 @@ module OlccWeb
     def get_item_inventory(cat, new_item_code, item_code)
       logger.info { "get_item_inventory category: #{cat}, new_item_code: #{new_item_code}, item_code: #{item_code}" }
       # global search doesn't require selecting a category first
-      # todo - set large window size on first query
       opts = {view: "global", action: "search", chkDefault: "on", btnSearch: "Search",
               radiusSearchParam: SEARCH_RADIUS, locationSearchParam: SEARCH_LOCATION}
       inv_html = do_get("FrontController", opts.merge({productSearchParam: new_item_code}))
-      HtmlParser.parse_inventory(inv_html)
+      rows, has_next = HtmlParser.parse_inventory(inv_html)
+      if has_next && @default_page_size
+        # set page size to 100 via pagechange. In the future this code should handle multiple
+        # pages when the page size is 100.
+        logger.info { "Setting page size to 100" }
+        opts = {view: "productdetails", action: "pagechange", pageSize: 100, productRowNum: 1}
+        inv_html = do_get("FrontController", opts.merge({productSearchParam: new_item_code}))
+        rows, _ = HtmlParser.parse_inventory(inv_html) # ignore if this result is paginated
+        @default_page_size = false
+      end
+
+      rows
     end
 
     def get_city_stores(city)

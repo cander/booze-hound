@@ -57,6 +57,24 @@ RSpec.describe OlccWeb::Client do
     stubs.verify_stubbed_calls
   end
 
+  it "requests a larger page size if it finds a Next link" do
+    stubs.get("/WelcomeController") { [200, {}, "hello"] }
+    inv_html = open_html_fixture("inventory-with-next.html")
+    stubs.get("/FrontController") { [200, {}, inv_html] }
+
+    many_results_html = open_html_fixture("jack-21-results.html")
+    stubs.get("/FrontController") do |env, meta|
+      if env[:params]["action"] == "pagechange" && env[:params]["pageSize"] == "100"
+        [200, {}, many_results_html]
+      end
+    end
+
+    inv = client.get_item_inventory("DOMESTIC WHISKEY", "99900014875", "0148B")
+    expect(inv.size).to eq(21)
+
+    stubs.verify_stubbed_calls
+  end
+
   it "throws an Error when there is a quiet error" do
     stubs.get("/WelcomeController") { [200, {}, "hello"] }
     err_html = open_html_fixture("quiet-error.html")
