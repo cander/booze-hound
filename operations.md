@@ -34,6 +34,17 @@ run Rake tasks, one-off commands can hacked into `lib/tasks` and then run
 via Rake.  After a couple of commands, the console might go away when it
 gets killed by the OOM killer. (Clearly, this will not scale.)
 
+A simpler alternative is to scale the machine while performing the task.
+
+```
+fly scale memory 512
+fly ssh console
+do whatever
+exit
+fly scale memory 256
+```
+
+
 ## Setup Daily Update from GitHub Actions
 It's a bit of a Rube Goldberg machine, but we're using a
 [cron workflow](.github/workflows/daily-update.yaml) in
@@ -66,3 +77,9 @@ in Fly:
   your Gmail account. It should be 4 groups of 4 letters like: 
   `abcd abcd abcd abcd`. Since this is a password, it should be stored
   as a secret in Fly.
+
+## Production Logging
+Logs go to Loggly or standard out. Using Loggly requires an API token stored
+in a secret called `LOGGLY_API_TOKEN`.  If the token is missing, Loggly is
+quietly not configured and standard out is used instead. Fly will capture
+standard out to their Monitoring page.
