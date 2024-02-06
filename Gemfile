@@ -86,3 +86,4 @@ group :development, :test do
 end
 
 gem "devise", "~> 4.9"
+gem "logglier", "~> 0.5.0"

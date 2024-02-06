@@ -100,6 +100,8 @@ Rails.application.configure do
     logger.formatter = config.log_formatter
     config.logger = ActiveSupport::TaggedLogging.new(logger)
   end
+  # Send logs to Loggly - does this wipe out the stdout logger?
+  config.logger = Logglier.new("https://logs-01.loggly.com/inputs/#{ENV[%q(LOGGLY_API_TOKEN)]}/tag/ruby/", :threaded => true) if ENV["LOGGLY_API_TOKEN"]
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false

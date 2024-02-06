@@ -34,6 +34,17 @@ run Rake tasks, one-off commands can hacked into `lib/tasks` and then run
 via Rake.  After a couple of commands, the console might go away when it
 gets killed by the OOM killer. (Clearly, this will not scale.)
 
+A simpler alternative is to scale the machine while performing the task.
+
+```
+fly scale memory 512
+fly ssh console
+do whatever
+exit
+fly scale memory 256
+```
+
+
 ## Setup Daily Update from GitHub Actions
 It's a bit of a Rube Goldberg machine, but we're using a
 [cron workflow](.github/workflows/daily-update.yaml) in
