@@ -83,6 +83,7 @@ group :development, :test do
   gem "rspec-rails"
   gem "rails-controller-testing"
   gem "factory_bot_rails", "~> 6.4"
+  gem "minitest", "~> 5.21.2"   # 5.22.0 caused "Nothing ran for filter" from rspec
 end
 
 gem "devise", "~> 4.9"
