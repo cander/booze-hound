@@ -1,6 +1,6 @@
-# Add an Exception class
 require "faraday/follow_redirects"
 require "faraday-cookie_jar"
+
 module OlccWeb
   OLCC_ROOT = "http://www.oregonliquorsearch.com"
 
