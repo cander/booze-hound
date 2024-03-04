@@ -25,6 +25,6 @@ RSpec.describe ProcessNextMonth do
     ProcessNextMonth.call(fetcher)
 
     bottle.reload
-    expect(bottle.bottle_price).to eq(new_price)
+    expect(bottle.next_bottle_price).to eq(new_price)
   end
 end

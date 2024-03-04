@@ -9,7 +9,7 @@ class ProcessNextMonth < ApplicationService
     rows.each do |row|
       bottle = OlccBottle.find_by(new_item_code: row.new_item_code)
       if bottle
-        # bottle.next_bottle_price = row.bottle_price
+        bottle.next_bottle_price = row.bottle_price
         bottle.save! if bottle.changed?
       end
     end

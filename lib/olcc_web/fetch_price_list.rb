@@ -30,7 +30,6 @@ module OlccWeb
       rows = get_rows(body)
       result = []
       rows.each do |row|
-        puts row["Description"]
         result << Dto::BottleData.new(
           new_item_code: row["New Item Code"],
           old_item_code: row["Item Code"],
@@ -39,7 +38,7 @@ module OlccWeb
           proof: row["Proof"],
           age: row["Age"],
           category: "UNKNOWN",
-          bottle_price: row["Unit Price"]
+          bottle_price: row["Unit Price"].to_f
         )
       end
 

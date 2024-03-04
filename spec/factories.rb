@@ -14,6 +14,7 @@ FactoryBot.define do
     proof { 80.0 }
     age { "" }
     bottle_price { 11.22 }
+    next_bottle_price { 11.22 }
   end
 
   factory :olcc_inventory do
