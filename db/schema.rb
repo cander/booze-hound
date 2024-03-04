@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_09_224839) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_04_230214) do
   create_table "bottle_events", force: :cascade do |t|
     t.string "new_item_code"
     t.string "event_type", null: false
@@ -32,6 +32,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_09_224839) do
     t.decimal "bottle_price"
     t.integer "followers_count", default: 0
     t.string "description"
+    t.decimal "next_bottle_price"
   end
 
   create_table "olcc_bottles_users", id: false, force: :cascade do |t|

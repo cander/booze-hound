@@ -24,6 +24,11 @@ namespace :olcc do
     DailyUpdate.call(client, $stdout)
   end
 
+  desc "Download next month's price data and apply it"
+  task fetch_next_months_prices: :environment do |t, args|
+    ProcessNextMonth.call(Rails.logger)
+  end
+
   desc "Pretty up the names of all bottles"
   task prettify_bottles: :environment do |t, args|
     OlccBottle.all.each { |b| b.prettify_name }
