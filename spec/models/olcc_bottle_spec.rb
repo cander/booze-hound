@@ -73,4 +73,71 @@ RSpec.describe OlccBottle do
       expect(bottle.name).to eq(orig_name)
     end
   end
+
+  describe "next_bottle_price syncronization" do
+    let(:next_price) { 33.44 }
+
+    describe "during bottle creation" do
+      def unsaved_bottle
+        OlccBottle.new(
+          new_item_code: "99900592775",
+          description: "BARCELO IMPERIAL",
+          old_item_code: "5927B",
+          category: "RUM",
+          size: "750 ML",
+          proof: 80.0,
+          age: "",
+          bottle_price: 11.22
+        )
+      end
+
+      it "should set next price from current price" do
+        bottle = unsaved_bottle
+        bottle.save
+
+        expect(bottle.next_bottle_price).to eq(bottle.bottle_price)
+      end
+
+      it "should leave next price alone if it is set" do
+        bottle = unsaved_bottle
+        bottle.next_bottle_price = next_price
+        bottle.save
+
+        expect(bottle.next_bottle_price).to eq(next_price)
+      end
+    end
+
+    describe "during bottle updates" do
+      it "should leave next price alone when updating next price" do
+        bottle.next_bottle_price = next_price
+        bottle.save
+
+        expect(bottle.next_bottle_price).to eq(next_price)
+      end
+
+      it "should leave next price alone when updating something other than price" do
+        bottle.next_bottle_price = next_price
+        bottle.save
+        bottle.description = "yummy"
+        bottle.save
+
+        expect(bottle.next_bottle_price).to eq(next_price)
+      end
+
+      it "should update next price when updating current price" do
+        bottle.bottle_price = next_price
+        bottle.save
+
+        expect(bottle.next_bottle_price).to eq(next_price)
+      end
+
+      it "should leave next price alone when updating both prices" do
+        bottle.next_bottle_price = next_price
+        bottle.bottle_price = 69.0
+        bottle.save
+
+        expect(bottle.next_bottle_price).to eq(next_price)
+      end
+    end
+  end
 end

@@ -7,9 +7,17 @@ class OlccBottle < ApplicationRecord
   # version - give it an initial mixed-case value based on description.
   before_create do
     self.name = description.titleize if name.blank?
+    self.next_bottle_price = bottle_price if next_bottle_price.nil?
   end
   # and keep it in sync if the description changes
-  before_update :sync_name_to_description
+  before_update do
+    sync_name_to_description
+
+    if bottle_price_changed?
+      # synchronize next_bottle price unless it changed too
+      self.next_bottle_price = bottle_price unless next_bottle_price_changed?
+    end
+  end
 
   CATEGORIES = [
     "BRANDY / COGNAC",
