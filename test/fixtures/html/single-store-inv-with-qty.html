@@ -1,0 +1,282 @@
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+<meta name="format-detection" content="telephone=no">
+<title>Product & Location Details |  Oregon Liquor Search</title>
+<link href="/include/css/site.css" rel="stylesheet" type="text/css"
+	media="screen" />
+<link href="/include/css/print.css" rel="stylesheet" type="text/css"
+	media="print" />
+<!--[if IE]>
+<link type="text/css" media="all" rel="stylesheet" href="/include/css/ie.css" />
+<![endif]-->
+
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+<link rel="icon" href="/favicon.ico" type="image/x-icon" />
+<script src="/include/js/common.js" language="javascript"
+	type="text/javascript"></script>
+
+<script type="text/javascript" src="http://maps.google.com/maps?file=api&amp;v=3.x&amp;key=AIzaSyDpB4uQl2rjbswwN4IHkVNmK_kACB-DJsk"></script>
+<script language="javascript" type="text/javascript">
+<!--
+function loadMap()
+{
+if (GBrowserIsCompatible())
+{
+map = new GMap2(document.getElementById("map-view"));
+map.enableDoubleClickZoom();
+map.enableContinuousZoom();
+map.addControl(new GSmallMapControl());
+map.addControl(new GMapTypeControl());
+map.setCenter(new GLatLng(44, -121), 6);
+var baseIcon = new GIcon();
+baseIcon.shadow = "http://www.google.com/mapfiles/shadow50.png";
+baseIcon.iconSize = new GSize(20, 34);
+baseIcon.shadowSize = new GSize(37, 34);
+baseIcon.iconAnchor = new GPoint(9, 34);
+baseIcon.infoWindowAnchor = new GPoint(9, 2);
+baseIcon.infoShadowAnchor = new GPoint(18, 25);
+function createMarker(point, index, display) {
+var letter = String.fromCharCode("A".charCodeAt(0) + index);
+var icon = new GIcon(baseIcon);
+icon.image = "http://www.google.com/mapfiles/marker" + letter + ".png";
+var marker = new GMarker(point, icon);
+if(display) {
+GEvent.addListener(marker, "click", function() {
+ marker.openInfoWindowHtml(display);
+});
+}
+return marker;
+}
+function resizeMap( map, points )
+{
+var minLong = 999;
+var minLat = 999;
+var maxLong = -999;
+var maxLat = -999;
+var padding = .007;
+for ( var i = 0; i < points.length; i++ )
+{
+if ( points[i].x < minLong ) minLong = points[i].x;
+if ( points[i].x > maxLong ) maxLong = points[i].x;
+if ( points[i].y < minLat ) minLat = points[i].y;
+if ( points[i].y > maxLat ) maxLat = points[i].y;
+}
+if(points.length > 1)
+{
+var latDiff = Math.abs(maxLat - minLat);
+var longDiff = Math.abs(maxLong - minLong);
+padding = .203 * (latDiff > longDiff ?  latDiff : longDiff);
+}
+minLat = minLat - padding;
+minLong = minLong - padding;
+maxLat = maxLat + padding;
+maxLong = maxLong + padding;
+var swCorner = new GLatLng(minLat, minLong);
+var neCorner = new GLatLng(maxLat, maxLong);
+var rect = new GLatLngBounds(swCorner, neCorner);
+var zoomLevel = map.getBoundsZoomLevel(rect);
+var longitude = ( minLong + maxLong ) / 2;
+var lattitude = ( minLat + maxLat ) / 2;
+map.setCenter(
+ new GLatLng(lattitude, longitude),
+ zoomLevel
+);
+}
+var points = new Array();
+var point = new GLatLng(44.976906, -123.026790);
+map.addOverlay(createMarker(point, 0));
+points.push( point );
+if (points.length != 0) resizeMap( map, points );
+}
+
+map.setCenter(new GLatLng(44, -121), 6);}
+//-->
+</script>
+<style> <!-- div#map-view img { cursor: default !important; } --> </style>
+
+
+<link href="/include/css/frame.css" rel="stylesheet" type="text/css"
+	media="screen" />
+<link href="/include/css/page.css" rel="stylesheet" type="text/css"
+	media="screen" />
+<script src="/include/js/page.js" type="text/javascript"></script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-7649390-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</head>
+<body onload="loadMap();"
+	onUnload="GUnload();">
+
+	<noscript>
+		<p class="banner"><img src='/asset/image/warning.gif' alt='Warning' class='icon' />It appears that your browser does not support JavaScript, or it has been disabled. Some of the features may not be available to you.</p>
+	</noscript>
+
+	<div id="page">
+
+		<div id="header">
+
+			<div id="header-left">
+				<a href="/servlet/FrontController?view=homecategories&action=display"
+					title="Oregon Liquor Search Home"> <img
+					src="/asset/image/logo_small.jpg" alt="Oregon Liquor Search Logo" />
+				</a>
+				<form name="frmSearch" method="get" action="/servlet/FrontController"
+					onsubmit="return validateSearch();">
+					<table id="search">
+						<tr>
+							<th>Product Description</th>
+							<th>Location<select name="radiusSearchParam" id="radius" class="select" tabindex="3"><option class="radius-val" value="0">with KEYWORDS</option><option class="radius-val" value="2">within 2 MILES of</option><option class="radius-val" value="5">within 5 MILES of</option><option class="radius-val" value="10">within 10 MILES of</option><option class="radius-val" value="30" selected="selected">within 30 MILES of</option><option class="radius-val" value="60">within 60 MILES of</option></select></th>
+						</tr>
+						<tr>
+							<td class="search-box"><input type="text"
+								name="productSearchParam" id="product" class="text" tabindex="1"
+								value="99901191375" />
+								<p class="hint">Brand, Category, Item Code</p></td>
+							<td class="search-box"><input type="text"
+								name="locationSearchParam" id="location" class="text"
+								tabindex="2" value="1220" />
+
+								<table id="hint-default-location">
+									<tr>
+										<td class="hint">Address, Zipcode, City, Store No.</td>
+										<td id="default-location"><input type="checkbox"
+											name="chkDefault" id="default" class="checkbox" tabindex="4"
+											onclick="setLocationCookie();" /> <label for="default"
+											class="small-label">default location</label></td>
+									</tr>
+								</table></td>
+							<td id="search-button"><input type="submit" name="btnSearch"
+								value="Search" class="button" tabindex="5" /></td>
+						</tr>
+					</table>
+					<input type="hidden" name="view" value="global" /> <input
+						type="hidden" name="action" value="search" />
+				</form>
+			</div>
+
+			<div id="header-right">
+				<a href="http://www.oregon.gov/OLCC" title="OLCC Home"><img
+					src="/asset/image/olcc_rebrand_logo_gradient_130X130.jpg" alt="OLCC Logo" /></a>
+			</div>
+		</div>
+
+		<div id="main-wrapper">
+			<div id="main">
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Banner</title>
+<link href="/include/css/site.css" rel="stylesheet" type="text/css"
+	media="screen" />
+</head>
+<body>
+	<noscript>
+		<p class="banner-notice"><img src='/asset/image/warning.gif' alt='Warning' class='icon' />It appears that your browser does not support JavaScript, or it has been disabled. Some of the features may not be available to you.</p>
+	</noscript>
+	<div id=banner-notice>
+		<p class="banner-notice"><img src='/asset/image/info.gif' alt='Information' class='icon' /> Oregon Liquor Search does not provide real-time quantities and is only updated every 24 hours.<br> Quantities shown may not reflect current inventory at the store.  Please call the store to verify quantities and availability. </p>
+	</div>
+</body>
+</html>
+<div id="page-title">
+	<img src="/asset/image/product_location_details.jpg"
+		alt="Product & Location Details" />
+</div>
+
+<style>
+#map-view img {
+	cursor: default !important;
+}
+</style>
+<div id="prod-loc-details">
+	<table id="product-details">
+		<tr>
+			<td rowspan="6" id="product-image"><img
+				src="/display_bottle.jsp" alt="Product Image" /></td>
+		</tr>
+		<tr>
+			<th id="product-desc" colspan="4"><h2>
+					Item
+					99901191375(11913B):
+					DOC SWINSON'S SESSION BLND</h2></th>
+		</tr>
+		<tr>
+			<th>Category:</th>
+			<td>DOMESTIC WHISKEY|BLEND </td>
+			<th>Age:</th>
+			<td> </td>
+		</tr>
+		<tr>
+			<th>Size:</th>
+			<td>750 ML</td>
+			<th>Case Price:</th>
+			<td>$275.70</td>
+		</tr>
+		<tr>
+			<th>Proof:</th>
+			<td>90.0</td>
+			<th>Bottle Price:</th>
+			<td>$45.95</td>
+		</tr>
+		<tr><th>Distillery Link:</th><td colspan="3"><a href="/servlet/FrontController?view=redirect&action=link&url= "> </a></td></tr>
+	</table>
+	<div id="in-stock">
+		<h2>6 Bottles In Stock!</h2><p>Product quantity is updated on a daily basis, please call to confirm availability.</p>
+	</div>
+	
+	<!--  need to use table, because float was causing strange disappearing text phenomenon in I.E. on some machines -->
+	<table id="location-details">
+		<tr>
+			<td><div id="map-view"></div></td>
+			<td id="location-display">
+				<h2>
+					Store
+					1220:
+					Keizer</h2>
+				<p>5021 RIVER RD N<br />
+					KEIZER,
+					OR
+					97303</p>
+				<p>971-273-0456</p>
+				<p>
+					Open:
+					Mon-Thu 10-8; Fri-Sat 10-9; Sun 10-6</p> 
+				<p><a href="http://maps.google.com/maps?f=d&hl=en&saddr=97361,%20OR&daddr=5021%20RIVER%20RD%20N%20KEIZER%20OR%2097303" target="_blank" onclick="popupWindow('http://maps.google.com/maps?f=d&hl=en&saddr=97361,%20OR&daddr=5021%20RIVER%20RD%20N%20KEIZER%20OR%2097303', 750, 550, 'resizable=yes,scrollbars=yes,menubar=yes');return false;">Get Directions</a></p>
+			</td>
+		</tr>
+	</table>
+</div>
+</div>
+</div>
+<div id="footer">
+	Oregon Liquor Search v1.4.6 Copyright &copy; 2006-2024
+	Oregon Liquor & Cannabis Commission. All Rights Reserved.
+</div>
+</div>
+</body>
+</html>

@@ -76,10 +76,20 @@ module OlccWeb
       # Store\r\n\t\t\t\t\t1198:\r\n\t\t\t\t\tSalem Battlecreek
       if store_str =~ /^Store\s+(\d+)/
         store_num = Regexp.last_match[1]
-        quantity = 69 # totally unknown but make it non-zero and obvious
+        quantity = parse_single_store_qty(doc)
         [Dto::InventoryData.new(new_item_code, store_num, quantity)]
       else
         []   # maybe this should be an error
+      end
+    end
+
+    def self.parse_single_store_qty(doc)
+      in_stock = doc.css("#in-stock").text.strip
+      # \r\n \t\t6 Bottles In Stock!
+      if in_stock =~ /(\d+) Bottles In Stock/
+        Regexp.last_match[1].to_i
+      else
+        69 # totally unknown but make it non-zero and obvious
       end
     end
 

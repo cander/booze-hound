@@ -13,16 +13,30 @@ RSpec.describe OlccWeb::HtmlParser do
       expect(dallas_inventory.quantity).to eq(6)
     end
 
-    it "parses the inventory for a bottle at a single store" do
-      inv, has_next = OlccWeb::HtmlParser.parse_inventory(open_html_fixture("single-store-inventory.html"))
+    describe "single store inventory" do
+      it "should return the number of 'Bottles In Stock'" do
+        inv, has_next = OlccWeb::HtmlParser.parse_inventory(open_html_fixture("single-store-inv-with-qty.html"))
 
-      expect(inv.count).to eq(1)
-      expect(has_next).to be false
+        expect(inv.count).to eq(1)
+        expect(has_next).to be false
 
-      store_inv = inv.first
-      expect(store_inv.store_num).to eq("1198")
-      expect(store_inv.new_item_code).to eq("99900885175")
-      expect(store_inv.quantity).to eq(69)
+        store_inv = inv.first
+        expect(store_inv.store_num).to eq("1220")
+        expect(store_inv.new_item_code).to eq("99901191375")
+        expect(store_inv.quantity).to eq(6)
+      end
+
+      it "should return an obvious quantity when no quantity is on the page" do
+        inv, has_next = OlccWeb::HtmlParser.parse_inventory(open_html_fixture("single-store-inventory.html"))
+
+        expect(inv.count).to eq(1)
+        expect(has_next).to be false
+
+        store_inv = inv.first
+        expect(store_inv.store_num).to eq("1198")
+        expect(store_inv.new_item_code).to eq("99900885175")
+        expect(store_inv.quantity).to eq(69)
+      end
     end
 
     it "parses no inventory when not available" do
