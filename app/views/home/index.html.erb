@@ -22,22 +22,3 @@
     <!-- END Main Body Content include -->
   </div>
 </div>
-<div class="mt-5 border border-1 p-3">
-<h5><em>Warning: some hacky UI stuff below:</em></h5>
-<% if user_signed_in? %>
-  <p><em>Hacky admin function I don't want to lose:</em></p>
-  <p>Add a bottle based on the OLCC new item code:</p>
-  <%= form_with url: olcc_bottles_path do |form| %>
-    <div>
-      <%= form.label :new_item_code %>
-      <%= form.text_field :new_item_code %>
-      <%= category_select(form) %>
-    </div>
-    <div>
-      <%= form.submit "Search" %>
-    </div>
-  <% end %>
-<% else %>
-  <%= link_to "Login or signup page", new_user_session_path %>
-<% end %>
-</div>
