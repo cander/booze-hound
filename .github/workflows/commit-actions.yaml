@@ -9,10 +9,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+        #  pick up specific Ruby version from .ruby_version
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
-        #  ruby-version: '3.2.2' in .ruby_version
       - name: Install dependencies
         run: bundle install
       - name: Run tests

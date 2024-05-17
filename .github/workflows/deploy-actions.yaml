@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: superfly/flyctl-actions/setup-flyctl@master
       - run: echo 'The Ruby CI workflow passed - ready to deploy'
       - run: echo ${{ github.ref }}
@@ -27,5 +27,4 @@ jobs:
     steps:
       - run: echo 'Ruby CI failed - no deploy for you!'
       - run: echo "### NOT deployed :no_entry_sign:" >> $GITHUB_STEP_SUMMARY ; exit 1
-
 
