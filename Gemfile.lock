@@ -97,7 +97,7 @@ GEM
       responders
       warden (~> 1.2.3)
     diff-lcs (1.5.1)
-    dockerfile-rails (1.6.14)
+    dockerfile-rails (1.6.16)
       rails (>= 3.0.0)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
